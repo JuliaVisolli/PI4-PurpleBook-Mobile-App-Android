@@ -22,6 +22,7 @@ public class CadastroFragment extends Fragment {
     private EditText etSobrenome;
     private EditText etEmail;
     private EditText etSenha;
+    private EditText etConfSenha;
     private Date dtNasc;
     private RadioButton radioFem;
     private RadioButton radioMasc;
@@ -42,6 +43,7 @@ public class CadastroFragment extends Fragment {
             etSobrenome = v.findViewById(R.id.etSobrenome);
             etEmail = v.findViewById(R.id.etEmail);
             etSenha = v.findViewById(R.id.etSenha);
+            etConfSenha = v.findViewById(R.id.etConfSenha);
             radioFem = v.findViewById(R.id.radioFem);
             radioMasc = v.findViewById(R.id.radioMasc);
             btnRegistro = v.findViewById(R.id.btnRegistro);
@@ -55,6 +57,9 @@ public class CadastroFragment extends Fragment {
                         || etEmail.getText().toString().isEmpty() || etSenha.getText().toString().isEmpty()){
                     mensagem("Campo Obrigatório", "Atenção");
 
+                }
+                if(!etSenha.getText().toString().equalsIgnoreCase(etConfSenha.getText().toString())){
+                    mensagem("Senha incorreta", "Atenção");
                 }
             }
         };

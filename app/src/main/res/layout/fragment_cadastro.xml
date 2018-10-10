@@ -70,15 +70,15 @@
         android:layout_width="339dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Data de nascimento"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSenha" />
+        app:layout_constraintTop_toBottomOf="@+id/etConfSenha" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -118,4 +118,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <EditText
+        android:id="@+id/etConfSenha"
+        android:layout_width="340dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Confirmação de senha"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/etSenha"
+        tools:layout_editor_absoluteX="22dp" />
 </android.support.constraint.ConstraintLayout>
