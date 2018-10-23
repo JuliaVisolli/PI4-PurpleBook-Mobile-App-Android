@@ -1,4 +1,4 @@
-package com.example.adrianadrbezerra1.pi4;
+package com.example.littlewolf_pc.app;
 
 
 import android.app.AlertDialog;
@@ -8,18 +8,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.RadioButton;
+
+import java.util.Date;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecuperaSenhaFragment extends Fragment {
-    private TextView etEmail;
-    private Button btnEnviar;
+public class CadastroFragment extends Fragment {
+    private EditText etNome;
+    private EditText etSobrenome;
+    private EditText etEmail;
+    private EditText etSenha;
+    private EditText etConfSenha;
+    private Date dtNasc;
+    private RadioButton radioFem;
+    private RadioButton radioMasc;
+    private Button btnRegistro;
 
 
-    public RecuperaSenhaFragment() {
+    public CadastroFragment() {
         // Required empty public constructor
     }
 
@@ -28,27 +38,39 @@ public class RecuperaSenhaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_recupera_senha, container, false);
+        View v=  inflater.inflate(R.layout.fragment_cadastro, container, false);
 
+            etNome = v.findViewById(R.id.etNome);
+            etSobrenome = v.findViewById(R.id.etSobrenome);
             etEmail = v.findViewById(R.id.etEmail);
-            btnEnviar = v.findViewById(R.id.btnEnviar);
+            etSenha = v.findViewById(R.id.etSenha);
+            etConfSenha = v.findViewById(R.id.etConfSenha);
+            radioFem = v.findViewById(R.id.radioFem);
+            radioMasc = v.findViewById(R.id.radioMasc);
+            btnRegistro = v.findViewById(R.id.btnRegistro);
 
         View.OnClickListener listener = new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
 
-                if(etEmail.getText().toString().isEmpty()){
+                if(etNome.getText().toString().isEmpty() || etSobrenome.getText().toString().isEmpty()
+                        || etEmail.getText().toString().isEmpty() || etSenha.getText().toString().isEmpty()){
                     mensagem("Campo Obrigatório", "Atenção");
+
+                }
+                if(!etSenha.getText().toString().equalsIgnoreCase(etConfSenha.getText().toString())){
+                    mensagem("Senha incorreta", "Atenção");
                 }
             }
+
         };
-        btnEnviar.setOnClickListener(listener);
+        btnRegistro.setOnClickListener(listener);
 
         return v;
     }
     private void mensagem(String message, String title) {
-        AlertDialog.Builder builder = new AlertDialog.Builder (RecuperaSenhaFragment.this.getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder (CadastroFragment.this.getActivity());
         //Configura o corpo da mensagem
         builder.setMessage(message);
         //Configura o título da mensagem
@@ -66,6 +88,4 @@ public class RecuperaSenhaFragment extends Fragment {
 
     }
 
-
-
-    }
+}

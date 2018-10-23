@@ -1,4 +1,4 @@
-package com.example.adrianadrbezerra1.pi4;
+package com.example.littlewolf_pc.app;
 
 
 import android.app.AlertDialog;
@@ -7,22 +7,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginFragment extends Fragment {
-    private EditText etEmail;
-    private EditText etSenha;
-    private EditText btnLogin;
+public class RecuperarSenhaFragment extends Fragment {
+    private TextView etEmail;
+    private Button btnEnviar;
 
-
-    private Button btnRegistro;
-
-    public LoginFragment() {
+    public RecuperarSenhaFragment() {
         // Required empty public constructor
     }
 
@@ -31,44 +27,27 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_login, container, false);
+        View v =  inflater.inflate(R.layout.fragment_recuperar_senha, container, false);
+
             etEmail = v.findViewById(R.id.etEmail);
-            etSenha = v.findViewById(R.id.etSenha);
-            btnLogin = v.findViewById(R.id.btnLogin);
-            btnRegistro = v.findViewById(R.id.btnRegistro);
-
-
-
-
-
-        View.OnClickListener listener2 = new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                //criando fragmento de cadastro
-                CadastroFragment cf = new CadastroFragment();
-                //fazendo tran
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout, cf).commit();
-            }
-        };
-
+            btnEnviar = v.findViewById(R.id.btnEnviar);
 
         View.OnClickListener listener = new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
 
-                if(etEmail.getText().toString().isEmpty() || etSenha.getText().toString().isEmpty()){
+                if(etEmail.getText().toString().isEmpty()){
                     mensagem("Campo Obrigatório", "Atenção");
                 }
             }
         };
-        btnLogin.setOnClickListener(listener);
-        btnRegistro.setOnClickListener(listener2);
+        btnEnviar.setOnClickListener(listener);
 
         return v;
     }
     private void mensagem(String message, String title) {
-        AlertDialog.Builder builder = new AlertDialog.Builder (LoginFragment.this.getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder (RecuperarSenhaFragment.this.getActivity());
         //Configura o corpo da mensagem
         builder.setMessage(message);
         //Configura o título da mensagem
@@ -83,7 +62,6 @@ public class LoginFragment extends Fragment {
         AlertDialog dialog = builder.create();
         //Faz com que o diálogo apareça na tela
         dialog.show();
-
 
     }
 
