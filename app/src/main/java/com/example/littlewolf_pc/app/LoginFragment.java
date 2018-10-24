@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import java.util.regex.Pattern;
 
@@ -21,6 +22,7 @@ public class LoginFragment extends Fragment {
     private EditText etSenha;
     private Button btnLogin;
     private Button btnRegistro;
+
 
     private static Pattern emailValidator = Pattern.compile("(?:[a-zA-Z0-9!#$%&'+/=?^_`{|}~-]+(?:" +
             "\\.[a-zA-Z0-9!#$%&'+/=?^_`{|}~-]+)|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b" +
@@ -43,6 +45,8 @@ public class LoginFragment extends Fragment {
             btnLogin = v.findViewById(R.id.btnLogin);
             btnRegistro = v.findViewById(R.id.btnRegistro);
 
+
+
         View.OnClickListener listener = new View.OnClickListener(){
 
             @Override
@@ -54,18 +58,17 @@ public class LoginFragment extends Fragment {
             }
         };
 
-        //View.OnClickListener listener2 = new View.OnClickListener(){
-            //@Override
-            //public void onClick(View v) {
+        View.OnClickListener listener2 = new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
                 //criando fragmento de cadastro
-               // CadastroFragment cf = new CadastroFragment();
-                //fazendo tran
-                //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.layout, cf).commit();
-            //}
-       // };
+                CadastroFragment cf = new CadastroFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.moldura, cf).commit();
+            }
+       };
 
         btnLogin.setOnClickListener(listener);
-        //btnRegistro.setOnClickListener(listener2);
+        btnRegistro.setOnClickListener(listener2);
 
         return v;
     }
