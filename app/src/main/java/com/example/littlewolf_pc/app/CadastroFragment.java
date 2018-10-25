@@ -19,7 +19,6 @@ import java.util.Date;
  */
 public class CadastroFragment extends Fragment {
     private EditText etNome;
-    private EditText etSobrenome;
     private EditText etEmail;
     private EditText etSenha;
     private EditText etConfSenha;
@@ -41,7 +40,7 @@ public class CadastroFragment extends Fragment {
         View v=  inflater.inflate(R.layout.fragment_cadastro, container, false);
 
             etNome = v.findViewById(R.id.etNome);
-            etSobrenome = v.findViewById(R.id.etSobrenome);
+            //etSobrenome = v.findViewById(R.id.etSobrenome);
             etEmail = v.findViewById(R.id.etEmail);
             etSenha = v.findViewById(R.id.etSenha);
             etConfSenha = v.findViewById(R.id.etConfSenha);
@@ -54,8 +53,7 @@ public class CadastroFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(etNome.getText().toString().isEmpty() || etSobrenome.getText().toString().isEmpty()
-                        || etEmail.getText().toString().isEmpty() || etSenha.getText().toString().isEmpty()){
+                if(etNome.getText().toString().isEmpty() || etEmail.getText().toString().isEmpty() || etSenha.getText().toString().isEmpty()){
                     mensagem("Campo Obrigatório", "Atenção");
 
                 }
