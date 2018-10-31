@@ -11,7 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
+import com.example.littlewolf_pc.app.model.UsuarioDTO;
+import com.example.littlewolf_pc.app.resource.ApiUsuario;
+
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -51,9 +60,42 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                if(etEmail.getText().toString().isEmpty() || etSenha.getText().toString().isEmpty()){
-                    mensagem("Campo Obrigatório", "Atenção");
-                }
+//                if(etEmail.getText().toString().isEmpty() || etSenha.getText().toString().isEmpty()){
+//                    mensagem("Campo Obrigatório", "Atenção");
+//                }
+
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://localhost:8080/WSEcommerce/rest/usuario/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                UsuarioDTO usuarioDTO = new UsuarioDTO();
+
+                usuarioDTO.setEmail(etEmail.getText().toString());
+                usuarioDTO.setSenha(etSenha.getText().toString());
+
+
+                ApiUsuario apiUsuario =
+                        retrofit.create(ApiUsuario.class);
+                Call<UsuarioDTO> usuarioDTOCall = apiUsuario.login(usuarioDTO);
+
+                Callback<UsuarioDTO> usuarioDTOCallback = new Callback<UsuarioDTO>() {
+                    @Override
+                    public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
+                        UsuarioDTO user =  response.body();
+
+                        if(user != null && response.code() == 200){
+                            System.out.print("Logado " + user);
+                        }
+
+                    }
+                    @Override
+                    public void onFailure(Call<UsuarioDTO> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                };
+                usuarioDTOCall.enqueue(usuarioDTOCallback);
+                System.out.print(usuarioDTOCallback);
 
             }
         };
@@ -69,6 +111,7 @@ public class LoginFragment extends Fragment {
 
         btnLogin.setOnClickListener(listener);
         btnRegistro.setOnClickListener(listener2);
+
 
         return v;
     }
