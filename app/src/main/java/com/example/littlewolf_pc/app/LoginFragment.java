@@ -55,6 +55,10 @@ public class LoginFragment extends Fragment {
                     mensagem("Campo Obrigatório", "Atenção");
                 }
 
+                //card após logar
+                CardFragment cf = new CardFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.moldura, cf).commit();
+
             }
         };
 

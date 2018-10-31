@@ -7,6 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.support.v7.widget.CardView;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,13 +23,20 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       LoginFragment lf = new LoginFragment();
-       getSupportFragmentManager().beginTransaction().replace(R.id.moldura, lf).commit();
+
+
+        //LoginFragment lf = new LoginFragment();
+        //getSupportFragmentManager().beginTransaction().replace(R.id.moldura, lf).commit();
+
+        CardFragment lf = new CardFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.moldura, lf).commit();
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -56,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
         };
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+
+
+
     }
 
     @Override
@@ -65,4 +82,11 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
+
+
+
 }
