@@ -3,6 +3,7 @@
     package="com.example.littlewolf_pc.app">
 
     <application
+        android:allowClearUserData="true"
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,4 +20,5 @@
         </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
 </manifest>
