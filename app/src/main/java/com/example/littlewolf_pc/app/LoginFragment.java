@@ -65,7 +65,7 @@ public class LoginFragment extends Fragment {
 //                }
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://localhost:8080/WSEcommerce/rest/usuario/")
+                        .baseUrl("http://josiasveras.azurewebsites.net")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
@@ -95,7 +95,6 @@ public class LoginFragment extends Fragment {
                     }
                 };
                 usuarioDTOCall.enqueue(usuarioDTOCallback);
-                System.out.print(usuarioDTOCallback);
 
             }
         };

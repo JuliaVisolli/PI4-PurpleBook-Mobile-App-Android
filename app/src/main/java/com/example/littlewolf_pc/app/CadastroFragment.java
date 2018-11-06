@@ -11,7 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
+import com.example.littlewolf_pc.app.model.UsuarioDTO;
+import com.example.littlewolf_pc.app.resource.ApiUsuario;
+
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -49,7 +58,6 @@ public class CadastroFragment extends Fragment {
             btnRegistro = v.findViewById(R.id.btnRegistro);
 
         View.OnClickListener listener = new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
 
@@ -60,10 +68,45 @@ public class CadastroFragment extends Fragment {
                 if(!etSenha.getText().toString().equalsIgnoreCase(etConfSenha.getText().toString())){
                     mensagem("Senha incorreta", "Atenção");
                 }
-            }
 
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://josiasveras.azurewebsites.net")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                UsuarioDTO usuarioDTO = new UsuarioDTO();
+
+                usuarioDTO.setNome(etNome.getText().toString());
+                usuarioDTO.setEmail(etEmail.getText().toString());
+                usuarioDTO.setSenha(etSenha.getText().toString());
+
+                ApiUsuario apiUsuario =
+                        retrofit.create(ApiUsuario.class);
+                Call<UsuarioDTO> usuarioDTOCall = apiUsuario.saveUsuario(usuarioDTO);
+
+                Callback<UsuarioDTO> usuarioDTOCallback = new Callback<UsuarioDTO>() {
+                    @Override
+                    public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
+                        UsuarioDTO user =  response.body();
+
+                        if(user != null && response.code() == 200){
+                        }
+
+                    }
+                    @Override
+                    public void onFailure(Call<UsuarioDTO> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                };
+                usuarioDTOCall.enqueue(usuarioDTOCallback);
+
+            }
         };
+
         btnRegistro.setOnClickListener(listener);
+
+
+
 
         return v;
     }
