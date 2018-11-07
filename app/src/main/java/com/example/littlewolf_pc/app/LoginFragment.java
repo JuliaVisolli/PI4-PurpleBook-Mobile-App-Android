@@ -55,14 +55,19 @@ public class LoginFragment extends Fragment {
             btnRegistro = v.findViewById(R.id.btnRegistro);
 
 
-
-        View.OnClickListener listener = new View.OnClickListener(){
-
+        View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if(etEmail.getText().toString().isEmpty() || etSenha.getText().toString().isEmpty()){
-//                    mensagem("Campo Obrigatório", "Atenção");
-//                }
+
+                if(etEmail.getText().toString().isEmpty()){
+                    mensagem("E-mail é obrigatório", "Atenção");
+                    return;
+                }
+
+                if(etSenha.getText().toString().isEmpty()){
+                    mensagem("Senha é obrigatória", "Atenção");
+                    return;
+                }
 
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("http://josiasveras.azurewebsites.net")
@@ -100,8 +105,10 @@ public class LoginFragment extends Fragment {
                 CardFragment cf = new CardFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.moldura, cf).commit();
 
+
             }
         };
+
 
         View.OnClickListener listener2 = new View.OnClickListener(){
             @Override

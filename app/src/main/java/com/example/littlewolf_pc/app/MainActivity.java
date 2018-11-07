@@ -21,22 +21,16 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-        //LoginFragment lf = new LoginFragment();
-        //getSupportFragmentManager().beginTransaction().replace(R.id.moldura, lf).commit();
-
-        CardFragment lf = new CardFragment();
+        LoginFragment lf = new LoginFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.moldura, lf).commit();
+
+//        CardFragment lf = new CardFragment();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.moldura, lf).commit();
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
