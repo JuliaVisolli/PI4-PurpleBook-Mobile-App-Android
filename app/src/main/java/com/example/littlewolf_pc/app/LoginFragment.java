@@ -103,11 +103,6 @@ public class LoginFragment extends Fragment {
                 };
                 usuarioDTOCall.enqueue(usuarioDTOCallback);
 
-//                //card após logar
-//                CardFragment cf = new CardFragment();
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.moldura, cf).commit();
-
-
             }
         };
 
