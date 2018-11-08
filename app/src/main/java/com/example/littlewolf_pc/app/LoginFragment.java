@@ -90,8 +90,8 @@ public class LoginFragment extends Fragment {
                         UsuarioDTO user =  response.body();
 
                         if(user != null && response.code() == 200){
-                            Intent i = new Intent(getActivity(), Main2Activity.class);
-                            startActivity(i);
+//                            Intent i = new Intent(getActivity(), Main2Activity.class);
+//                            startActivity(i);
                         }
 
                     }
