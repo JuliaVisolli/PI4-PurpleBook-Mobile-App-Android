@@ -87,17 +87,18 @@ public class LoginFragment extends Fragment {
                 Callback<UsuarioDTO> usuarioDTOCallback = new Callback<UsuarioDTO>() {
                     @Override
                     public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
-                        UsuarioDTO user =  response.body();
+                        UsuarioDTO getLoggedUser =  response.body();
 
-                        if(user != null && response.code() == 200){
-//                            Intent i = new Intent(getActivity(), Main2Activity.class);
-//                            startActivity(i);
+                        if(getLoggedUser != null && response.code() == 200){
+                            Intent i = new Intent(getActivity(), Main2Activity.class);
+                            startActivity(i);
                         }
 
                     }
                     @Override
                     public void onFailure(Call<UsuarioDTO> call, Throwable t) {
                         t.printStackTrace();
+
                     }
                 };
                 usuarioDTOCall.enqueue(usuarioDTOCallback);
