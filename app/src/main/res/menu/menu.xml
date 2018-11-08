@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/action_friends"
             android:checked="false"
-            android:icon="@android:drawable/ic_menu_preferences"
+            android:icon="@drawable/baseline_supervisor_account_black_24dp"
             android:title="Amigos" />
     </group>
 
