@@ -34,12 +34,12 @@ public class CardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_card, container, false);
         modura = view.findViewById(R.id.containerCards);
-        addItem("Item 1", "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk", "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg");
+        addItem("Nome do usuário", "Hora", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id dolor a odio semper egestas. Quisque blandit, dolor vitae convallis consectetur, mauris lacus aliquam quam, eu sodales massa leo quis justo. Proin risus purus, convallis vitae nisi at, consectetur semper velit. Nulla velit ante, tristique sed ipsum et, convallis lobortis ipsum. ","https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg");
         return view;
 
     }
 
-    private void addItem(String textoDoTitulo, String textoDaMensagem, String imageURL){
+    private void addItem(String textoDoTitulo, String textoDaHora, String textoDaMensagem, String imageURL){
         CardView cardView;
 
         cardView = (CardView) LayoutInflater.from(this.getActivity())
@@ -48,8 +48,11 @@ public class CardFragment extends Fragment {
 
         TextView titulo = cardView.findViewById(R.id.titulo);
         titulo.setText(textoDoTitulo);
+        TextView hora = cardView.findViewById(R.id.hora);
+        hora.setText(textoDaHora);
         TextView mensagem = cardView.findViewById(R.id.mensagem);
         mensagem.setText(textoDaMensagem);
+
 
         modura.addView(cardView);
 

@@ -3,26 +3,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="200dp"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="8dp"
-    app:cardElevation="5dp">
+    app:cardElevation="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <com.github.siyamed.shapeimageview.CircularImageView
             android:id="@+id/imagem"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="-5dp" />
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
+            app:siBorderWidth="6dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:baselineAligned="false"
             android:orientation="vertical">
 
             <TextView
@@ -34,13 +39,23 @@
                 android:layout_marginTop="5dp" />
 
             <TextView
+                android:id="@+id/hora"
+                style="?android:textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:textSize="11dp"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
                 android:id="@+id/mensagem"
                 style="?android:textAppearanceMedium"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="10dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         </LinearLayout>
     </LinearLayout>
