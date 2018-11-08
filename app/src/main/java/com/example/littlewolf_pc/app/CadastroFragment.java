@@ -63,10 +63,12 @@ public class CadastroFragment extends Fragment {
 
                 if(etNome.getText().toString().isEmpty() || etEmail.getText().toString().isEmpty() || etSenha.getText().toString().isEmpty()){
                     mensagem("Campo Obrigatório", "Atenção");
+                    return;
 
                 }
                 if(!etSenha.getText().toString().equalsIgnoreCase(etConfSenha.getText().toString())){
                     mensagem("Senha incorreta", "Atenção");
+                    return;
                 }
 
                 Retrofit retrofit = new Retrofit.Builder()

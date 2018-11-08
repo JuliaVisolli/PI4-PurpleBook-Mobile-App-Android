@@ -3,5 +3,21 @@
     <color name="colorPrimary">#8C3CC8</color>
     <color name="colorPrimaryDark">#7B1884</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="fepweb_primary">#263272</color>
+    <color name="fepweb_secondary">#4054a1</color>
+    <color name="fepweb_home_background">#EFEFF4</color>
+    <color name="red">#b9272d</color>
+    <color name="white">#ffffff</color>
+    <color name="gray">#D3D3D3</color>
+    <color name="medium_gray">#D1D1D1</color>
+    <color name="extra_light_gray">#F1F1F1</color>
+    <color name="light_gray">#808080</color>
+    <color name="black">#000</color>
+    <color name="font_gray">#666666</color>
+    <color name="green">#39B44A</color>
+    <color name="transparent">#82000000</color>
+    <color name="token">#0f70af</color>
+    <color name="icp_brasil">#0f7647</color>
+    <color name="qr_code_reader_square">#FFFFFFFF</color>
 
 </resources>

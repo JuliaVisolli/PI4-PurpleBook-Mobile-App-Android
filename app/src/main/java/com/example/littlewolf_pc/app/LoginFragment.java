@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
+import android.content.Intent;
 
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
@@ -90,7 +90,8 @@ public class LoginFragment extends Fragment {
                         UsuarioDTO user =  response.body();
 
                         if(user != null && response.code() == 200){
-                            System.out.print("Logado " + user);
+                            Intent i = new Intent(getActivity(), Main2Activity.class);
+                            startActivity(i);
                         }
 
                     }
