@@ -1,6 +1,7 @@
 package com.example.littlewolf_pc.app;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -21,6 +22,7 @@ public class Main2Activity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     private CardFragment feedFragment;
+    private AmigoFragment amigoFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,12 @@ public class Main2Activity extends AppCompatActivity {
                                     R.id.main_frame, fragment).commit();
                             return true;
                         }
+                        if (menuItem.getItemId() == R.id.action_friends) {
+                            AmigoFragment amigoFragment = new AmigoFragment();
+                            getSupportFragmentManager().beginTransaction().replace(
+                                    R.id.main_frame, amigoFragment).commit();
+                            return true;
+                        }
                         return false;
                     }
                 });
@@ -62,6 +70,7 @@ public class Main2Activity extends AppCompatActivity {
         mMainNav = findViewById(R.id.main_nav);
 
         feedFragment = new CardFragment();
+        amigoFragment = new AmigoFragment();
 
         setFragment(feedFragment);
 
@@ -76,7 +85,7 @@ public class Main2Activity extends AppCompatActivity {
                     setFragment(feedFragment);
                     return true;
                 case R.id.navigation_friend:
-                    setFragment(feedFragment);
+                    setFragment(amigoFragment);
                     return true;
                 case R.id.navigation_notifications:
                     setFragment(feedFragment);

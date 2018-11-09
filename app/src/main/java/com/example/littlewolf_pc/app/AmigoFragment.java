@@ -2,7 +2,6 @@ package com.example.littlewolf_pc.app;
 
 
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
@@ -19,11 +18,11 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CardFragment extends Fragment {
+public class AmigoFragment extends Fragment {
 
     LinearLayout modura;
 
-    public CardFragment() {
+    public AmigoFragment() {
         // Required empty public constructor
     }
 
@@ -34,24 +33,24 @@ public class CardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_card, container, false);
         modura = view.findViewById(R.id.containerCards);
-        addItem("Nome do usuário", "Hora", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ","https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg");
+        addItem("Nome do Amigo", "Alguma informação do amigo","https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg");
         return view;
 
     }
 
-    private void addItem(String textoDoTitulo, String textoDaHora, String textoDaMensagem, String imageURL){
+    private void addItem(String textoDoTitulo, String infoDoAmigo, String imageURL){
         CardView cardView;
 
         cardView = (CardView) LayoutInflater.from(this.getActivity())
-                .inflate(R.layout.card,
+                .inflate(R.layout.fragment_amigo,
                         modura, false);
 
         TextView titulo = cardView.findViewById(R.id.titulo);
         titulo.setText(textoDoTitulo);
-        TextView hora = cardView.findViewById(R.id.hora);
-        hora.setText(textoDaHora);
-        TextView mensagem = cardView.findViewById(R.id.mensagem);
-        mensagem.setText(textoDaMensagem);
+        TextView infoamigo = cardView.findViewById(R.id.infoamigo);
+        infoamigo.setText(infoDoAmigo);
+       //TextView mensagem = cardView.findViewById(R.id.mensagem);
+        //mensagem.setText(textoDaMensagem);
 
 
         modura.addView(cardView);
@@ -67,8 +66,6 @@ public class CardFragment extends Fragment {
         imageLoader.displayImage(url, imagem);
 
     }
-
-
 
 
 }
