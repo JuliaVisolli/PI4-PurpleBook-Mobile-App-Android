@@ -65,7 +65,7 @@ public class CardFragment extends Fragment {
 
                 if(historiaDTOList != null && response.code() == 200){
                     for (HistoriaDTO historiaDTO: historiaDTOList) {
-                        addItem("Nome user", historiaDTO.getData(),  historiaDTO.getTexto(), "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg");
+                        addItem(historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(), "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg");
 
                     }
 
