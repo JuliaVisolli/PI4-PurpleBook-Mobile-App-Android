@@ -23,6 +23,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private CardFragment feedFragment;
     private AmigoFragment amigoFragment;
+    private NotificacaoFragment notificacaoFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +72,7 @@ public class Main2Activity extends AppCompatActivity {
 
         feedFragment = new CardFragment();
         amigoFragment = new AmigoFragment();
+        notificacaoFragment = new NotificacaoFragment();
 
         setFragment(feedFragment);
 
@@ -88,7 +90,7 @@ public class Main2Activity extends AppCompatActivity {
                     setFragment(amigoFragment);
                     return true;
                 case R.id.navigation_notifications:
-                    setFragment(feedFragment);
+                    setFragment(notificacaoFragment);
                     return true;
             }
             return false;
