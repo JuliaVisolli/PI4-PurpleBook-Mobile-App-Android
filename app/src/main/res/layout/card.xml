@@ -1,4 +1,3 @@
-
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -94,6 +93,7 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textColor="#DE000000"
+            android:drawableLeft="@drawable/baseline_thumb_up_24"
             android:text="Curtir"
             app:layout_constraintTop_toBottomOf="@+id/mensagem"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,6 +108,7 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textColor="#DE000000"
+            android:drawableLeft="@drawable/baseline_comment_24"
             android:text="Comentar"
             app:layout_constraintTop_toTopOf="@+id/action_button_1"
             app:layout_constraintStart_toEndOf="@+id/action_button_1" />
