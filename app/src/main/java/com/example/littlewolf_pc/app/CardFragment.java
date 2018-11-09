@@ -65,7 +65,7 @@ public class CardFragment extends Fragment {
 
                 if(historiaDTOList != null && response.code() == 200){
                     for (HistoriaDTO historiaDTO: historiaDTOList) {
-                        addItem(historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(), "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg");
+                        addItem("https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(), "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg");
 
                     }
 
@@ -84,7 +84,7 @@ public class CardFragment extends Fragment {
 
     }
 
-    private void addItem(String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL){
+    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL){
         CardView cardView;
 
         cardView = (CardView) LayoutInflater.from(this.getActivity())
@@ -102,14 +102,18 @@ public class CardFragment extends Fragment {
         modura.addView(cardView);
 
         carregarImagem(imageURL, cardView);
+        carregarImagem(url, cardView);
     }
 
     private void carregarImagem(String url, CardView cardView){
         ImageView imagem = cardView.findViewById(R.id.imagem);
+        ImageView imagemPerfil = cardView.findViewById(R.id.image);
         ImageLoader imageLoader = ImageLoader.getInstance();
 
         imageLoader.init(ImageLoaderConfiguration.createDefault(this.getActivity()));
         imageLoader.displayImage(url, imagem);
+        imageLoader.init(ImageLoaderConfiguration.createDefault(this.getActivity()));
+        imageLoader.displayImage(url, imagemPerfil);
 
     }
 

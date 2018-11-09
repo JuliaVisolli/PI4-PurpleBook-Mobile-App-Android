@@ -1,64 +1,118 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
+    style="@style/CardView.Light"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    app:cardUseCompatPadding="true"
-    app:cardCornerRadius="8dp"
-    android:elevation="100dp">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp">
 
-    <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+    <android.support.constraint.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
 
         <com.github.siyamed.shapeimageview.CircularImageView
-            android:id="@+id/imagem"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:id="@+id/image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:cropToPadding="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:padding="4dp"
             android:scaleType="centerCrop"
-            app:siBorderWidth="6dp" />
+            app:layout_constraintBottom_toTopOf="@+id/imagem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:srcCompat="@drawable/ic_home_black_24dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:baselineAligned="false"
-            android:orientation="vertical">
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="274dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="4dp"
 
-            <TextView
-                android:id="@+id/titulo"
-                style="?android:textAppearanceLarge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="#DE000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintTop_toTopOf="@+id/image" />
 
-            <TextView
-                android:id="@+id/hora"
-                style="?android:textAppearanceMedium"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:textSize="11dp"
-                android:layout_marginLeft="10dp" />
+        <TextView
+            android:id="@+id/hora"
+            android:layout_width="274dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="4dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="#8A000000"
+            app:layout_constraintBottom_toBottomOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image" />
 
-            <TextView
-                android:id="@+id/mensagem"
-                style="?android:textAppearanceMedium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="19dp"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+        <ImageView
+            android:id="@+id/imagem"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="H,16:9"
+            app:layout_constraintTop_toBottomOf="@+id/image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/mensagem"/>
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/mensagem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:lineSpacingExtra="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#DE000000"
+            app:layout_constraintTop_toBottomOf="@+id/imagem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/action_button_1"/>
 
-    </LinearLayout>
+        <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/action_button_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:minWidth="0dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="#DE000000"
+            android:text="Curtir"
+            app:layout_constraintTop_toBottomOf="@+id/mensagem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/action_button_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="#DE000000"
+            android:text="Comentar"
+            app:layout_constraintTop_toTopOf="@+id/action_button_1"
+            app:layout_constraintStart_toEndOf="@+id/action_button_1" />
+
+    </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 
 </android.support.v7.widget.CardView>
