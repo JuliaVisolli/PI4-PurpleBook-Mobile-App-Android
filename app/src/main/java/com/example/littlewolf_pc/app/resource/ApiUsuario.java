@@ -2,6 +2,8 @@ package com.example.littlewolf_pc.app.resource;
 
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 
+import java.util.List;
+
 import retrofit2.Call;
 
 import retrofit2.http.Body;
@@ -19,4 +21,7 @@ public interface ApiUsuario {
 
     @POST("/WSEcommerce/rest/usuario")
     Call<UsuarioDTO> saveUsuario(@Body UsuarioDTO usuarioDTO);
+
+    @GET("/WSEcommerce/rest/usuario")
+    Call<List<UsuarioDTO>> selectAllUsuario();
 }
