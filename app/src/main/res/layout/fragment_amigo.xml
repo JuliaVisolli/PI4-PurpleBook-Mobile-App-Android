@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="67dp"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AmigoFragment"
+    app:cardUseCompatPadding="true"
     app:cardCornerRadius="8dp"
-    app:cardElevation="10dp">
+    android:elevation="100dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
 
         <com.github.siyamed.shapeimageview.CircularImageView
             android:id="@+id/imagem"
@@ -36,7 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"
+                android:maxLines="1"/>
 
             <TextView
                 android:id="@+id/infoamigo"
@@ -44,7 +47,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_marginLeft="10dp"
-                android:textSize="11dp" />
+                android:textSize="11dp"
+                android:maxLines="1"/>
 
 
         </LinearLayout>
