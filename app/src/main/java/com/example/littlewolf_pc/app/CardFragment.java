@@ -65,7 +65,8 @@ public class CardFragment extends Fragment {
 
                 if(historiaDTOList != null && response.code() == 200){
                     for (HistoriaDTO historiaDTO: historiaDTOList) {
-                        addItem("https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(), "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg");
+                        addItem("https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(),
+                                "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
 
                     }
 
@@ -84,7 +85,7 @@ public class CardFragment extends Fragment {
 
     }
 
-    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL){
+    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario){
         CardView cardView;
 
         cardView = (CardView) LayoutInflater.from(this.getActivity())
@@ -97,7 +98,10 @@ public class CardFragment extends Fragment {
         hora.setText(textoDaHora.toString());
         TextView mensagem = cardView.findViewById(R.id.mensagem);
         mensagem.setText(textoDaMensagem);
-
+        TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
+        quantCurtida.setText(quantidadeCurtida);
+        TextView quantComentario = cardView.findViewById(R.id.contcomentario);
+        quantComentario.setText(quantidadeComentario);
 
         modura.addView(cardView);
 
