@@ -12,6 +12,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.ListView;
+
+import com.example.littlewolf_pc.app.model.AdapterListerNotificacao;
+import com.example.littlewolf_pc.app.model.NotificacaoDTO;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -96,6 +104,9 @@ public class Main2Activity extends AppCompatActivity {
             return false;
             }
         });
+
+
+
     }
 
     private void setFragment(Fragment fragment){

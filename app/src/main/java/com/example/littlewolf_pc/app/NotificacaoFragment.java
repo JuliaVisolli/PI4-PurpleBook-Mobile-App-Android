@@ -9,13 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.littlewolf_pc.app.model.AdapterListerNotificacao;
+import com.example.littlewolf_pc.app.model.NotificacaoDTO;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,68 +45,18 @@ public class NotificacaoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_card, container, false);
-        modura = view.findViewById(R.id.containerCards);
+        View view =  inflater.inflate(R.layout.fragment_notificacao, container, false);
+        List<NotificacaoDTO> notificacaoDTO = new ArrayList<NotificacaoDTO>();
+        ListView lista = view.findViewById(R.id.lista);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://josiasveras.azurewebsites.net")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        ApiUsuario apiUsuario =
-                retrofit.create(ApiUsuario.class);
-        Call<List<UsuarioDTO>> usuarioDTOCall = apiUsuario.selectAllUsuario();
+        AdapterListerNotificacao adapter = new AdapterListerNotificacao(notificacaoDTO, this);
 
-        Callback<List<UsuarioDTO>> usuarioDTOCallback = new Callback<List<UsuarioDTO>>() {
-            @Override
-            public void onResponse(Call<List<UsuarioDTO>> call, Response<List<UsuarioDTO>> response) {
-                System.out.print(response.body());
-                List<UsuarioDTO> usuarioDTOList = response.body();
+        lista.setAdapter(adapter);
 
-                if(usuarioDTOList != null && response.code() == 200){
-                    for (UsuarioDTO usuarioDTO: usuarioDTOList) {
-                        addItem(usuarioDTO.getNome(), "Data/hora", "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg");
+        notificacaoDTO.add(new NotificacaoDTO(1, "Olá", null));
 
-                    }
-
-                }
-
-            }
-            @Override
-            public void onFailure(Call<List<UsuarioDTO>> call, Throwable t) {
-                t.printStackTrace();
-
-            }
-        };
-        usuarioDTOCall.enqueue(usuarioDTOCallback);
         return view;
-
-    }
-
-    private void addItem(String textoDoTitulo, String horaDanot, String imageURL){
-        CardView cardView;
-
-        cardView = (CardView) LayoutInflater.from(this.getActivity())
-                .inflate(R.layout.fragment_notificacao,
-                        modura, false);
-
-        TextView titulo = cardView.findViewById(R.id.titulo);
-        titulo.setText(textoDoTitulo);
-        TextView notificacao = cardView.findViewById(R.id.notificacao);
-        notificacao.setText(horaDanot);
-
-
-        modura.addView(cardView);
-
-        carregarImagem(imageURL, cardView);
-    }
-
-    private void carregarImagem(String url, CardView cardView){
-        ImageView imagem = cardView.findViewById(R.id.imagem);
-        ImageLoader imageLoader = ImageLoader.getInstance();
-
-        imageLoader.init(ImageLoaderConfiguration.createDefault(this.getActivity()));
-        imageLoader.displayImage(url, imagem);
 
     }
 
