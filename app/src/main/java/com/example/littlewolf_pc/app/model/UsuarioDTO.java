@@ -2,7 +2,7 @@ package com.example.littlewolf_pc.app.model;
 
 public class UsuarioDTO {
 
-        private Long id;
+        private Integer id;
         private String nome;
         private String email;
         private String senha;
@@ -13,23 +13,23 @@ public class UsuarioDTO {
             super();
         }
 
-        public UsuarioDTO(Long id, String nome, byte[] foto) {
+        public UsuarioDTO(Integer id, String nome, byte[] foto) {
             this();
             this.id = id;
             this.nome = nome;
             this.foto = foto;
         }
 
-        public UsuarioDTO(Long id) {
+        public UsuarioDTO(Integer id) {
             super();
             this.id = id;
         }
 
 
-        public Long getId() {
+        public Integer getId() {
             return id;
         }
-        public void setId(Long id) {
+        public void setId(Integer id) {
             this.id = id;
         }
 

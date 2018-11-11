@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="user_password_invalid">Usuario ou senha invalidos</string>
+    <string name="password_required">Senha é obrigatória</string>
+    <string name="email_required">E-mail é obrigatório</string>
+    <string name="valid_email">Digite um e-mail valido</string>
+    <string name="tab_Bookmarks_en">Bookmarks</string>
+</resources>

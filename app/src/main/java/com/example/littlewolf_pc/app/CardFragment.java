@@ -19,6 +19,8 @@ import com.example.littlewolf_pc.app.resource.ApiUsuario;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -65,8 +67,8 @@ public class CardFragment extends Fragment {
 
                 if(historiaDTOList != null && response.code() == 200){
                     for (HistoriaDTO historiaDTO: historiaDTOList) {
-                        addItem("https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(),
-                                "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
+                        addItem("https://m.media-amazon.com/images/M/MV5BMTU0MTI0MDAyM15BMl5BanBnXkFtZTgwMDg5MzYyNTM@._V1_.jpg", historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(),
+                         "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
 
                     }
 
@@ -80,7 +82,8 @@ public class CardFragment extends Fragment {
             }
         };
         historiaDTOCall.enqueue(hiListCallback);
-//        addItem("Nome do usuário", "Hora", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ","https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg");
+
+        
         return view;
 
     }
@@ -94,14 +97,17 @@ public class CardFragment extends Fragment {
 
         TextView titulo = cardView.findViewById(R.id.titulo);
         titulo.setText(textoDoTitulo);
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        String dateString = format.format(textoDaHora);
         TextView hora = cardView.findViewById(R.id.hora);
-        hora.setText(textoDaHora.toString());
+        hora.setText(dateString);
         TextView mensagem = cardView.findViewById(R.id.mensagem);
         mensagem.setText(textoDaMensagem);
         TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
         quantCurtida.setText(quantidadeCurtida);
         TextView quantComentario = cardView.findViewById(R.id.contcomentario);
         quantComentario.setText(quantidadeComentario);
+
 
         modura.addView(cardView);
 
@@ -110,8 +116,8 @@ public class CardFragment extends Fragment {
     }
 
     private void carregarImagem(String url, CardView cardView){
-        ImageView imagem = cardView.findViewById(R.id.imagem);
-        ImageView imagemPerfil = cardView.findViewById(R.id.image);
+        ImageView imagem = cardView.findViewById(R.id.image);
+        ImageView imagemPerfil = cardView.findViewById(R.id.imagem);
         ImageLoader imageLoader = ImageLoader.getInstance();
 
         imageLoader.init(ImageLoaderConfiguration.createDefault(this.getActivity()));

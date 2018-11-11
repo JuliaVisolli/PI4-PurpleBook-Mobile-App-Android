@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:orientation="horizontal"
-    tools:context=".NotificacaoFragment">
+    tools:context=".NotificacaoFragment"
+    android:id="@+id/list_item_id">
 
 
 

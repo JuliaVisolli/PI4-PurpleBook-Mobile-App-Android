@@ -1,7 +1,7 @@
 package com.example.littlewolf_pc.app;
 
-import android.os.Bundle;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -10,14 +10,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.ListView;
 
-import com.example.littlewolf_pc.app.model.AdapterListerNotificacao;
-import com.example.littlewolf_pc.app.model.NotificacaoDTO;
+import com.example.littlewolf_pc.app.model.UsuarioDTO;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,17 +29,68 @@ public class Main2Activity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
+    private ProfileFragment perfilFragment;
     private CardFragment feedFragment;
     private AmigoFragment amigoFragment;
     private NotificacaoFragment notificacaoFragment;
+    private RecyclerView recyclerView;
+    private List<UsuarioDTO> lstUsuarios;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+
+        lstUsuarios = new ArrayList<>();
+        lstUsuarios.add(new UsuarioDTO(1, "Francini", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Julia", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Adriana", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Anna", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Jorzias", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Bono", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Carolina", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Obama", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Leo", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Emerson", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Felipe", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Rogerio", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Sergio", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Henrique", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Bianca", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Thais", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Francini", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Julia", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Adriana", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Anna", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Jorzias", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Bono", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Carolina", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Obama", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Leo", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Emerson", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Felipe", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Rogerio", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Sergio", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Henrique", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Bianca", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Thais", null));
+
+        recyclerView = findViewById(R.id.amigo_reclyclerview);
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, lstUsuarios);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setAdapter(recyclerViewAdapter);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
 
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(
@@ -64,6 +115,11 @@ public class Main2Activity extends AppCompatActivity {
                                     R.id.main_frame, amigoFragment).commit();
                             return true;
                         }
+                        if (menuItem.getItemId() == R.id.action_logout) {
+                            Intent i = new Intent(Main2Activity.this, MainActivity.class);
+                            startActivity(i);
+                            return true;
+                        }
                         return false;
                     }
                 });
@@ -81,6 +137,7 @@ public class Main2Activity extends AppCompatActivity {
         feedFragment = new CardFragment();
         amigoFragment = new AmigoFragment();
         notificacaoFragment = new NotificacaoFragment();
+        perfilFragment = new ProfileFragment();
 
         setFragment(feedFragment);
 
@@ -123,6 +180,8 @@ public class Main2Activity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
 
 }

@@ -1,22 +1,29 @@
 package com.example.littlewolf_pc.app;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -33,6 +40,9 @@ public class AmigoFragment extends Fragment {
 
     LinearLayout modura;
 
+    private RecyclerView recyclerView;
+    private List<UsuarioDTO>lstUsuarios;
+
     public AmigoFragment() {
         // Required empty public constructor
     }
@@ -44,6 +54,11 @@ public class AmigoFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_card, container, false);
         modura = view.findViewById(R.id.containerCards);
+
+//        recyclerView = view.findViewById(R.id.amigo_reclyclerview);
+//        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), lstUsuarios);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        recyclerView.setAdapter(recyclerViewAdapter);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://josiasveras.azurewebsites.net")
@@ -92,7 +107,6 @@ public class AmigoFragment extends Fragment {
         TextView infoamigo = cardView.findViewById(R.id.infoamigo);
         infoamigo.setText(infoDoAmigo);
 
-
         modura.addView(cardView);
 
         carregarImagem(imageURL, cardView);
@@ -107,5 +121,13 @@ public class AmigoFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+        lstUsuarios = new ArrayList<>();
+        lstUsuarios.add(new UsuarioDTO(1, "Francini", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Francini", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Francini", null));
+    }
 }

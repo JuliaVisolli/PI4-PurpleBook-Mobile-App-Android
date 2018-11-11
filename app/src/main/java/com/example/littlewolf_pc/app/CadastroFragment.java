@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
@@ -63,6 +64,8 @@ public class CadastroFragment extends Fragment {
 
                 if(etNome.getText().toString().isEmpty() || etEmail.getText().toString().isEmpty() || etSenha.getText().toString().isEmpty()){
                     mensagem("Campo Obrigatório", "Atenção");
+                    Toast.makeText(getActivity(), "Usuario ou senha invalidos", Toast.LENGTH_LONG).show();
+
                     return;
 
                 }

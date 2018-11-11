@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:context=".AmigoFragment"
+    android:id="@+id/item_amigo">
+
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:icon="@drawable/baseline_face_24"
+        android:id="@+id/img_amigo"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome"
+            android:textStyle="bold"
+            android:id="@+id/nome"/>
+    </LinearLayout>
+
+</LinearLayout>

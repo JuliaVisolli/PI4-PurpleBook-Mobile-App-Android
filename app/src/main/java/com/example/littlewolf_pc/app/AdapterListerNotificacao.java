@@ -1,4 +1,4 @@
-package com.example.littlewolf_pc.app.model;
+package com.example.littlewolf_pc.app;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.littlewolf_pc.app.NotificacaoFragment;
 import com.example.littlewolf_pc.app.R;
+import com.example.littlewolf_pc.app.model.NotificacaoDTO;
 
 import java.util.List;
 

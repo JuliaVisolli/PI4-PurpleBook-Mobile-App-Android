@@ -3,6 +3,7 @@ package com.example.littlewolf_pc.app;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.content.Intent;
+import android.widget.ProgressBar;
 
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;
@@ -21,6 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 
 
 /**
@@ -31,14 +35,10 @@ public class LoginFragment extends Fragment {
     private EditText etSenha;
     private Button btnLogin;
     private Button btnRegistro;
+    UsuarioDTO getLoggedUser;
 
-
-    private static Pattern emailValidator = Pattern.compile("(?:[a-zA-Z0-9!#$%&'+/=?^_`{|}~-]+(?:" +
-            "\\.[a-zA-Z0-9!#$%&'+/=?^_`{|}~-]+)|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b" +
-            "\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])\")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-][a-zA-Z0-9])?" +
-            "\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-][a-zA-Z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}" +
-            "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-zA-Z0-9-]*[a-zA-Z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-" +
-            "\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public LoginFragment() {
         // Required empty public constructor
@@ -48,11 +48,15 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_login, container, false);
+        View v = inflater.inflate(R.layout.fragment_login_refactor, container, false);
             etEmail = v.findViewById(R.id.etEmail);
             etSenha = v.findViewById(R.id.etSenha);
             btnLogin = v.findViewById(R.id.btnLogin);
             btnRegistro = v.findViewById(R.id.btnRegistro);
+
+        final ProgressBar progressBar = v.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
+
 
 
         View.OnClickListener listener = new View.OnClickListener() {
@@ -60,14 +64,27 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
 
                 if(etEmail.getText().toString().isEmpty()){
-                    mensagem("E-mail é obrigatório", "Atenção");
+                    Snackbar.make(getView(), getResources().getString(R.string.email_required), Snackbar.LENGTH_SHORT)
+                            .show();
                     return;
                 }
 
                 if(etSenha.getText().toString().isEmpty()){
-                    mensagem("Senha é obrigatória", "Atenção");
+                    Snackbar.make(getView(), getResources().getString(R.string.password_required), Snackbar.LENGTH_SHORT)
+                            .show();
                     return;
                 }
+
+                if(etEmail.getText().toString() != null){
+                    boolean emailValido = validate(etEmail.getText().toString());
+                    if(!emailValido){
+                    Snackbar.make(getView(), getResources().getString(R.string.valid_email), Snackbar.LENGTH_SHORT)
+                            .show();
+                    return;
+                    }
+                }
+
+                progressBar.setVisibility(View.VISIBLE);
 
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("http://josiasveras.azurewebsites.net")
@@ -87,16 +104,24 @@ public class LoginFragment extends Fragment {
                 Callback<UsuarioDTO> usuarioDTOCallback = new Callback<UsuarioDTO>() {
                     @Override
                     public void onResponse(Call<UsuarioDTO> call, Response<UsuarioDTO> response) {
-                        UsuarioDTO getLoggedUser =  response.body();
+                        getLoggedUser = response.body();
 
                         if(getLoggedUser != null && response.code() == 200){
-                            Intent i = new Intent(getActivity(), Main2Activity.class);
-                            startActivity(i);
+                            progressBar.setVisibility(View.GONE);
+                            Intent intent = new Intent(getActivity(), Main2Activity.class);
+                            intent.putExtra("ID_USER", getLoggedUser.getId());
+
+                            startActivity(intent);
                         }
 
                     }
                     @Override
                     public void onFailure(Call<UsuarioDTO> call, Throwable t) {
+                        progressBar.setVisibility(View.GONE);
+                        etSenha.setText("");
+//                        Toast.makeText(getActivity(), "Usuario ou senha invalidos", Toast.LENGTH_LONG).show();
+                        Snackbar.make(getView(), getResources().getString(R.string.user_password_invalid), Snackbar.LENGTH_SHORT)
+                                .show();
                         t.printStackTrace();
 
                     }
@@ -141,6 +166,11 @@ public class LoginFragment extends Fragment {
         dialog.show();
 
 
+    }
+
+    public static boolean validate(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();
     }
 
 }
