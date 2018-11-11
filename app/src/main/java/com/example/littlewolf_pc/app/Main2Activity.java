@@ -53,36 +53,7 @@ public class Main2Activity extends AppCompatActivity {
         lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
         lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
         lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Bono", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Carolina", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Obama", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Leo", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Emerson", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Felipe", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Rogerio", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Sergio", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Henrique", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Bianca", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Thais", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Francini", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Julia", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Adriana", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Anna", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Jorzias", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Bono", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Carolina", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Obama", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Leo", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Emerson", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Felipe", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Rogerio", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Sergio", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Henrique", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Bianca", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Thais", null));
+
 
         recyclerView = findViewById(R.id.amigo_reclyclerview);
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, lstUsuarios);

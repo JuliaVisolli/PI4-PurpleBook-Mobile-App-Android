@@ -131,7 +131,7 @@ public class CardFragment extends Fragment {
         TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
         quantCurtida.setText(quantidadeCurtida);
         TextView quantComentario = cardView.findViewById(R.id.contcomentario);
-        quantComentario.setText(quantidadeComentario);
+        quantComentario.setText(quantidadeComentario + " comentarios");
 
 
         modura.addView(cardView);
