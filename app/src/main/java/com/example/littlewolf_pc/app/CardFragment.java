@@ -83,7 +83,7 @@ public class CardFragment extends Fragment {
         };
         historiaDTOCall.enqueue(hiListCallback);
 
-        
+
         return view;
 
     }
