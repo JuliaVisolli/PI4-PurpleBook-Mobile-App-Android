@@ -109,8 +109,6 @@ public class LoginFragment extends Fragment {
                         if(getLoggedUser != null && response.code() == 200){
                             progressBar.setVisibility(View.GONE);
                             Intent intent = new Intent(getActivity(), Main2Activity.class);
-                            intent.putExtra("ID_USER", getLoggedUser.getId());
-
                             startActivity(intent);
                         }
 
@@ -118,6 +116,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onFailure(Call<UsuarioDTO> call, Throwable t) {
                         progressBar.setVisibility(View.GONE);
+                        etEmail.setText("");
                         etSenha.setText("");
 //                        Toast.makeText(getActivity(), "Usuario ou senha invalidos", Toast.LENGTH_LONG).show();
                         Snackbar.make(getView(), getResources().getString(R.string.user_password_invalid), Snackbar.LENGTH_SHORT)
