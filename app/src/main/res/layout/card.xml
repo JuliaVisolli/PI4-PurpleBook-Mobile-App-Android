@@ -79,13 +79,13 @@
                 android:lineSpacingExtra="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#DE000000"
-                app:layout_constraintBottom_toTopOf="@+id/action_button_1"
+                app:layout_constraintBottom_toTopOf="@+id/btn_curtida"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imagem" />
 
             <Button
-                android:id="@+id/action_button_1"
+                android:id="@+id/btn_curtida"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/mensagem" />
 
             <Button
-                android:id="@+id/action_button_2"
+                android:id="@+id/btn_comentario"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,8 +119,8 @@
                 android:textColor="#DE000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/action_button_1"
-                app:layout_constraintTop_toTopOf="@+id/action_button_1" />
+                app:layout_constraintStart_toEndOf="@+id/btn_curtida"
+                app:layout_constraintTop_toTopOf="@+id/btn_curtida" />
 
             <TextView
                 android:id="@+id/contcurtida"

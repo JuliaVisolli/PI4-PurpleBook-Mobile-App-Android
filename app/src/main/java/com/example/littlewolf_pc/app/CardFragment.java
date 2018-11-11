@@ -15,13 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.littlewolf_pc.app.model.HistoriaDTO;
-import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiHistoria;
-import com.example.littlewolf_pc.app.resource.ApiUsuario;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CardFragment extends Fragment {
 
     LinearLayout modura;
-    private Button action_button_2;
+    private Button btnComentario;
 
     public CardFragment() {
         // Required empty public constructor
@@ -91,22 +88,20 @@ public class CardFragment extends Fragment {
         };
         historiaDTOCall.enqueue(hiListCallback);
 
+        btnComentario = view.findViewById(R.id.btn_comentario);
+
+//        View.OnClickListener listener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), ComentarioActivity.class);
+//                startActivity(intent);
+//            }
+//        };
+//
+//       btnComentario.setOnClickListener(listener);
+
 
         return view;
-
-    }
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-
-        action_button_2 = view.findViewById(R.id.action_button_2);
-
-        action_button_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ChatActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
