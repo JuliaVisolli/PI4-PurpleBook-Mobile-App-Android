@@ -37,8 +37,7 @@ public class LoginFragment extends Fragment {
     private Button btnRegistro;
     UsuarioDTO getLoggedUser;
 
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
-            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public LoginFragment() {
         // Required empty public constructor
@@ -56,8 +55,6 @@ public class LoginFragment extends Fragment {
 
         final ProgressBar progressBar = v.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
-
-
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -108,6 +105,8 @@ public class LoginFragment extends Fragment {
 
                         if(getLoggedUser != null && response.code() == 200){
                             progressBar.setVisibility(View.GONE);
+                            etEmail.setText("");
+                            etSenha.setText("");
                             Intent intent = new Intent(getActivity(), Main2Activity.class);
                             startActivity(intent);
                         }

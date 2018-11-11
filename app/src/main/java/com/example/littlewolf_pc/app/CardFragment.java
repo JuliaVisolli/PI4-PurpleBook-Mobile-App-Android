@@ -49,6 +49,8 @@ public class CardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_card, container, false);
         modura = view.findViewById(R.id.containerCards);
+        btnComentario = view.findViewById(R.id.btn_comentario);
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://josiasveras.azurewebsites.net")
@@ -88,8 +90,17 @@ public class CardFragment extends Fragment {
         };
         historiaDTOCall.enqueue(hiListCallback);
 
-        btnComentario = view.findViewById(R.id.btn_comentario);
 
+
+
+        return view;
+
+    }
+
+//    @Override
+//    public void onViewCreated(View view, Bundle savedInstanceState) {
+//
+//
 //        View.OnClickListener listener = new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -98,12 +109,9 @@ public class CardFragment extends Fragment {
 //            }
 //        };
 //
-//       btnComentario.setOnClickListener(listener);
-
-
-        return view;
-
-    }
+//        btnComentario.setOnClickListener(listener);
+//
+//    }
 
     private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario){
         CardView cardView;

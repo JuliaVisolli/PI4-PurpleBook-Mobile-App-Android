@@ -20,7 +20,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
-        android:src="@android:drawable/ic_menu_camera"
+        android:drawableLeft="@drawable/ic_beach_access_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
