@@ -77,7 +77,11 @@ public class AmigoFragment extends Fragment {
 
                 if(usuarioDTOList != null && response.code() == 200){
                     for (UsuarioDTO usuarioDTO: usuarioDTOList) {
-                        addItem(usuarioDTO.getNome(), usuarioDTO.getEmail(), "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg");
+
+                        if(usuarioDTO.getFoto() != null) {
+                            addItem(usuarioDTO.getNome(), usuarioDTO.getEmail(), usuarioDTO.getFoto().toString());
+                        }
+                        addItem(usuarioDTO.getNome(), usuarioDTO.getEmail(), "https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png");
 
                     }
 

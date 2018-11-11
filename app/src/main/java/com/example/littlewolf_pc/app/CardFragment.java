@@ -67,8 +67,13 @@ public class CardFragment extends Fragment {
 
                 if(historiaDTOList != null && response.code() == 200){
                     for (HistoriaDTO historiaDTO: historiaDTOList) {
-                        addItem("https://m.media-amazon.com/images/M/MV5BMTU0MTI0MDAyM15BMl5BanBnXkFtZTgwMDg5MzYyNTM@._V1_.jpg", historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(),
-                         "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
+
+                        if(historiaDTO.getFoto() != null){
+                            addItem(historiaDTO.getFoto().toString(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(),
+                             historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
+                        }
+                        addItem("https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(),
+                                "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
 
                     }
 
@@ -111,17 +116,23 @@ public class CardFragment extends Fragment {
 
         modura.addView(cardView);
 
-        carregarImagem(imageURL, cardView);
-        carregarImagem(url, cardView);
+        carregarImagemPerfil(imageURL, cardView);
+        carregarImagemHistoria(url, cardView);
     }
 
-    private void carregarImagem(String url, CardView cardView){
+    private void carregarImagemHistoria(String url, CardView cardView){
         ImageView imagem = cardView.findViewById(R.id.image);
-        ImageView imagemPerfil = cardView.findViewById(R.id.imagem);
         ImageLoader imageLoader = ImageLoader.getInstance();
 
         imageLoader.init(ImageLoaderConfiguration.createDefault(this.getActivity()));
         imageLoader.displayImage(url, imagem);
+
+    }
+
+    private void carregarImagemPerfil(String url, CardView cardView){
+        ImageView imagemPerfil = cardView.findViewById(R.id.imagem);
+        ImageLoader imageLoader = ImageLoader.getInstance();
+
         imageLoader.init(ImageLoaderConfiguration.createDefault(this.getActivity()));
         imageLoader.displayImage(url, imagemPerfil);
 
