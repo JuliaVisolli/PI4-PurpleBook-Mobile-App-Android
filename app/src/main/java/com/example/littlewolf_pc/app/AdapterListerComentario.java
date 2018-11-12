@@ -55,8 +55,8 @@ public class AdapterListerComentario extends BaseAdapter {
 
         ComentarioDTO comentarioDTO = comentarioDTOList.get(position);
 
-        txtTitulo.setText(comentarioDTO.getComentario());
-        txtComentario.setText(comentarioDTO.getComentario());
+        txtTitulo.setText(comentarioDTO.getTexto());
+        txtComentario.setText(comentarioDTO.getTexto());
         Imagem.setImageResource(R.drawable.baseline_face_24);
 
         return view;
