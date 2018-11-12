@@ -1,5 +1,6 @@
 package com.example.littlewolf_pc.app.activity;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,13 +8,19 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.littlewolf_pc.app.fragment.AmigoFragment;
 import com.example.littlewolf_pc.app.fragment.CardFragment;
@@ -27,8 +34,9 @@ import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InternalActivity extends AppCompatActivity {
+public class InternalActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
+    private Toolbar toolbar;
     private BottomNavigationView mMainNav;
     private FrameLayout mMainFrame;
     private NavigationView navigationView;
@@ -41,7 +49,7 @@ public class InternalActivity extends AppCompatActivity {
     private NotificacaoFragment notificacaoFragment;
     private RecyclerView recyclerView;
     private List<UsuarioDTO> lstUsuarios;
-
+    RecyclerViewAdapter adapter;
 
 
     @Override
@@ -49,6 +57,8 @@ public class InternalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_internal);
 
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         lstUsuarios = new ArrayList<>();
         lstUsuarios.add(new UsuarioDTO(1, "Francini", null));
@@ -59,12 +69,24 @@ public class InternalActivity extends AppCompatActivity {
         lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
         lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
         lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Anna", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Jorzias", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Anna", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Jorzias", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
+        lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
 
 
         recyclerView = findViewById(R.id.amigo_reclyclerview);
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, lstUsuarios);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(recyclerViewAdapter);
+
+        adapter = new RecyclerViewAdapter(this, lstUsuarios);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -158,7 +180,53 @@ public class InternalActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        // Retrieve the SearchView and plug it into SearchManager
+//        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.android_search));
+//        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+//        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
+//            @Override
+//            public boolean onMenuItemActionExpand(MenuItem item) {
+//                Toast.makeText(InternalActivity.this, "Action View Expand", Toast.LENGTH_SHORT).show();
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onMenuItemActionCollapse(MenuItem item) {
+//                Toast.makeText(InternalActivity.this, "Action View Collapsed", Toast.LENGTH_SHORT).show();
+//                return true;
+//
+//            }
+//        };
+
+        MenuItem searchItem = menu.findItem(R.id.android_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+
+        return true;
+    }
 
 
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
 
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        String userInput = newText.toLowerCase();
+        List<UsuarioDTO> newList = new ArrayList<>();
+
+        for(UsuarioDTO usuarioDTO: lstUsuarios){
+            if(usuarioDTO.getNome().toLowerCase().contains(userInput)){
+                newList.add(usuarioDTO);
+            }
+        }
+        adapter.updateList(newList);
+        return true;
+    }
 }

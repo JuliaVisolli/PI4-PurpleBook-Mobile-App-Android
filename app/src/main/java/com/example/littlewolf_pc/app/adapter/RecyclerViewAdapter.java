@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
@@ -76,5 +77,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             item_amigo = itemView.findViewById(R.id.item_amigo);
             tv_nome = itemView.findViewById(R.id.nome);
         }
+    }
+
+    public void updateList(List<UsuarioDTO> newList){
+        mData = new ArrayList<>();
+        mData.addAll(newList);
+        notifyDataSetChanged();
     }
 }
