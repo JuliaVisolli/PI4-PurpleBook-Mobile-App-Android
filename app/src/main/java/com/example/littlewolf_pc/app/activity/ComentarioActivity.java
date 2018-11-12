@@ -21,7 +21,7 @@ public class ComentarioActivity extends AppCompatActivity {
 
         List<ComentarioDTO> comentarioDTOList = new ArrayList<>();
 
-        comentarioDTOList.add(new ComentarioDTO(0, "Olá", null));
+            comentarioDTOList.add(new ComentarioDTO(0, "Nome", null));
         comentarioDTOList.add(new ComentarioDTO(0, "Olá", null));
 
         ListView lista = findViewById(R.id.lista_comentarios);
