@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.example.littlewolf_pc.app.adapter.AdapterListerNotificacao;
 import com.example.littlewolf_pc.app.model.NotificacaoDTO;
 
 import java.util.ArrayList;

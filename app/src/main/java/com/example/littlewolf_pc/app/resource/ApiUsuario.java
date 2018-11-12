@@ -17,11 +17,22 @@ public interface ApiUsuario {
     Call<UsuarioDTO> login(@Body UsuarioDTO usuarioDTO);
 
     @GET("/WSEcommerce/rest/usuario/{usuarioid}")
-    Call<UsuarioDTO> getUsuario(@Path("usuarioid") Integer id);
+    Call<UsuarioDTO> selectUsuario(@Path("usuarioid") String id);
 
     @POST("/WSEcommerce/rest/usuario")
     Call<UsuarioDTO> saveUsuario(@Body UsuarioDTO usuarioDTO);
 
     @GET("/WSEcommerce/rest/usuario")
     Call<List<UsuarioDTO>> selectAllUsuario();
+
+    @GET("/WSEcommerce/rest/usuario/image/{param}")
+    Call<byte[]> selectAllUsuario(@Path("param") String usuarioId);
+
+    @GET("/WSEcommerce/rest/usuario/amigo/{param}")
+    Call<List<UsuarioDTO>> buscaAmigo(@Path("param") String usuarioId);
+
+    @GET("/WSEcommerce/rest/usuario/perfil/{param}")
+    Call<List<UsuarioDTO>> perfilUsuario(@Path("param") String usuarioId);
+
+
 }

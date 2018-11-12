@@ -1,4 +1,4 @@
-package com.example.littlewolf_pc.app;
+package com.example.littlewolf_pc.app.adapter;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
