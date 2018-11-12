@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.example.littlewolf_pc.app.adapter.AdapterListerComentario;
 import com.example.littlewolf_pc.app.model.ComentarioDTO;
 
 import java.util.ArrayList;
