@@ -1,4 +1,4 @@
-package com.example.littlewolf_pc.app;
+package com.example.littlewolf_pc.app.fragment;
 
 
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.adapter.AdapterListerNotificacao;
 import com.example.littlewolf_pc.app.model.NotificacaoDTO;
 

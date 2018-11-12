@@ -1,7 +1,9 @@
-package com.example.littlewolf_pc.app;
+package com.example.littlewolf_pc.app.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.littlewolf_pc.app.R;
 
 public class ComentarioActivity extends AppCompatActivity {
 
