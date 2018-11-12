@@ -1,4 +1,4 @@
-package com.example.littlewolf_pc.app;
+package com.example.littlewolf_pc.app.fragment;
 
 
 import android.app.AlertDialog;
@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.content.Intent;
 import android.widget.ProgressBar;
 
+import com.example.littlewolf_pc.app.R;
+import com.example.littlewolf_pc.app.activity.Main2Activity;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
 

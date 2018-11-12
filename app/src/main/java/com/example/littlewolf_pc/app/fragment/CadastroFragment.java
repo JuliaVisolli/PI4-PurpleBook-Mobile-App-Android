@@ -1,8 +1,7 @@
-package com.example.littlewolf_pc.app;
+package com.example.littlewolf_pc.app.fragment;
 
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -12,13 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
 
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

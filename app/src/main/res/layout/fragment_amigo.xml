@@ -6,7 +6,7 @@
     android:layout_height="67dp"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".AmigoFragment"
+    tools:context=".fragment.AmigoFragment"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="8dp"
     android:elevation="100dp">

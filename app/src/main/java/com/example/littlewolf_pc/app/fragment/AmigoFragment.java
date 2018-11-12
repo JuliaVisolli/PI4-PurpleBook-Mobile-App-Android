@@ -1,4 +1,4 @@
-package com.example.littlewolf_pc.app;
+package com.example.littlewolf_pc.app.fragment;
 
 
 import android.content.Context;
@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
 import com.nostra13.universalimageloader.core.ImageLoader;

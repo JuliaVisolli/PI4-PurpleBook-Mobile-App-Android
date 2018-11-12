@@ -1,4 +1,4 @@
-package com.example.littlewolf_pc.app;
+package com.example.littlewolf_pc.app.fragment;
 
 
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.model.HistoriaDTO;
 import com.example.littlewolf_pc.app.resource.ApiHistoria;
 import com.nostra13.universalimageloader.core.ImageLoader;

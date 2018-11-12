@@ -1,4 +1,4 @@
-package com.example.littlewolf_pc.app;
+package com.example.littlewolf_pc.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.example.littlewolf_pc.app.fragment.AmigoFragment;
+import com.example.littlewolf_pc.app.fragment.CardFragment;
+import com.example.littlewolf_pc.app.fragment.LoginFragment;
+import com.example.littlewolf_pc.app.fragment.NotificacaoFragment;
+import com.example.littlewolf_pc.app.fragment.ProfileFragment;
+import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.adapter.RecyclerViewAdapter;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 
