@@ -14,7 +14,7 @@ import android.content.Intent;
 import android.widget.ProgressBar;
 
 import com.example.littlewolf_pc.app.R;
-import com.example.littlewolf_pc.app.activity.Main2Activity;
+import com.example.littlewolf_pc.app.activity.InternalActivity;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
 
@@ -109,7 +109,7 @@ public class LoginFragment extends Fragment {
                             progressBar.setVisibility(View.GONE);
                             etEmail.setText("");
                             etSenha.setText("");
-                            Intent intent = new Intent(getActivity(), Main2Activity.class);
+                            Intent intent = new Intent(getActivity(), InternalActivity.class);
                             startActivity(intent);
                         }
 

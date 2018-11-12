@@ -27,7 +27,7 @@ import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main2Activity extends AppCompatActivity {
+public class InternalActivity extends AppCompatActivity {
 
     private BottomNavigationView mMainNav;
     private FrameLayout mMainFrame;
@@ -47,7 +47,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_internal);
 
 
         lstUsuarios = new ArrayList<>();
@@ -93,7 +93,7 @@ public class Main2Activity extends AppCompatActivity {
                             return true;
                         }
                         if (menuItem.getItemId() == R.id.action_logout) {
-                            Intent i = new Intent(Main2Activity.this, MainActivity.class);
+                            Intent i = new Intent(InternalActivity.this, MainActivity.class);
                             startActivity(i);
                             return true;
                         }

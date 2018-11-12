@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         LoginFragment lf = new LoginFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.moldura, lf).commit();
-        
+
     }
 
 
