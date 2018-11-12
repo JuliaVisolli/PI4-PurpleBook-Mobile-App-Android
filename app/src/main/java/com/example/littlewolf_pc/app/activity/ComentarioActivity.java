@@ -23,13 +23,13 @@ public class ComentarioActivity extends AppCompatActivity {
 
         comentarioDTOList.add(new ComentarioDTO(0, "Olá", null));
         comentarioDTOList.add(new ComentarioDTO(0, "Olá", null));
-        comentarioDTOList.add(new ComentarioDTO(0, "Olá", null));
 
-        ListView lista = findViewById(R.id.lista);
+        ListView lista = findViewById(R.id.lista_comentarios);
 
         AdapterListerComentario AdapterListerComentario = new AdapterListerComentario(comentarioDTOList, this);
 
         lista.setAdapter(AdapterListerComentario);
+
     }
 }
 

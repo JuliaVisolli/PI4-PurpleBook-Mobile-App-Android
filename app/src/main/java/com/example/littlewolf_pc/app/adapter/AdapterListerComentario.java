@@ -54,11 +54,13 @@ public class AdapterListerComentario extends BaseAdapter {
         TextView txtComentario = view.findViewById(R.id.comentario);
         ImageView Imagem = view.findViewById(R.id.imagem);
 
+
+
         ComentarioDTO comentarioDTO = comentarioDTOList.get(position);
 
         txtTitulo.setText(comentarioDTO.getTexto());
         txtComentario.setText(comentarioDTO.getTexto());
-        Imagem.setImageResource(R.drawable.baseline_face_24);
+        Imagem.setImageResource(R.drawable.pb_logo);
 
         return view;
     }
