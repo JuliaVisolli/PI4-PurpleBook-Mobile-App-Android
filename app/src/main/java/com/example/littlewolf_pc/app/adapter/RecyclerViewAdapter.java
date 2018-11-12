@@ -1,4 +1,4 @@
-package com.example.littlewolf_pc.app;
+package com.example.littlewolf_pc.app.adapter;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 
 import java.util.List;

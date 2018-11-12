@@ -1,4 +1,4 @@
-package com.example.littlewolf_pc.app;
+package com.example.littlewolf_pc.app.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.model.ComentarioDTO;
 
 import java.util.List;
