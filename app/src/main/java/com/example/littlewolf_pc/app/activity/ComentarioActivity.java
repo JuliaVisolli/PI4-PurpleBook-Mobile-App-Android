@@ -2,7 +2,10 @@ package com.example.littlewolf_pc.app.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.littlewolf_pc.app.adapter.AdapterListerComentario;
 import com.example.littlewolf_pc.app.model.ComentarioDTO;
@@ -14,6 +17,8 @@ import com.example.littlewolf_pc.app.R;
 
 public class ComentarioActivity extends AppCompatActivity {
 
+    private Button btnComent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +27,6 @@ public class ComentarioActivity extends AppCompatActivity {
         List<ComentarioDTO> comentarioDTOList = new ArrayList<>();
 
             comentarioDTOList.add(new ComentarioDTO(0, "Nome", null));
-        comentarioDTOList.add(new ComentarioDTO(0, "Olá", null));
 
         ListView lista = findViewById(R.id.lista_comentarios);
 
@@ -30,6 +34,15 @@ public class ComentarioActivity extends AppCompatActivity {
 
         lista.setAdapter(AdapterListerComentario);
 
+        btnComent = findViewById(R.id.btnComent);
+
+        btnComent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
     }
 }
 
