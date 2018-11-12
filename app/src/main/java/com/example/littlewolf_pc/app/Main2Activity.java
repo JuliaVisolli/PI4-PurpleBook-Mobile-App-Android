@@ -120,7 +120,7 @@ public class Main2Activity extends AppCompatActivity {
                     setFragment(feedFragment);
                     return true;
                 case R.id.navigation_perfil:
-                    setFragment(feedFragment);
+                    setFragment(perfilFragment);
                     return true;
                 case R.id.navigation_friend:
                     setFragment(amigoFragment);
