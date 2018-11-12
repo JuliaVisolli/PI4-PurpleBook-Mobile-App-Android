@@ -129,6 +129,8 @@
                 android:drawableLeft="@drawable/ic_thumb_up_black_24dp"
                 android:scaleX="0.7"
                 android:scaleY="0.7"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="12dp"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintEnd_toStartOf="@+id/contcomentario"
                 app:layout_constraintHorizontal_bias="0.0"
