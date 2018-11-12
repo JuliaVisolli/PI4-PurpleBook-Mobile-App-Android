@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.littlewolf_pc.app.NotificacaoFragment;
 import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.model.NotificacaoDTO;
 
