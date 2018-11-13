@@ -34,7 +34,7 @@ import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InternalActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class InternalActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private BottomNavigationView mMainNav;
@@ -81,16 +81,16 @@ public class InternalActivity extends AppCompatActivity implements SearchView.On
         lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
 
 //
-        recyclerView = findViewById(R.id.amigo_reclyclerview);
+//        recyclerView = findViewById(R.id.amigo_reclyclerview);
 //        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, lstUsuarios);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        adapter = new RecyclerViewAdapter(this, lstUsuarios);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
+//        adapter = new RecyclerViewAdapter(this, lstUsuarios);
+//        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+//        recyclerView.setAdapter(adapter);
 
-
+//
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -183,53 +183,53 @@ public class InternalActivity extends AppCompatActivity implements SearchView.On
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        // Retrieve the SearchView and plug it into SearchManager
-//        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.android_search));
-//        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-//        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
-//            @Override
-//            public boolean onMenuItemActionExpand(MenuItem item) {
-//                Toast.makeText(InternalActivity.this, "Action View Expand", Toast.LENGTH_SHORT).show();
-//                return true;
-//            }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+//        // Retrieve the SearchView and plug it into SearchManager
+////        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.android_search));
+////        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+////        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 //
-//            @Override
-//            public boolean onMenuItemActionCollapse(MenuItem item) {
-//                Toast.makeText(InternalActivity.this, "Action View Collapsed", Toast.LENGTH_SHORT).show();
-//                return true;
+////        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
+////            @Override
+////            public boolean onMenuItemActionExpand(MenuItem item) {
+////                Toast.makeText(InternalActivity.this, "Action View Expand", Toast.LENGTH_SHORT).show();
+////                return true;
+////            }
+////
+////            @Override
+////            public boolean onMenuItemActionCollapse(MenuItem item) {
+////                Toast.makeText(InternalActivity.this, "Action View Collapsed", Toast.LENGTH_SHORT).show();
+////                return true;
+////
+////            }
+////        };
 //
+//        MenuItem searchItem = menu.findItem(R.id.android_search);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+//        searchView.setOnQueryTextListener(this);
+//
+//        return true;
+//    }
+
+
+//    @Override
+//    public boolean onQueryTextSubmit(String s) {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean onQueryTextChange(String newText) {
+//        String userInput = newText.toLowerCase();
+//        List<UsuarioDTO> newList = new ArrayList<>();
+//
+//        for(UsuarioDTO usuarioDTO: lstUsuarios){
+//            if(usuarioDTO.getNome().toLowerCase().contains(userInput)){
+//                newList.add(usuarioDTO);
 //            }
-//        };
-
-        MenuItem searchItem = menu.findItem(R.id.android_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnQueryTextListener(this);
-
-        return true;
-    }
-
-
-    @Override
-    public boolean onQueryTextSubmit(String s) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        String userInput = newText.toLowerCase();
-        List<UsuarioDTO> newList = new ArrayList<>();
-
-        for(UsuarioDTO usuarioDTO: lstUsuarios){
-            if(usuarioDTO.getNome().toLowerCase().contains(userInput)){
-                newList.add(usuarioDTO);
-            }
-        }
-        adapter.updateList(newList);
-        return true;
-    }
+//        }
+////        adapter.updateList(newList);
+//        return true;
+//    }
 }

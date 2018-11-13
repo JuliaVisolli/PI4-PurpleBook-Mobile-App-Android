@@ -51,7 +51,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 txtNome.setText(mData.get(vHolder.getAdapterPosition()).getNome());
                 txtEmail.setText(mData.get(vHolder.getAdapterPosition()).getEmail());
 //        image.setImageResource(mData.get(vHolder.getAdapterPosition()).getFoto());
-                Toast.makeText(mContext, "Test Click" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "Test Click" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
                 mDialog.show();
             }
         });
