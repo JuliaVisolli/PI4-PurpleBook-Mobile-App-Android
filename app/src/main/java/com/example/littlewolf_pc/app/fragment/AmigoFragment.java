@@ -66,25 +66,6 @@ public class AmigoFragment extends Fragment  implements SearchView.OnQueryTextLi
         view =  inflater.inflate(R.layout.fragment_amigo, container, false);
 //        modura = view.findViewById(R.id.containerCards);
 
-        lstUsuarios = new ArrayList<>();
-        lstUsuarios.add(new UsuarioDTO(1, "Francini", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Julia", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Adriana", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Anna", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Jorzias", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Anna", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Jorzias", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Anna", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Jorzias", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
 
         recyclerView = view.findViewById(R.id.amigo_reclyclerview);
 //
