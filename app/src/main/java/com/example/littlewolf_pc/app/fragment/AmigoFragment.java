@@ -114,7 +114,7 @@ public class AmigoFragment extends Fragment  implements SearchView.OnQueryTextLi
                     for (UsuarioDTO usuarioDTO: usuarioDTOList) {
 
                         adapter = new RecyclerViewAdapter(getActivity(), usuarioDTOList);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
                         recyclerView.setAdapter(adapter);
 
 
