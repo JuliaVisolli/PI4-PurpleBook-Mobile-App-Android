@@ -80,13 +80,16 @@ public class InternalActivity extends AppCompatActivity implements SearchView.On
         lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
         lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
 
-
+//
         recyclerView = findViewById(R.id.amigo_reclyclerview);
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, lstUsuarios);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(recyclerViewAdapter);
+//        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, lstUsuarios);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         adapter = new RecyclerViewAdapter(this, lstUsuarios);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
