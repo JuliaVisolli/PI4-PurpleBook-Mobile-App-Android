@@ -18,6 +18,12 @@
             android:title="Termos" />
 
         <item
+            android:id="@+id/action_about"
+            android:checked="false"
+            android:icon="@drawable/ic_group_work_black_24dp"
+            android:title="Sobre Nós" />
+
+        <item
             android:id="@+id/action_logout"
             android:checked="false"
             android:icon="@drawable/baseline_exit_to_app_24"

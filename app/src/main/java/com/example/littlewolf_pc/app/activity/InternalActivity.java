@@ -29,6 +29,8 @@ import com.example.littlewolf_pc.app.fragment.NotificacaoFragment;
 import com.example.littlewolf_pc.app.fragment.ProfileFragment;
 import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.adapter.RecyclerViewAdapter;
+import com.example.littlewolf_pc.app.fragment.SobreFragment;
+import com.example.littlewolf_pc.app.fragment.TermoFragment;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 
 import java.util.ArrayList;
@@ -111,10 +113,23 @@ public class InternalActivity extends AppCompatActivity {
                                     R.id.main_frame, fragment).commit();
                             return true;
                         }
+
                         if (menuItem.getItemId() == R.id.action_friends) {
                             AmigoFragment amigoFragment = new AmigoFragment();
                             getSupportFragmentManager().beginTransaction().replace(
                                     R.id.main_frame, amigoFragment).commit();
+                            return true;
+                        }
+                        if (menuItem.getItemId() == R.id.action_terms) {
+                            TermoFragment termoFragment = new TermoFragment();
+                            getSupportFragmentManager().beginTransaction().replace(
+                                    R.id.main_frame, termoFragment).commit();
+                            return true;
+                        }
+                        if (menuItem.getItemId() == R.id.action_about) {
+                            SobreFragment SobreFragment = new SobreFragment();
+                            getSupportFragmentManager().beginTransaction().replace(
+                                    R.id.main_frame, SobreFragment).commit();
                             return true;
                         }
                         if (menuItem.getItemId() == R.id.action_logout) {
