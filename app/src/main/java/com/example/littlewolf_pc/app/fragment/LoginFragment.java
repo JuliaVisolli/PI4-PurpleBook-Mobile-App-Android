@@ -61,6 +61,7 @@ public class LoginFragment extends Fragment {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnLogin.setEnabled(false);
 
                 if(etEmail.getText().toString().isEmpty()){
                     Snackbar.make(getView(), getResources().getString(R.string.email_required), Snackbar.LENGTH_SHORT)
@@ -106,7 +107,10 @@ public class LoginFragment extends Fragment {
                         getLoggedUser = response.body();
 
                         if(getLoggedUser != null && response.code() == 200){
+
                             progressBar.setVisibility(View.GONE);
+                            btnLogin.setEnabled(true);
+
                             etEmail.setText("");
                             etSenha.setText("");
                             Intent intent = new Intent(getActivity(), InternalActivity.class);
@@ -117,6 +121,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onFailure(Call<UsuarioDTO> call, Throwable t) {
                         progressBar.setVisibility(View.GONE);
+                        btnLogin.setEnabled(true);
                         etSenha.setText("");
 //                        Toast.makeText(getActivity(), "Usuario ou senha invalidos", Toast.LENGTH_LONG).show();
                         Snackbar.make(getView(), getResources().getString(R.string.user_password_invalid), Snackbar.LENGTH_SHORT)

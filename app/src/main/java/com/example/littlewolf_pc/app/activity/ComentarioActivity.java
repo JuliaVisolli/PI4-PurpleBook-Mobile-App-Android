@@ -53,11 +53,19 @@ public class ComentarioActivity extends AppCompatActivity {
                         null, false);
         btnComent = findViewById(R.id.btnComent);
 
+        View.OnClickListener listener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                comentarioDTOList.add(new ComentarioDTO(2, "flw", new Date()));
+
+            }
+        };
         btnComent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Date data  = new Date();
-                comentarioDTOList.add(new ComentarioDTO(2, "flw", null));
+                comentarioDTOList.add(new ComentarioDTO(2, "flw", new Date()));
             }
         });
     }
