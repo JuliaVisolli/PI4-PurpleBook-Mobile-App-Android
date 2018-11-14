@@ -1,5 +1,6 @@
 package com.example.littlewolf_pc.app.activity;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class ComentarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comentario);
+        btnComent = findViewById(R.id.btnComent);
 
 
         enviarMensagem();
@@ -41,17 +43,13 @@ public class ComentarioActivity extends AppCompatActivity {
 
         comentarioDTOList.add(new ComentarioDTO(0, "Nome", null));
 
-        ListView lista = findViewById(R.id.lista_comentarios);
 
-        AdapterListerComentario AdapterListerComentario = new AdapterListerComentario(comentarioDTOList, this);
 
-        lista.setAdapter(AdapterListerComentario);
 
         ListView listView;
         listView = (ListView) LayoutInflater.from(this)
                 .inflate(R.layout.model_comentario,
                         null, false);
-        btnComent = findViewById(R.id.btnComent);
 
         View.OnClickListener listener = new View.OnClickListener() {
 
@@ -62,10 +60,13 @@ public class ComentarioActivity extends AppCompatActivity {
             }
         };
         btnComent.setOnClickListener(new View.OnClickListener() {
+                ListView lista = findViewById(R.id.lista_comentarios);
+                AdapterListerComentario AdapterListerComentario = new AdapterListerComentario(comentarioDTOList, ComentarioActivity.this);
             @Override
             public void onClick(View v) {
-                Date data  = new Date();
                 comentarioDTOList.add(new ComentarioDTO(2, "flw", new Date()));
+
+                lista.setAdapter(AdapterListerComentario);
             }
         });
     }
