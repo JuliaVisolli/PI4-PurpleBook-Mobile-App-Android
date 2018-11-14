@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.InternalActivity">
+
         </activity>
         <activity android:name=".activity.ComentarioActivity">
         </activity>
