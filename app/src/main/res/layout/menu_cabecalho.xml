@@ -3,14 +3,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="192dp"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/new_login_gradients"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="18dp">
+
+    <com.github.siyamed.shapeimageview.CircularImageView
+        android:id="@+id/img_usuario"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/pb_logo" />
+
     <TextView
+        android:textColorHighlight="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PurpleBook"
+        android:text="email@email.com.br"
         android:textColor="#ffffff"
         android:textSize="20sp" />
 </LinearLayout>
+

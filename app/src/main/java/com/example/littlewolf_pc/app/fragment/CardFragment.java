@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.littlewolf_pc.app.R;
+import com.example.littlewolf_pc.app.activity.ComentarioActivity;
 import com.example.littlewolf_pc.app.model.HistoriaDTO;
 import com.example.littlewolf_pc.app.resource.ApiHistoria;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -102,15 +103,6 @@ public class CardFragment extends Fragment {
 //    public void onViewCreated(View view, Bundle savedInstanceState) {
 //
 //
-//        View.OnClickListener listener = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), ComentarioActivity.class);
-//                startActivity(intent);
-//            }
-//        };
-//
-//        btnComentario.setOnClickListener(listener);
 //
 //    }
 
@@ -133,7 +125,16 @@ public class CardFragment extends Fragment {
         quantCurtida.setText(quantidadeCurtida);
         TextView quantComentario = cardView.findViewById(R.id.contcomentario);
         quantComentario.setText(quantidadeComentario + " comentarios");
+        btnComentario = cardView.findViewById(R.id.btn_comentario);
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ComentarioActivity.class);
+                startActivity(intent);
+            }
+        };
 
+        btnComentario.setOnClickListener(listener);
 
         modura.addView(cardView);
 
