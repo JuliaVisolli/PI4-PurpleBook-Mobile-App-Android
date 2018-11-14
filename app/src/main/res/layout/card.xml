@@ -31,8 +31,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/imagem"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:srcCompat="@drawable/ic_home_black_24dp" />
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
                 android:id="@+id/titulo"

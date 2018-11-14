@@ -57,7 +57,7 @@ public class AdapterListerNotificacao extends BaseAdapter {
 
         txtTitulo.setText(notificacaoDTO.getNotificacao());
         txtNotificacao.setText(notificacaoDTO.getNotificacao());
-        notImagem.setImageResource(R.drawable.baseline_face_24);
+        notImagem.setImageResource(R.drawable.pb_logo);
 
         return view;
     }
