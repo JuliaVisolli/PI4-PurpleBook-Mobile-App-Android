@@ -53,6 +53,7 @@ public class AmigoFragment extends Fragment  implements SearchView.OnQueryTextLi
     RecyclerViewAdapter adapter;
     private View view;
     private List<UsuarioDTO> usuarioDTOList;
+    private CardView cardView;
 
     public AmigoFragment() {
         // Required empty public constructor
@@ -64,8 +65,6 @@ public class AmigoFragment extends Fragment  implements SearchView.OnQueryTextLi
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_amigo, container, false);
-//        modura = view.findViewById(R.id.containerCards);
-
 
         recyclerView = view.findViewById(R.id.amigo_reclyclerview);
 //
