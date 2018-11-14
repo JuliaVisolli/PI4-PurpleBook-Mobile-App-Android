@@ -15,7 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.littlewolf_pc.app.R;
+import com.example.littlewolf_pc.app.model.CurtidaDTO;
 import com.example.littlewolf_pc.app.model.HistoriaDTO;
+import com.example.littlewolf_pc.app.resource.ApiCurtida;
 import com.example.littlewolf_pc.app.resource.ApiHistoria;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -38,6 +40,12 @@ public class CardFragment extends Fragment {
 
     LinearLayout modura;
     private Button btnComentario;
+    private Button btnCurtida;
+
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://josiasveras.azurewebsites.net")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
 
     public CardFragment() {
         // Required empty public constructor
@@ -51,12 +59,10 @@ public class CardFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_card, container, false);
         modura = view.findViewById(R.id.containerCards);
         btnComentario = view.findViewById(R.id.btn_comentario);
+        btnCurtida = view.findViewById(R.id.btn_curtida);
 
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://josiasveras.azurewebsites.net")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+
 
         ApiHistoria apiHistoria =
                 retrofit.create(ApiHistoria.class);
@@ -65,7 +71,6 @@ public class CardFragment extends Fragment {
         Callback<List<HistoriaDTO>> hiListCallback = new Callback<List<HistoriaDTO>>() {
             @Override
             public void onResponse(Call<List<HistoriaDTO>> call, Response<List<HistoriaDTO>> response) {
-                System.out.print(response.body());
                 List<HistoriaDTO> historiaDTOList = response.body();
 
                 if(historiaDTOList != null && response.code() == 200){
@@ -91,8 +96,39 @@ public class CardFragment extends Fragment {
         };
         historiaDTOCall.enqueue(hiListCallback);
 
+        //Listener botão curtir
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                 CurtidaDTO curtidaDTO = new CurtidaDTO();
 
+                ApiCurtida apiCurtida =
+                        retrofit.create(ApiCurtida.class);
+                Call<CurtidaDTO> curtidaDTOCall = apiCurtida.saveCurtida(curtidaDTO);
+
+                Callback<CurtidaDTO> curtidaCallback = new Callback<CurtidaDTO>() {
+                    @Override
+                    public void onResponse(Call<CurtidaDTO> call, Response<CurtidaDTO> response) {
+                        CurtidaDTO curtida = response.body();
+
+                        if(curtida != null && response.code() == 200) {
+                            //Código faltando...
+                        }
+
+                    }
+                    @Override
+                    public void onFailure(Call<CurtidaDTO> call, Throwable t) {
+                        t.printStackTrace();
+
+                    }
+                };
+                curtidaDTOCall.enqueue(curtidaCallback);
+
+            }
+        };
+
+        btnCurtida.setOnClickListener(listener);
 
         return view;
 
@@ -133,7 +169,6 @@ public class CardFragment extends Fragment {
         quantCurtida.setText(quantidadeCurtida);
         TextView quantComentario = cardView.findViewById(R.id.contcomentario);
         quantComentario.setText(quantidadeComentario + " comentarios");
-
 
         modura.addView(cardView);
 
