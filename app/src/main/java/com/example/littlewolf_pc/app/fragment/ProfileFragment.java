@@ -46,45 +46,45 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         moldura = view.findViewById(R.id.containerCards);
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://josiasveras.azurewebsites.net")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiHistoria apiHistoria =
-                retrofit.create(ApiHistoria.class);
-        Call<List<HistoriaDTO>> historiaDTOCall = apiHistoria.selectAllHistorias();
-
-        Callback<List<HistoriaDTO>> hiListCallback = new Callback<List<HistoriaDTO>>() {
-            @Override
-            public void onResponse(Call<List<HistoriaDTO>> call, Response<List<HistoriaDTO>> response) {
-                System.out.print(response.body());
-                List<HistoriaDTO> historiaDTOList = response.body();
-
-                if(historiaDTOList != null && response.code() == 200){
-                    for (HistoriaDTO historiaDTO: historiaDTOList) {
-
-                        if(historiaDTO.getFoto() != null){
-                            addItem(historiaDTO.getFoto().toString(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(),
-                                    historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
-                        }
-                        addItem("https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(),
-                                "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
-
-                    }
-
-                }
-
-            }
-            @Override
-            public void onFailure(Call<List<HistoriaDTO>> call, Throwable t) {
-                t.printStackTrace();
-
-            }
-        };
-        historiaDTOCall.enqueue(hiListCallback);
+//
+//
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://josiasveras.azurewebsites.net")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        ApiHistoria apiHistoria =
+//                retrofit.create(ApiHistoria.class);
+//        Call<List<HistoriaDTO>> historiaDTOCall = apiHistoria.selectAllHistorias();
+//
+//        Callback<List<HistoriaDTO>> hiListCallback = new Callback<List<HistoriaDTO>>() {
+//            @Override
+//            public void onResponse(Call<List<HistoriaDTO>> call, Response<List<HistoriaDTO>> response) {
+//                System.out.print(response.body());
+//                List<HistoriaDTO> historiaDTOList = response.body();
+//
+//                if(historiaDTOList != null && response.code() == 200){
+//                    for (HistoriaDTO historiaDTO: historiaDTOList) {
+//
+//                        if(historiaDTO.getFoto() != null){
+//                            addItem(historiaDTO.getFoto().toString(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(),
+//                                    historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
+//                        }
+//                        addItem("https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(),
+//                                "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
+//
+//                    }
+//
+//                }
+//
+//            }
+//            @Override
+//            public void onFailure(Call<List<HistoriaDTO>> call, Throwable t) {
+//                t.printStackTrace();
+//
+//            }
+//        };
+//        historiaDTOCall.enqueue(hiListCallback);
 
 
 
@@ -94,34 +94,34 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
 
 
 
-
-    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario){
-        CardView cardView;
-
-        cardView = (CardView) LayoutInflater.from(this.getActivity())
-                .inflate(R.layout.fragment_profile,
-                        moldura, false);
-
-
-        TextView tituloProfile = cardView.findViewById(R.id.tituloProfile);
-        tituloProfile.setText(textoDoTitulo);
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        String dateString = format.format(textoDaHora);
-        TextView horaProfile = cardView.findViewById(R.id.horaProfile);
-        horaProfile.setText(dateString);
-        TextView mensagemProfile = cardView.findViewById(R.id.mensagemProfile);
-        mensagemProfile.setText(textoDaMensagem);
-        TextView quantCurtidaProfile = cardView.findViewById(R.id.contcurtida_profile);
-        quantCurtidaProfile.setText(quantidadeCurtida);
-        TextView quantComentarioProfile = cardView.findViewById(R.id.contcomentario_profile);
-        quantComentarioProfile.setText(quantidadeComentario + " comentarios");
-
-
-        moldura.addView(cardView);
-
-        carregarImagemPerfil(imageURL, cardView);
-        carregarImagemHistoria(url, cardView);
-    }
+//
+//    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario){
+//        CardView cardView;
+//
+//        cardView = (CardView) LayoutInflater.from(this.getActivity())
+//                .inflate(R.layout.fragment_profile,
+//                        moldura, false);
+//
+//
+//        TextView tituloProfile = cardView.findViewById(R.id.tituloProfile);
+//        tituloProfile.setText(textoDoTitulo);
+//        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+//        String dateString = format.format(textoDaHora);
+//        TextView horaProfile = cardView.findViewById(R.id.horaProfile);
+//        horaProfile.setText(dateString);
+//        TextView mensagemProfile = cardView.findViewById(R.id.mensagemProfile);
+//        mensagemProfile.setText(textoDaMensagem);
+//        TextView quantCurtidaProfile = cardView.findViewById(R.id.contcurtida_profile);
+//        quantCurtidaProfile.setText(quantidadeCurtida);
+//        TextView quantComentarioProfile = cardView.findViewById(R.id.contcomentario_profile);
+//        quantComentarioProfile.setText(quantidadeComentario + " comentarios");
+//
+//
+//        moldura.addView(cardView);
+//
+//        carregarImagemPerfil(imageURL, cardView);
+//        carregarImagemHistoria(url, cardView);
+//    }
 
     private void carregarImagemHistoria(String url, CardView cardView){
         ImageView imagem = cardView.findViewById(R.id.image);
