@@ -27,7 +27,7 @@
             android:id="@+id/imagem"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginLeft="50dp"
+            android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:cropToPadding="true"
             android:scaleType="centerCrop"
@@ -65,7 +65,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="56dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="60dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:textSize="20dp"
                 android:drawableBottom="@drawable/ic_add_purple_24dp"/>
