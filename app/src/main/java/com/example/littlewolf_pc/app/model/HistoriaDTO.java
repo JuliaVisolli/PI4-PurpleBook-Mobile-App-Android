@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class HistoriaDTO {
 
-    private Long id;
+    private Integer id;
     private UsuarioDTO usuario;
     private String texto;
     private byte[] foto;
@@ -16,12 +16,12 @@ public class HistoriaDTO {
         super();
     }
 
-    public HistoriaDTO(Long id) {
+    public HistoriaDTO(Integer id) {
         this();
         this.id = id;
     }
 
-    public HistoriaDTO(Long id, String texto, Date data, int totalComentarios, int totalCurtidas) {
+    public HistoriaDTO(Integer id, String texto, Date data, int totalComentarios, int totalCurtidas) {
         this();
         this.id = id;
         this.texto = texto;
@@ -31,11 +31,11 @@ public class HistoriaDTO {
     }
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

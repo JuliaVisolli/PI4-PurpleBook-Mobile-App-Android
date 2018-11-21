@@ -43,7 +43,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AmigoFragment extends Fragment  implements SearchView.OnQueryTextListener{
+public class AmigoFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     LinearLayout modura;
     private Toolbar toolbar;
@@ -67,11 +67,6 @@ public class AmigoFragment extends Fragment  implements SearchView.OnQueryTextLi
         view =  inflater.inflate(R.layout.fragment_amigo, container, false);
 
         recyclerView = view.findViewById(R.id.amigo_reclyclerview);
-//
-//        adapter = new RecyclerViewAdapter(getActivity(), lstUsuarios);
-//        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-//        recyclerView.setAdapter(adapter);
-
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://josiasveras.azurewebsites.net")
@@ -150,10 +145,7 @@ public class AmigoFragment extends Fragment  implements SearchView.OnQueryTextLi
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        toolbar = view.findViewById(R.id.toolbar);
         setHasOptionsMenu(true);
-//        setSupportActionBar(toolbar);
-
     }
 
     @Override
@@ -179,35 +171,10 @@ public class AmigoFragment extends Fragment  implements SearchView.OnQueryTextLi
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_menu, menu);
 
-
-//        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-        // Retrieve the SearchView and plug it into SearchManager
-//        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.android_search));
-//        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-//        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
-//            @Override
-//            public boolean onMenuItemActionExpand(MenuItem item) {
-//                Toast.makeText(InternalActivity.this, "Action View Expand", Toast.LENGTH_SHORT).show();
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onMenuItemActionCollapse(MenuItem item) {
-//                Toast.makeText(InternalActivity.this, "Action View Collapsed", Toast.LENGTH_SHORT).show();
-//                return true;
-//
-//            }
-//        };
-
         MenuItem searchItem = menu.findItem(R.id.android_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
         super.onCreateOptionsMenu(menu,inflater);
-
-
-//        return true;
     }
 
 

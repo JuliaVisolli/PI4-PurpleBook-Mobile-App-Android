@@ -13,7 +13,7 @@
             android:id="@+id/action_friends"
             android:checked="false"
             android:icon="@drawable/baseline_supervisor_account_24"
-            android:title="Amigos" />
+            android:title="Minha rede" />
 
         <item
             android:id="@+id/action_terms"

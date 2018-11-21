@@ -18,6 +18,7 @@ import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.activity.ComentarioActivity;
 import com.example.littlewolf_pc.app.model.CurtidaDTO;
 import com.example.littlewolf_pc.app.model.HistoriaDTO;
+import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiCurtida;
 import com.example.littlewolf_pc.app.resource.ApiHistoria;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -59,7 +60,6 @@ public class CardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_card, container, false);
         modura = view.findViewById(R.id.containerCards);
-        btnCurtida = view.findViewById(R.id.btn_curtida);
 
         ApiHistoria apiHistoria =
                 retrofit.create(ApiHistoria.class);
@@ -94,45 +94,18 @@ public class CardFragment extends Fragment {
         };
         historiaDTOCall.enqueue(hiListCallback);
 
-        //Listener botão curtir
-//        View.OnClickListener listener = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                 CurtidaDTO curtidaDTO = new CurtidaDTO();
-//
-//                ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
-//                Call<CurtidaDTO> curtidaDTOCall = apiCurtida.saveCurtida(curtidaDTO);
-//
-//                Callback<CurtidaDTO> curtidaCallback = new Callback<CurtidaDTO>() {
-//                    @Override
-//                    public void onResponse(Call<CurtidaDTO> call, Response<CurtidaDTO> response) {
-//                        CurtidaDTO curtida = response.body();
-//
-//                        if(curtida != null && response.code() == 200) {
-//                            //Código faltando...
-//                        }
-//
-//                    }
-//                    @Override
-//                    public void onFailure(Call<CurtidaDTO> call, Throwable t) {
-//                        t.printStackTrace();
-//
-//                    }
-//                };
-//                curtidaDTOCall.enqueue(curtidaCallback);
-//
-//            }
-//        };
-//
-//        btnCurtida.setOnClickListener(listener);
-
+        curtir();
         return view;
 
     }
 
+    public void curtir(){
+
+
+    }
+
     private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario){
-        CardView cardView;
+        final CardView cardView;
 
         cardView = (CardView) LayoutInflater.from(this.getActivity())
                 .inflate(R.layout.card,
@@ -151,6 +124,8 @@ public class CardFragment extends Fragment {
         TextView quantComentario = cardView.findViewById(R.id.contcomentario);
         quantComentario.setText(quantidadeComentario + " comentarios");
         btnComentario = cardView.findViewById(R.id.btn_comentario);
+        btnCurtida = cardView.findViewById(R.id.btn_curtida);
+
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,6 +133,42 @@ public class CardFragment extends Fragment {
                 startActivity(intent);
             }
         };
+
+        View.OnClickListener listener2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
+                CurtidaDTO curtidaDTO = new CurtidaDTO();
+
+                curtidaDTO.setUsuario(new UsuarioDTO(6));
+                curtidaDTO.setHistoria(new HistoriaDTO(8));
+                Call<CurtidaDTO> curtidaDTOCall = apiCurtida.saveCurtida(curtidaDTO);
+
+                Callback<CurtidaDTO> curtidaCallback = new Callback<CurtidaDTO>() {
+                    @Override
+                    public void onResponse(Call<CurtidaDTO> call, Response<CurtidaDTO> response) {
+                        CurtidaDTO curtida = response.body();
+
+                        if(curtida != null && response.code() == 200) {
+                            TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
+                            quantCurtida.setText(quantCurtida.getText());
+                        }
+
+                    }
+                    @Override
+                    public void onFailure(Call<CurtidaDTO> call, Throwable t) {
+                        t.printStackTrace();
+
+                    }
+                };
+                curtidaDTOCall.enqueue(curtidaCallback);
+
+            }
+        };
+
+        btnCurtida.setOnClickListener(listener2);
 
         btnComentario.setOnClickListener(listener);
 
