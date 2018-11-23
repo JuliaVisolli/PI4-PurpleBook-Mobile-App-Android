@@ -21,6 +21,7 @@ import com.example.littlewolf_pc.app.model.HistoriaDTO;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiCurtida;
 import com.example.littlewolf_pc.app.resource.ApiHistoria;
+import com.example.littlewolf_pc.app.utils.UsuarioSingleton;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -65,6 +66,9 @@ public class CardFragment extends Fragment {
                 retrofit.create(ApiHistoria.class);
         Call<List<HistoriaDTO>> historiaDTOCall = apiHistoria.selectAllHistorias();
 
+        UsuarioDTO user = UsuarioSingleton.getInstance().getUsuario();
+
+
         Callback<List<HistoriaDTO>> hiListCallback = new Callback<List<HistoriaDTO>>() {
             @Override
             public void onResponse(Call<List<HistoriaDTO>> call, Response<List<HistoriaDTO>> response) {
@@ -94,15 +98,10 @@ public class CardFragment extends Fragment {
         };
         historiaDTOCall.enqueue(hiListCallback);
 
-        curtir();
         return view;
 
     }
 
-    public void curtir(){
-
-
-    }
 
     private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario){
         final CardView cardView;

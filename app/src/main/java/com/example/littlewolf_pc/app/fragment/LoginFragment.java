@@ -17,6 +17,7 @@ import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.activity.InternalActivity;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
+import com.example.littlewolf_pc.app.utils.UsuarioSingleton;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -113,6 +114,9 @@ public class LoginFragment extends Fragment {
 
                             etEmail.setText("");
                             etSenha.setText("");
+
+                            UsuarioSingleton.getInstance().setUsuario(getLoggedUser);
+
                             Intent intent = new Intent(getActivity(), InternalActivity.class);
                             startActivity(intent);
                         }
