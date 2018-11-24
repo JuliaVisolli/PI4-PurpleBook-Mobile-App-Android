@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.ProfileFragment">
+    tools:context=".fragment.ProfileFragment"
+    android:id="@+id/relative">
 
 
     <View
@@ -37,8 +38,52 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/layoutDadosUsuario">
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="85dp"
+                        app:contentPaddingTop="15dp"
+                        app:contentPaddingRight="15dp"
+                        app:contentPaddingLeft="15dp"
+                        app:contentPaddingBottom="15dp"
+                        app:cardCornerRadius="10dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/nome"
+                                android:textStyle="bold"
+                                android:textSize="25sp"
+                                android:layout_marginTop="60dp"
+                                android:layout_gravity="center_horizontal"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="São Paulo"
+                                android:textSize="17sp"
+                                android:layout_marginTop="10dp"
+                                android:layout_gravity="center_horizontal"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ELE NAO ELE NAO ELE NAO ELE NAO ELE NAO ELE NAO ELE NAO ELE NAO ELE NAO ELE NAO ELE NAO ELE NAO ELE NAO ELE NAO"
+                                android:textAlignment="center"
+                                android:textSize="15sp"
+                                android:layout_marginTop="20dp"
+                                android:layout_gravity="center_horizontal"/>
+
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -101,165 +146,12 @@
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
-
-    <android.support.v7.widget.CardView
-
-        style="@style/CardView.Light"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_below="@+id/layout">
-
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <com.github.siyamed.shapeimageview.CircularImageView
-                    android:id="@+id/imageProfile"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="12dp"
-                    android:padding="4dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toTopOf="@+id/imagemProfile"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed"
-                    app:srcCompat="@drawable/ic_home_black_24dp"
-                    android:src="@drawable/pb_logo"/>
-
-                <TextView
-                    android:id="@+id/tituloProfile"
-                    android:layout_width="274dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="4dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="#DE000000"
-                    android:text="Nome"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageProfile"
-                    app:layout_constraintTop_toTopOf="@+id/imageProfile" />
-
-                <TextView
-                    android:id="@+id/horaProfile"
-                    android:layout_width="274dp"
-                    android:layout_height="15dp"
-                    android:layout_marginBottom="4dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="#8A000000"
-                    android:text="data"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageProfile"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageProfile" />
-
-                <ImageView
-                    android:id="@+id/imagemProfile"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="12dp"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toTopOf="@+id/mensagemProfile"
-                    app:layout_constraintDimensionRatio="H,16:9"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageProfile"
-                    android:src="@drawable/pb_logo"/>
-
-                <TextView
-                    android:id="@+id/mensagemProfile"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:lineSpacingExtra="8dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="#DE000000"
-                    app:layout_constraintBottom_toTopOf="@+id/btn_curtida_profile"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imagemProfile" />
-
-                <Button
-                    android:id="@+id/btn_curtida_profile"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:drawableLeft="@drawable/baseline_thumb_up_alt_24"
-                    android:minWidth="0dp"
-                    android:paddingEnd="8dp"
-                    android:paddingStart="8dp"
-                    android:text="Curtir"
-                    android:textColor="#DE000000"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mensagem" />
-
-                <Button
-                    android:id="@+id/btn_comentario_profile"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="124dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="124dp"
-                    android:drawableLeft="@drawable/baseline_comment_24"
-                    android:minWidth="0dp"
-                    android:paddingEnd="8dp"
-                    android:paddingStart="8dp"
-                    android:text="Comentar"
-                    android:textColor="#DE000000"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/btn_curtida_profile"
-                    app:layout_constraintTop_toTopOf="@+id/btn_curtida_profile" />
-
-                <TextView
-                    android:id="@+id/contcurtida_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_thumb_up_black_24dp"
-                    android:scaleX="0.7"
-                    android:scaleY="0.7"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="12dp"
-                    android:padding="3dp"
-                    android:textColor="@color/colorAccent"
-                    app:layout_constraintEnd_toStartOf="@+id/contcomentario"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mensagemProfile" />
-
-                <TextView
-                    android:id="@+id/contcomentario_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleX="0.7"
-                    android:scaleY="0.7"
-                    android:textColor="@color/colorAccent"
-                    android:padding="2dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/btn_curtida_profile"
-                    app:layout_constraintTop_toBottomOf="@+id/mensagemProfile" />
-
-            </android.support.constraint.ConstraintLayout>
-        </ScrollView>
-
-    </android.support.v7.widget.CardView>
+        android:orientation="vertical"
+        android:layout_below="@+id/layout"
+        android:id="@+id/linear">
+    </LinearLayout>
 
 </RelativeLayout>
