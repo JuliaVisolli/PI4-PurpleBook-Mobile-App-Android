@@ -62,41 +62,44 @@ public class CardFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_card, container, false);
         modura = view.findViewById(R.id.containerCards);
 
+        Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+        if(idUsuario != null) {
         ApiHistoria apiHistoria =
                 retrofit.create(ApiHistoria.class);
-        Call<List<HistoriaDTO>> historiaDTOCall = apiHistoria.selectAllHistorias();
-
-        UsuarioDTO user = UsuarioSingleton.getInstance().getUsuario();
+        Call<List<HistoriaDTO>> historiaDTOCall = apiHistoria.selectAllHistorias(String.valueOf(idUsuario));
 
 
-        Callback<List<HistoriaDTO>> hiListCallback = new Callback<List<HistoriaDTO>>() {
-            @Override
-            public void onResponse(Call<List<HistoriaDTO>> call, Response<List<HistoriaDTO>> response) {
-                System.out.print(response.body());
-                List<HistoriaDTO> historiaDTOList = response.body();
 
-                if(historiaDTOList != null && response.code() == 200){
-                    for (HistoriaDTO historiaDTO: historiaDTOList) {
+            Callback<List<HistoriaDTO>> hiListCallback = new Callback<List<HistoriaDTO>>() {
+                @Override
+                public void onResponse(Call<List<HistoriaDTO>> call, Response<List<HistoriaDTO>> response) {
+                    System.out.print(response.body());
+                    List<HistoriaDTO> historiaDTOList = response.body();
 
-                        if(historiaDTO.getFoto() != null){
-                            addItem(historiaDTO.getFoto().toString(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(),
-                             historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
+                    if (historiaDTOList != null && response.code() == 200) {
+                        for (HistoriaDTO historiaDTO : historiaDTOList) {
+
+                            if (historiaDTO.getFoto() != null) {
+                                addItem(historiaDTO.getFoto().toString(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
+                                        historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
+                            }
+                            addItem("https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
+                                    "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
+
                         }
-                        addItem("https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getUsuario().getNome(), historiaDTO.getData(),  historiaDTO.getTexto(),
-                                "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
 
                     }
 
                 }
 
-            }
-            @Override
-            public void onFailure(Call<List<HistoriaDTO>> call, Throwable t) {
-                t.printStackTrace();
+                @Override
+                public void onFailure(Call<List<HistoriaDTO>> call, Throwable t) {
+                    t.printStackTrace();
 
-            }
-        };
-        historiaDTOCall.enqueue(hiListCallback);
+                }
+            };
+            historiaDTOCall.enqueue(hiListCallback);
+        }
 
         return view;
 

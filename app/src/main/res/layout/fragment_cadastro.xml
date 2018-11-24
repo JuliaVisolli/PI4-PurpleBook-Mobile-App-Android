@@ -24,7 +24,7 @@
                 android:layout_gravity="center_horizontal"
                 android:padding="16dp"
                 android:layout_marginTop="50dp"
-                android:src="@drawable/pb_logo"
+                android:src="@drawable/logo"
                 />
 
             <EditText
@@ -115,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_login"
-                android:text="Entrar"
+                android:text="Cadastrar"
                 android:textColor="#f16f7d"
                 android:textAllCaps="false"
                 android:padding="16dp"
