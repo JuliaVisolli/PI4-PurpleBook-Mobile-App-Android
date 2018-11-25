@@ -86,6 +86,12 @@ public class CardFragment extends Fragment {
                             addItem("https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
                                     "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
 
+                         if (historiaDTO.getFoto() == null) {
+                             addItem(historiaDTO.getFoto().toString(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
+                                     historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
+                         }
+                        /* addItem("https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
+                                 historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());*/
                         }
 
                     }

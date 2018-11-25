@@ -19,7 +19,6 @@
             android:layout_height="wrap_content">
 
 
-
             <com.github.siyamed.shapeimageview.CircularImageView
                 android:id="@+id/image"
                 android:layout_width="48dp"
@@ -46,6 +45,7 @@
                 app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toTopOf="@+id/image" />
 
+
             <TextView
                 android:id="@+id/hora"
                 android:layout_width="274dp"
@@ -56,18 +56,6 @@
                 app:layout_constraintBottom_toBottomOf="@+id/image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image" />
-
-            <ImageView
-                android:id="@+id/imagem"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="12dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toTopOf="@+id/mensagem"
-                app:layout_constraintDimensionRatio="H,16:9"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image" />
 
             <TextView
                 android:id="@+id/mensagem"
@@ -82,7 +70,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/btn_curtida"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imagem" />
+            app:layout_constraintTop_toBottomOf="@+id/hora" />
 
             <Button
                 android:id="@+id/btn_curtida"
@@ -138,6 +126,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mensagem" />
 
+
             <TextView
                 android:id="@+id/contcomentario"
                 android:layout_width="wrap_content"
@@ -150,7 +139,6 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/btn_curtida"
                 app:layout_constraintTop_toBottomOf="@+id/mensagem" />
-
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
