@@ -52,7 +52,7 @@ public class ComentarioActivity extends AppCompatActivity {
 
         ApiComentario apiComentario =
                 retrofit.create(ApiComentario.class);
-        Call<List<ComentarioDTO>> comentarioDTOCall = apiComentario.getAllComentariosByIdHistoria("1");
+        Call<List<ComentarioDTO>> comentarioDTOCall = apiComentario.getAllComentariosByIdHistoria("9");
 
         Callback<List<ComentarioDTO>> comentarioCallBack = new Callback<List<ComentarioDTO>>() {
             @Override
@@ -108,11 +108,13 @@ public class ComentarioActivity extends AppCompatActivity {
 
                 if(etComentario.getText().toString() != null) {
                     Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+                    String nome = UsuarioSingleton.getInstance().getUsuario().getNome();
+
                     if (idUsuario != null) {
-                        comentarioDTO.setUsuario(new UsuarioDTO(idUsuario));
+                        comentarioDTO.setUsuario(new UsuarioDTO(idUsuario, nome));
                         comentarioDTO.setTexto(etComentario.getText().toString());
                         comentarioDTO.setHistoria(new HistoriaDTO(9));
-                        comentarioDTO.setData(new Date());
+                        comentarioDTO.setData(null);
                     }
                 }
 
@@ -134,7 +136,7 @@ public class ComentarioActivity extends AppCompatActivity {
                                     AdapterListerComentario AdapterListerComentario = new AdapterListerComentario(lstComentarios, ComentarioActivity.this);
                                     ListView lista = findViewById(R.id.lista_comentarios);
                                     lista.setAdapter(AdapterListerComentario);
-
+                                    etComentario.setText("");
                                 }
 
                             }
