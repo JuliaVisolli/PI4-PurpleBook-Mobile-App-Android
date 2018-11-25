@@ -13,6 +13,12 @@ public class UsuarioDTO {
             super();
         }
 
+    public UsuarioDTO(Integer id, String nome) {
+        this();
+        this.id = id;
+        this.nome = nome;
+    }
+
         public UsuarioDTO(Integer id, String nome, byte[] foto) {
             this();
             this.id = id;

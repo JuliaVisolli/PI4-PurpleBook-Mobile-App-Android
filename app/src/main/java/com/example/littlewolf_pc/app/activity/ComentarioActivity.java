@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ public class ComentarioActivity extends AppCompatActivity {
     private Button btnComent;
     List<ComentarioDTO> comentarioDTOList;
     List<ComentarioDTO>lstComentarios = new ArrayList<ComentarioDTO>();
-
+    private EditText etComentario;
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://josiasveras.azurewebsites.net")
@@ -45,7 +46,10 @@ public class ComentarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comentario);
+
         btnComent = findViewById(R.id.btnComent);
+        etComentario = findViewById(R.id.txtComent);
+
         ApiComentario apiComentario =
                 retrofit.create(ApiComentario.class);
         Call<List<ComentarioDTO>> comentarioDTOCall = apiComentario.getAllComentariosByIdHistoria("1");
@@ -61,7 +65,7 @@ public class ComentarioActivity extends AppCompatActivity {
 
                         for (ComentarioDTO comentarioDTO : comentarioDTOList) {
 
-                            lstComentarios.add(new ComentarioDTO(comentarioDTO.getId(), comentarioDTO.getTexto(), comentarioDTO.getData()));
+                            lstComentarios.add(new ComentarioDTO(comentarioDTO.getId(), comentarioDTO.getTexto(), comentarioDTO.getUsuario(), comentarioDTO.getData()));
                         }
                         AdapterListerComentario AdapterListerComentario = new AdapterListerComentario(lstComentarios, ComentarioActivity.this);
                         ListView lista = findViewById(R.id.lista_comentarios);
@@ -87,7 +91,7 @@ public class ComentarioActivity extends AppCompatActivity {
     }
 
     public void enviarMensagem(){
-        
+
         ListView listView;
         listView = (ListView) LayoutInflater.from(this)
                 .inflate(R.layout.model_comentario,
@@ -99,9 +103,56 @@ public class ComentarioActivity extends AppCompatActivity {
                 AdapterListerComentario AdapterListerComentario = new AdapterListerComentario(lstComentarios, ComentarioActivity.this);
             @Override
             public void onClick(View v) {
-                lstComentarios.add(new ComentarioDTO(2, "flw", new Date()));
 
-                lista.setAdapter(AdapterListerComentario);
+                ComentarioDTO comentarioDTO = new ComentarioDTO();
+
+                if(etComentario.getText().toString() != null) {
+                    Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+                    if (idUsuario != null) {
+                        comentarioDTO.setUsuario(new UsuarioDTO(idUsuario));
+                        comentarioDTO.setTexto(etComentario.getText().toString());
+                        comentarioDTO.setHistoria(new HistoriaDTO(9));
+                        comentarioDTO.setData(new Date());
+                    }
+                }
+
+                 ApiComentario apiComentario =
+                            retrofit.create(ApiComentario.class);
+                    Call<ComentarioDTO> comentarioDTOCall = apiComentario.saveComentario(comentarioDTO);
+
+                    Callback<ComentarioDTO> comentarioCallBack = new Callback<ComentarioDTO>() {
+                        @Override
+                        public void onResponse(Call<ComentarioDTO> call, Response<ComentarioDTO> response) {
+                            ComentarioDTO comentario = response.body();
+
+                            if (comentarioDTOList != null && response.code() == 200) {
+
+                                if(comentario != null){
+
+                                    lstComentarios.add(comentario);
+
+                                    AdapterListerComentario AdapterListerComentario = new AdapterListerComentario(lstComentarios, ComentarioActivity.this);
+                                    ListView lista = findViewById(R.id.lista_comentarios);
+                                    lista.setAdapter(AdapterListerComentario);
+
+                                }
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<ComentarioDTO> call, Throwable t) {
+                            t.printStackTrace();
+
+                        }
+                    };
+                    comentarioDTOCall.enqueue(comentarioCallBack);
+
+
+//                lstComentarios.add(new ComentarioDTO(2, "flw", new Date()));
+//
+//                lista.setAdapter(AdapterListerComentario);
             }
         });
     }
