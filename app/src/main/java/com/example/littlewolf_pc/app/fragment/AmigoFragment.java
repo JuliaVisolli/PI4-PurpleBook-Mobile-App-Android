@@ -27,6 +27,7 @@ import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.adapter.RecyclerViewAdapter;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
+import com.example.littlewolf_pc.app.utils.UsuarioSingleton;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -49,7 +50,7 @@ public class AmigoFragment extends Fragment implements SearchView.OnQueryTextLis
     private Toolbar toolbar;
 
     private RecyclerView recyclerView;
-    private List<UsuarioDTO>lstUsuarios;
+    List<UsuarioDTO>lstUsuarios = new ArrayList<UsuarioDTO>();
     RecyclerViewAdapter adapter;
     private View view;
     private List<UsuarioDTO> usuarioDTOList;
@@ -72,46 +73,44 @@ public class AmigoFragment extends Fragment implements SearchView.OnQueryTextLis
                 .baseUrl("http://josiasveras.azurewebsites.net")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        final Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+        if(idUsuario != null) {
+            ApiUsuario apiUsuario =
+                    retrofit.create(ApiUsuario.class);
+            Call<List<UsuarioDTO>> usuarioDTOCall = apiUsuario.selectAllUsuario();
 
-        ApiUsuario apiUsuario =
-                retrofit.create(ApiUsuario.class);
-        Call<List<UsuarioDTO>> usuarioDTOCall = apiUsuario.selectAllUsuario();
-
-        Callback<List<UsuarioDTO>> usuarioDTOCallback = new Callback<List<UsuarioDTO>>() {
-            @Override
-            public void onResponse(Call<List<UsuarioDTO>> call, Response<List<UsuarioDTO>> response) {
-                System.out.print(response.body());
-                usuarioDTOList = response.body();
-
-
-
-                if(usuarioDTOList != null && response.code() == 200){
-                    for (UsuarioDTO usuarioDTO: usuarioDTOList) {
-
-                        adapter = new RecyclerViewAdapter(getActivity(), usuarioDTOList);
-                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-                        recyclerView.setAdapter(adapter);
+            Callback<List<UsuarioDTO>> usuarioDTOCallback = new Callback<List<UsuarioDTO>>() {
+                @Override
+                public void onResponse(Call<List<UsuarioDTO>> call, Response<List<UsuarioDTO>> response) {
+                    System.out.print(response.body());
+                    usuarioDTOList = response.body();
 
 
+                    if (usuarioDTOList != null && response.code() == 200) {
+                        for (UsuarioDTO usuarioDTO : usuarioDTOList) {
 
-                        if(usuarioDTO.getFoto() != null) {
-//                            addItem(usuarioDTO.getNome(), usuarioDTO.getEmail(), usuarioDTO.getFoto().toString());
+                            if(usuarioDTO.getId() != idUsuario){
+                                lstUsuarios.add(usuarioDTO);
+                            }
+
 
                         }
-//                        addItem(usuarioDTO.getNome(), usuarioDTO.getEmail(), "https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png");
+                        adapter = new RecyclerViewAdapter(getActivity(), lstUsuarios);
+                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+                        recyclerView.setAdapter(adapter);
 
                     }
 
                 }
 
-            }
-            @Override
-            public void onFailure(Call<List<UsuarioDTO>> call, Throwable t) {
-                t.printStackTrace();
+                @Override
+                public void onFailure(Call<List<UsuarioDTO>> call, Throwable t) {
+                    t.printStackTrace();
 
-            }
-        };
-        usuarioDTOCall.enqueue(usuarioDTOCallback);
+                }
+            };
+            usuarioDTOCall.enqueue(usuarioDTOCallback);
+        }
         return view;
 
     }
@@ -158,7 +157,7 @@ public class AmigoFragment extends Fragment implements SearchView.OnQueryTextLis
         String userInput = newText.toLowerCase();
         List<UsuarioDTO> newList = new ArrayList<>();
 
-        for(UsuarioDTO usuarioDTO: usuarioDTOList){
+        for(UsuarioDTO usuarioDTO: lstUsuarios){
             if(usuarioDTO.getNome().toLowerCase().contains(userInput)){
                 newList.add(usuarioDTO);
             }

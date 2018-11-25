@@ -13,6 +13,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,17 +21,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.littlewolf_pc.app.R;
+import com.example.littlewolf_pc.app.model.AmizadeDTO;
+import com.example.littlewolf_pc.app.model.CurtidaDTO;
+import com.example.littlewolf_pc.app.model.HistoriaDTO;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
+import com.example.littlewolf_pc.app.resource.ApiAmizade;
+import com.example.littlewolf_pc.app.resource.ApiCurtida;
+import com.example.littlewolf_pc.app.utils.UsuarioSingleton;
 import com.github.siyamed.shapeimageview.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
 
     Context mContext;
     List<UsuarioDTO> mData;
     Dialog mDialog;
+    private Button btnAddFriend;
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://josiasveras.azurewebsites.net")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
 
     public RecyclerViewAdapter(Context mcontext, List<UsuarioDTO> mData){
         this.mContext = mcontext;
@@ -43,7 +61,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         View v;
         v = LayoutInflater.from(mContext).inflate(R.layout.grid_amigo
                 ,parent,false);
-        final MyViewHolder vHolder = new MyViewHolder(v);
+       final MyViewHolder vHolder = new MyViewHolder(v);
+
 
         mDialog = new Dialog(mContext);
         mDialog.setContentView(R.layout.dialog_amigo);
@@ -64,8 +83,54 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 mDialog.show();
             }
         });
+//        clickButtonAddAmigo();
         return vHolder;
     }
+
+//    public void clickButtonAddAmigo(){
+//
+//
+//        View.OnClickListener listener2 = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+//                if(idUsuario != null) {
+//                    ApiAmizade apiAmizade = retrofit.create(ApiAmizade.class);
+//                    AmizadeDTO amizadeDTO = new AmizadeDTO();
+//
+//                    amizadeDTO.setUsuario1(new UsuarioDTO(idUsuario));
+//                    amizadeDTO.setUsuario2(new UsuarioDTO(mData.get(vHolder.getAdapterPosition()).getId()));
+//                    Call<AmizadeDTO> amizadeDTOCall = apiAmizade.solicitaAmizade(amizadeDTO);
+//
+//
+//                    Callback<AmizadeDTO> amizadeDTOCallback = new Callback<AmizadeDTO>() {
+//                        @Override
+//                        public void onResponse(Call<AmizadeDTO> call, Response<AmizadeDTO> response) {
+//                            AmizadeDTO amizade = response.body();
+//
+//                            if (amizade != null && response.code() == 200) {
+//                                Toast.makeText(mContext, "Adicionado com sucesso" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+//
+//                            }
+//
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<AmizadeDTO> call, Throwable t) {
+//                            t.printStackTrace();
+//
+//                        }
+//                    };
+//                    amizadeDTOCall.enqueue(amizadeDTOCallback);
+//                }
+//
+//            }
+//        };
+//
+//        btnAddFriend.setOnClickListener(listener2);
+//
+//    }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
