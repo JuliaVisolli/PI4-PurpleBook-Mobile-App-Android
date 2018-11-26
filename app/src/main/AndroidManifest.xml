@@ -25,11 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.InternalActivity">
-
-        </activity>
-        <activity android:name=".activity.ComentarioActivity">
-        </activity>
+        <activity android:name=".activity.InternalActivity"></activity>
+        <activity android:name=".activity.ComentarioActivity"></activity>
+        <activity android:name=".activity.HistoriaActivity"></activity>
     </application>
 
 </manifest>

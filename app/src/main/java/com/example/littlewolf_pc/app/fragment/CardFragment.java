@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.activity.ComentarioActivity;
+import com.example.littlewolf_pc.app.activity.HistoriaActivity;
 import com.example.littlewolf_pc.app.model.CurtidaDTO;
 import com.example.littlewolf_pc.app.model.HistoriaDTO;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
@@ -46,7 +47,7 @@ public class CardFragment extends Fragment {
     private Button btnCurtida;
     Integer idHistoriaCard;
     private TextView txtView;
-
+    Button btnHistoria;
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://josiasveras.azurewebsites.net")
@@ -65,6 +66,17 @@ public class CardFragment extends Fragment {
         final View view =  inflater.inflate(R.layout.fragment_card, container, false);
         modura = view.findViewById(R.id.containerCards);
         txtView = view.findViewById(R.id.textAuthorSign);
+        btnHistoria = view.findViewById(R.id.btnHistoria);
+
+        View.OnClickListener listenerHistoria = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HistoriaActivity.class);
+                startActivity(intent);
+            }
+        };
+
+        btnHistoria.setOnClickListener(listenerHistoria);
 
 
         Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
