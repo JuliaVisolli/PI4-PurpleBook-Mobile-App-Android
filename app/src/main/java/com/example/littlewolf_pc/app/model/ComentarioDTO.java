@@ -11,9 +11,15 @@ public class ComentarioDTO {
     private String texto;
     private Date data;
 
-    public ComentarioDTO(Integer id, String texto, Date data){
+    public ComentarioDTO(){
+        super();
+    }
+
+    public ComentarioDTO(Integer id, String texto, UsuarioDTO usuario, Date data){
+        this();
         this.id = id;
         this.texto = texto;
+        this.usuario = usuario;
         this.data = data;
     }
 

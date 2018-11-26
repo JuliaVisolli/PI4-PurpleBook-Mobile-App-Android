@@ -16,7 +16,8 @@ import com.example.littlewolf_pc.app.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecuperarSenhaFragment extends Fragment {
+public class
+RecuperarSenhaFragment extends Fragment {
     private TextView etEmail;
     private Button btnEnviar;
 

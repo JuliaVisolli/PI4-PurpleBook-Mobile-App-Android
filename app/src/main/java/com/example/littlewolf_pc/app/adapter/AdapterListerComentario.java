@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.model.ComentarioDTO;
+import com.example.littlewolf_pc.app.model.UsuarioDTO;
 
 import java.util.List;
 
@@ -58,7 +59,11 @@ public class AdapterListerComentario extends BaseAdapter {
 
         ComentarioDTO comentarioDTO = comentarioDTOList.get(position);
 
-        txtTitulo.setText(comentarioDTO.getTexto());
+        comentarioDTO.setUsuario(new UsuarioDTO(comentarioDTO.getUsuario().getId(), comentarioDTO.getUsuario().getNome()));
+
+        String nomeUsuario = comentarioDTO.getUsuario().getNome();
+
+        txtTitulo.setText(nomeUsuario);
         txtComentario.setText(comentarioDTO.getTexto());
         Imagem.setImageResource(R.drawable.pb_logo);
 

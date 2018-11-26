@@ -44,6 +44,9 @@ public class CardFragment extends Fragment {
     LinearLayout modura;
     private Button btnComentario;
     private Button btnCurtida;
+    Integer idHistoriaCard;
+    private TextView txtView;
+
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://josiasveras.azurewebsites.net")
@@ -59,8 +62,10 @@ public class CardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_card, container, false);
+        final View view =  inflater.inflate(R.layout.fragment_card, container, false);
         modura = view.findViewById(R.id.containerCards);
+        txtView = view.findViewById(R.id.textAuthorSign);
+
 
         Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
         if(idUsuario != null) {
@@ -73,18 +78,20 @@ public class CardFragment extends Fragment {
             Callback<List<HistoriaDTO>> hiListCallback = new Callback<List<HistoriaDTO>>() {
                 @Override
                 public void onResponse(Call<List<HistoriaDTO>> call, Response<List<HistoriaDTO>> response) {
-                    System.out.print(response.body());
                     List<HistoriaDTO> historiaDTOList = response.body();
 
                     if (historiaDTOList != null && response.code() == 200) {
-                        for (HistoriaDTO historiaDTO : historiaDTOList) {
 
-                            if (historiaDTO.getFoto() != null) {
-                                addItem(historiaDTO.getFoto().toString(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
-                                        historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
-                            }
-                            addItem("https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
-                                    "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString());
+                        if(historiaDTOList.size() > 0){
+
+                            for (HistoriaDTO historiaDTO : historiaDTOList) {
+
+                                if (historiaDTO.getFoto() != null) {
+                                    addItem(historiaDTO.getFoto().toString(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
+                                            historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
+                                }
+                                addItem("https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
+                                        "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
 
                          if (historiaDTO.getFoto() == null) {
                              addItem(historiaDTO.getFoto().toString(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
@@ -105,6 +112,7 @@ public class CardFragment extends Fragment {
                 }
             };
             historiaDTOCall.enqueue(hiListCallback);
+
         }
 
         return view;
@@ -112,8 +120,10 @@ public class CardFragment extends Fragment {
     }
 
 
-    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario){
+    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, Integer idHistoria){
         final CardView cardView;
+
+        idHistoriaCard = idHistoria;
 
         cardView = (CardView) LayoutInflater.from(this.getActivity())
                 .inflate(R.layout.card,
@@ -146,32 +156,35 @@ public class CardFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+                if(idUsuario != null) {
+                    ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
+                    CurtidaDTO curtidaDTO = new CurtidaDTO();
 
-                ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
-                CurtidaDTO curtidaDTO = new CurtidaDTO();
+                    curtidaDTO.setUsuario(new UsuarioDTO(idUsuario));
+                    curtidaDTO.setHistoria(new HistoriaDTO(9));
+                    Call<CurtidaDTO> curtidaDTOCall = apiCurtida.saveCurtida(curtidaDTO);
 
-                curtidaDTO.setUsuario(new UsuarioDTO(6));
-                curtidaDTO.setHistoria(new HistoriaDTO(8));
-                Call<CurtidaDTO> curtidaDTOCall = apiCurtida.saveCurtida(curtidaDTO);
+                    Callback<CurtidaDTO> curtidaCallback = new Callback<CurtidaDTO>() {
+                        @Override
+                        public void onResponse(Call<CurtidaDTO> call, Response<CurtidaDTO> response) {
+                            CurtidaDTO curtida = response.body();
 
-                Callback<CurtidaDTO> curtidaCallback = new Callback<CurtidaDTO>() {
-                    @Override
-                    public void onResponse(Call<CurtidaDTO> call, Response<CurtidaDTO> response) {
-                        CurtidaDTO curtida = response.body();
+                            if (curtida != null && response.code() == 200) {
+                                TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
+                                quantCurtida.setText(quantCurtida.getText());
+                            }
 
-                        if(curtida != null && response.code() == 200) {
-                            TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
-                            quantCurtida.setText(quantCurtida.getText());
                         }
 
-                    }
-                    @Override
-                    public void onFailure(Call<CurtidaDTO> call, Throwable t) {
-                        t.printStackTrace();
+                        @Override
+                        public void onFailure(Call<CurtidaDTO> call, Throwable t) {
+                            t.printStackTrace();
 
-                    }
-                };
-                curtidaDTOCall.enqueue(curtidaCallback);
+                        }
+                    };
+                    curtidaDTOCall.enqueue(curtidaCallback);
+                }
 
             }
         };
