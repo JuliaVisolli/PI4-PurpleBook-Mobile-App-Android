@@ -1,6 +1,8 @@
 package com.example.littlewolf_pc.app.fragment;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -18,6 +20,7 @@ import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiHistoria;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
 import com.example.littlewolf_pc.app.utils.UsuarioSingleton;
+import com.github.siyamed.shapeimageview.CircularImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -52,6 +55,7 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
         moldura = view.findViewById(R.id.linear);
 
 
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://josiasveras.azurewebsites.net")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -60,7 +64,38 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
 
         Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
         if(idUsuario != null){
+
+
             ApiUsuario apiUsuario = retrofit.create(ApiUsuario.class);
+
+            Call<byte[]> usuarioDTOCallImage = apiUsuario.selectImage(String.valueOf(idUsuario));
+
+            Callback<byte[]> usuarioImageCallback = new Callback<byte[]>() {
+                @Override
+                public void onResponse(Call<byte[]> call, Response<byte[]> response) {
+                    byte[] imagePerfil = response.body();
+
+                    if(imagePerfil != null && response.code() == 200){
+
+
+                        Bitmap bmp = BitmapFactory.decodeByteArray(imagePerfil, 0, imagePerfil.length);
+                        CircularImageView userImage = view.findViewById(R.id.user_img);
+
+                        userImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, userImage.getWidth(),
+                                userImage.getHeight(), false));
+
+                    }
+
+                }
+                @Override
+                public void onFailure(Call<byte[]> call, Throwable t) {
+                    t.printStackTrace();
+
+                }
+            };
+
+            usuarioDTOCallImage.enqueue(usuarioImageCallback);
+
             Call<List<UsuarioDTO>> usuarioDTOCall = apiUsuario.perfilUsuario(String.valueOf(idUsuario));
 
             Callback<List<UsuarioDTO>> hiListCallback = new Callback<List<UsuarioDTO>>() {

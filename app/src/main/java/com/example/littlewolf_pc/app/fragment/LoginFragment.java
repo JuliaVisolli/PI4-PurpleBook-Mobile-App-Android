@@ -124,6 +124,7 @@ public class LoginFragment extends Fragment {
                     }
                     @Override
                     public void onFailure(Call<UsuarioDTO> call, Throwable t) {
+
                         progressBar.setVisibility(View.GONE);
                         btnLogin.setEnabled(true);
                         etSenha.setText("");
