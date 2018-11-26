@@ -66,6 +66,15 @@ public class CardFragment extends Fragment {
         final View view =  inflater.inflate(R.layout.fragment_card, container, false);
         modura = view.findViewById(R.id.containerCards);
         txtView = view.findViewById(R.id.textAuthorSign);
+        btnHistoria = view.findViewById(R.id.btnHistoria);
+        View.OnClickListener listenerHistoria = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HistoriaActivity.class);
+                startActivity(intent);
+            }
+        };
+        btnHistoria.setOnClickListener(listenerHistoria);
 
 
         Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
