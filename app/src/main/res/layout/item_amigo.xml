@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Nome"
             android:textStyle="bold"
-            android:id="@+id/nome"/>
+            android:id="@+id/listaAmigos"/>
     </LinearLayout>
 
 </LinearLayout>

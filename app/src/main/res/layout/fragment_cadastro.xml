@@ -24,7 +24,7 @@
                 android:layout_gravity="center_horizontal"
                 android:padding="16dp"
                 android:layout_marginTop="50dp"
-                android:src="@drawable/logo"
+                android:src="@drawable/logo_borda"
                 />
 
             <EditText
