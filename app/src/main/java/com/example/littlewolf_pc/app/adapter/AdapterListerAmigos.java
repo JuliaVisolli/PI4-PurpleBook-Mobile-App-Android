@@ -47,9 +47,9 @@ public class AdapterListerAmigos extends BaseAdapter {
 
         View view = inflater.inflate(R.layout.item_amigo, parent, false);
 
-        TextView txtTitulo = view.findViewById(R.id.titulo);
+        TextView txtTitulo = view.findViewById(R.id.nomeamigo);
         TextView txtAmigos = view.findViewById(R.id.listaAmigos);
-        ImageView notImagem = view.findViewById(R.id.imagem);
+        ImageView notImagem = view.findViewById(R.id.img_amigo);
 
         ListAmigosDTO listaAmigosDTO = listaAmigosDTOList.get(position);
 

@@ -65,7 +65,7 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
-                transaction.replace(R.id.listaAmigos, new ListaAmigosFragment());
+                transaction.replace(R.id.main_frame, new ListaAmigosFragment());
                 transaction.commit();
 
 //                Intent intent = new Intent(getActivity(), ListaAmigosFragment.class);
