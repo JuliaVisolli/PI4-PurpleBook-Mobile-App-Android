@@ -32,7 +32,7 @@ public class ListaAmigosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_lista_amigos, container, false);
         List<ListAmigosDTO> listaAmigosDTO = new ArrayList<ListAmigosDTO>();
-        ListView listAmigos = view.findViewById(R.id.listAmigos);
+        ListView listAmigos = view.findViewById(R.id.listaAmigos);
 
 
         AdapterListerAmigos adapter = new AdapterListerAmigos(listaAmigosDTO, this);
