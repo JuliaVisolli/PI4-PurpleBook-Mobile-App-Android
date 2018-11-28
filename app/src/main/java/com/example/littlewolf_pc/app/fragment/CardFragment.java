@@ -124,7 +124,7 @@ public class CardFragment extends Fragment {
     }
 
 
-    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, final Integer idHistoria){
+    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, Integer idHistoria){
         final CardView cardView;
 
 
