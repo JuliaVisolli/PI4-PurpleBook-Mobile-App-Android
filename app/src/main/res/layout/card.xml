@@ -33,6 +33,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="274dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="4dp"
+                android:visibility="gone"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="#DE000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toTopOf="@+id/image" />
 
             <TextView
                 android:id="@+id/titulo"

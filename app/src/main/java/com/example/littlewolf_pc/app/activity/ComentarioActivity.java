@@ -1,6 +1,7 @@
 package com.example.littlewolf_pc.app.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -52,7 +53,10 @@ public class ComentarioActivity extends AppCompatActivity {
 
         ApiComentario apiComentario =
                 retrofit.create(ApiComentario.class);
-        Call<List<ComentarioDTO>> comentarioDTOCall = apiComentario.getAllComentariosByIdHistoria("9");
+
+        Intent intent = getIntent(); // gets the previously created intent
+        Integer idHistoria = intent.getIntExtra("idHistoria",-1);
+        Call<List<ComentarioDTO>> comentarioDTOCall = apiComentario.getAllComentariosByIdHistoria(String.valueOf(idHistoria));
 
         Callback<List<ComentarioDTO>> comentarioCallBack = new Callback<List<ComentarioDTO>>() {
             @Override
@@ -110,10 +114,13 @@ public class ComentarioActivity extends AppCompatActivity {
                     Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
                     String nome = UsuarioSingleton.getInstance().getUsuario().getNome();
 
+                    Intent intent = getIntent(); // gets the previously created intent
+                    Integer idHistoria = intent.getIntExtra("idHistoria",-1);
+
                     if (idUsuario != null) {
                         comentarioDTO.setUsuario(new UsuarioDTO(idUsuario, nome));
                         comentarioDTO.setTexto(etComentario.getText().toString());
-                        comentarioDTO.setHistoria(new HistoriaDTO(9));
+                        comentarioDTO.setHistoria(new HistoriaDTO(Integer.valueOf(idHistoria)));
                         comentarioDTO.setData(null);
                     }
                 }
@@ -151,10 +158,6 @@ public class ComentarioActivity extends AppCompatActivity {
                     };
                     comentarioDTOCall.enqueue(comentarioCallBack);
 
-
-//                lstComentarios.add(new ComentarioDTO(2, "flw", new Date()));
-//
-//                lista.setAdapter(AdapterListerComentario);
             }
         });
     }

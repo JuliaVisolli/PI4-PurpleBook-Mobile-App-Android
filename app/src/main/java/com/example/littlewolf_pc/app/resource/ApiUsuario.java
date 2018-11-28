@@ -35,7 +35,7 @@ public interface ApiUsuario {
     Call<List<UsuarioDTO>> perfilUsuario(@Path("param") String usuarioId);
 
     @GET("/WSEcommerce/rest/usuario/image/{param}")
-    Call<byte[]> selectImage(@Path("param") String usuarioId);
+    Call<List<String>> selectImage(@Path("param") String usuarioId);
 
 
 }

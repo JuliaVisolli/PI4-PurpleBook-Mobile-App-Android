@@ -45,9 +45,9 @@ public class CardFragment extends Fragment {
     LinearLayout modura;
     private Button btnComentario;
     private Button btnCurtida;
-    Integer idHistoriaCard;
     private TextView txtView;
     Button btnHistoria;
+    Integer idHistoria;
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://josiasveras.azurewebsites.net")
@@ -94,6 +94,7 @@ public class CardFragment extends Fragment {
 
                             for (HistoriaDTO historiaDTO : historiaDTOList) {
 
+                                idHistoria = historiaDTO.getId();
                                 if (historiaDTO.getFoto() != null) {
                                     addItem(historiaDTO.getFoto().toString(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
                                             historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
@@ -123,10 +124,9 @@ public class CardFragment extends Fragment {
     }
 
 
-    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, Integer idHistoria){
+    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, final Integer idHistoria){
         final CardView cardView;
 
-        idHistoriaCard = idHistoria;
 
         cardView = (CardView) LayoutInflater.from(this.getActivity())
                 .inflate(R.layout.card,
@@ -146,11 +146,17 @@ public class CardFragment extends Fragment {
         quantComentario.setText(quantidadeComentario + " comentarios");
         btnComentario = cardView.findViewById(R.id.btn_comentario);
         btnCurtida = cardView.findViewById(R.id.btn_curtida);
+        TextView txtViewID = cardView.findViewById(R.id.id);
+        txtViewID.setText(String.valueOf(idHistoria));
+        final String idHistoriaCard = txtViewID.getText().toString();
+
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ComentarioActivity.class);
+                intent.putExtra("idHistoria",Integer.valueOf(idHistoriaCard));
+
                 startActivity(intent);
             }
         };
@@ -164,8 +170,9 @@ public class CardFragment extends Fragment {
                     ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
                     CurtidaDTO curtidaDTO = new CurtidaDTO();
 
+
                     curtidaDTO.setUsuario(new UsuarioDTO(idUsuario));
-                    curtidaDTO.setHistoria(new HistoriaDTO(9));
+                    curtidaDTO.setHistoria(new HistoriaDTO(Integer.valueOf(idHistoriaCard)));
                     Call<CurtidaDTO> curtidaDTOCall = apiCurtida.saveCurtida(curtidaDTO);
 
                     Callback<CurtidaDTO> curtidaCallback = new Callback<CurtidaDTO>() {
@@ -174,6 +181,7 @@ public class CardFragment extends Fragment {
                             CurtidaDTO curtida = response.body();
 
                             if (curtida != null && response.code() == 200) {
+
                                 TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
                                 quantCurtida.setText(quantCurtida.getText());
                             }

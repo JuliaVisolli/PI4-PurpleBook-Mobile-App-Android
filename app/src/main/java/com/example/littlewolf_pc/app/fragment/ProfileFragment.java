@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProfileFragment extends android.support.v4.app.Fragment {
 
     LinearLayout moldura;
+    String imagePerfil;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -68,27 +70,33 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
 
             ApiUsuario apiUsuario = retrofit.create(ApiUsuario.class);
 
-            Call<byte[]> usuarioDTOCallImage = apiUsuario.selectImage(String.valueOf(idUsuario));
+            Call<List<String>> usuarioDTOCallImage = apiUsuario.selectImage(String.valueOf(idUsuario));
 
-            Callback<byte[]> usuarioImageCallback = new Callback<byte[]>() {
+            Callback<List<String>> usuarioImageCallback = new Callback<List<String>>() {
                 @Override
-                public void onResponse(Call<byte[]> call, Response<byte[]> response) {
-                    byte[] imagePerfil = response.body();
-
-                    if(imagePerfil != null && response.code() == 200){
+                public void onResponse(Call<List<String>> call, Response<List<String>> response) {
 
 
-                        Bitmap bmp = BitmapFactory.decodeByteArray(imagePerfil, 0, imagePerfil.length);
+                    if(response.code() == 200){
+                        List<String> lista = response.body();
+                         imagePerfil = lista.get(0);
+
+
+                                byte [] encodeByte=Base64.decode(imagePerfil, Base64.DEFAULT);
+                                Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+
+
+
                         CircularImageView userImage = view.findViewById(R.id.user_img);
 
-                        userImage.setImageBitmap(Bitmap.createScaledBitmap(bmp, userImage.getWidth(),
+                        userImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap, userImage.getWidth(),
                                 userImage.getHeight(), false));
 
                     }
 
                 }
                 @Override
-                public void onFailure(Call<byte[]> call, Throwable t) {
+                public void onFailure(Call<List<String>> call, Throwable t) {
                     t.printStackTrace();
 
                 }
