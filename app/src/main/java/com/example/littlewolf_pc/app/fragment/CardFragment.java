@@ -100,17 +100,12 @@ public class CardFragment extends Fragment {
                                 if (historiaDTO.getFoto() != null) {
                                     addItem(historiaDTO.getFoto().toString(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
                                             historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
-                                }
-                                addItem("https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
-                                        "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
-
-
-                                if ((historiaDTO.getFoto() == null) && (historiaDTO.getUsuario().getFoto().toString() != null)) {
+                                }else {
                                     addItemSFoto(historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
-                                            historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
+                                            "https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
+                                    ImageView imagem = view.findViewById(R.id.imagem);
+                                    imagem.setVisibility(View.GONE);
                                 }
-                                addItemSFoto(historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
-                                        "https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
 
                             }
                         }
@@ -278,7 +273,7 @@ public class CardFragment extends Fragment {
         btnCurtida.setOnClickListener(listener2);
         btnComentario.setOnClickListener(listener);
         modura.addView(cardView);
-        carregarImagemPerfil(imageURL, cardView);
+        carregarImagemHistoria(imageURL, cardView);
         /*carregarImagemHistoria(url, cardView);*/
     }
     /*----------------------------------------------------------POST COM FOTO--------------------------------------------------*/
