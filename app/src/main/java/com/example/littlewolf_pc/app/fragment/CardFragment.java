@@ -48,6 +48,8 @@ public class CardFragment extends Fragment {
     private TextView txtView;
     Button btnHistoria;
     Integer idHistoria;
+    Integer idHistoriaCard;
+
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://josiasveras.azurewebsites.net")
@@ -101,6 +103,14 @@ public class CardFragment extends Fragment {
                                 }
                                 addItem("https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
                                         "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
+
+
+                                if ((historiaDTO.getFoto() == null) && (historiaDTO.getUsuario().getFoto().toString() != null)) {
+                                    addItemSFoto(historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
+                                            historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
+                                }
+                                addItemSFoto(historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
+                                        "https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
 
                             }
                         }
@@ -209,6 +219,70 @@ public class CardFragment extends Fragment {
         carregarImagemPerfil(imageURL, cardView);
         carregarImagemHistoria(url, cardView);
     }
+
+    private void addItemSFoto(/*String url,*/ String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, Integer idHistoria){
+        final CardView cardView;
+        idHistoriaCard = idHistoria;
+        cardView = (CardView) LayoutInflater.from(this.getActivity())
+                .inflate(R.layout.card,
+                        modura, false);
+        TextView titulo = cardView.findViewById(R.id.titulo);
+        titulo.setText(textoDoTitulo);
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        String dateString = format.format(textoDaHora);
+        TextView hora = cardView.findViewById(R.id.hora);
+        hora.setText(dateString);
+        TextView mensagem = cardView.findViewById(R.id.mensagem);
+        mensagem.setText(textoDaMensagem);
+        TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
+        quantCurtida.setText(quantidadeCurtida);
+        TextView quantComentario = cardView.findViewById(R.id.contcomentario);
+        quantComentario.setText(quantidadeComentario + " comentarios");
+        btnComentario = cardView.findViewById(R.id.btn_comentario);
+        btnCurtida = cardView.findViewById(R.id.btn_curtida);
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ComentarioActivity.class);
+                startActivity(intent);
+            }
+        };
+        View.OnClickListener listener2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+                if(idUsuario != null) {
+                    ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
+                    CurtidaDTO curtidaDTO = new CurtidaDTO();
+                    curtidaDTO.setUsuario(new UsuarioDTO(idUsuario));
+                    curtidaDTO.setHistoria(new HistoriaDTO(9));
+                    Call<CurtidaDTO> curtidaDTOCall = apiCurtida.saveCurtida(curtidaDTO);
+                    Callback<CurtidaDTO> curtidaCallback = new Callback<CurtidaDTO>() {
+                        @Override
+                        public void onResponse(Call<CurtidaDTO> call, Response<CurtidaDTO> response) {
+                            CurtidaDTO curtida = response.body();
+                            if (curtida != null && response.code() == 200) {
+                                TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
+                                quantCurtida.setText(quantCurtida.getText());
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<CurtidaDTO> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    };
+                    curtidaDTOCall.enqueue(curtidaCallback);
+                }
+            }
+        };
+        btnCurtida.setOnClickListener(listener2);
+        btnComentario.setOnClickListener(listener);
+        modura.addView(cardView);
+        carregarImagemPerfil(imageURL, cardView);
+        /*carregarImagemHistoria(url, cardView);*/
+    }
+    /*----------------------------------------------------------POST COM FOTO--------------------------------------------------*/
+
 
     private void carregarImagemHistoria(String url, CardView cardView){
         ImageView imagem = cardView.findViewById(R.id.image);
