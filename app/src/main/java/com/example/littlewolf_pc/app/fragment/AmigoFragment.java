@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,6 +57,7 @@ public class AmigoFragment extends Fragment implements SearchView.OnQueryTextLis
     private View view;
     private List<UsuarioDTO> usuarioDTOList;
     private CardView cardView;
+    private Button dialog_btn_see;
 
     public AmigoFragment() {
         // Required empty public constructor
@@ -68,6 +71,20 @@ public class AmigoFragment extends Fragment implements SearchView.OnQueryTextLis
         view =  inflater.inflate(R.layout.fragment_amigo, container, false);
 
         recyclerView = view.findViewById(R.id.amigo_reclyclerview);
+        dialog_btn_see = view.findViewById(R.id.dialog_btn_see);
+
+
+//        View.OnClickListener listener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//                transaction.replace(R.id.main_frame, new ProfileFriendFragment());
+//                transaction.commit();
+//
+//            }
+//        };
+//        dialog_btn_see.setOnClickListener(listener);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://josiasveras.azurewebsites.net")
