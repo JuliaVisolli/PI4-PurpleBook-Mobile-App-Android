@@ -103,8 +103,8 @@ public class CardFragment extends Fragment {
                                 }else {
                                     addItemSFoto(historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
                                             "https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
-                                    ImageView imagem = view.findViewById(R.id.imagem);
-                                    imagem.setVisibility(View.GONE);
+                                    //ImageView imagem = view.findViewById(R.id.imagem);
+                                    //imagem.setVisibility(View.GONE);
                                 }
 
                             }
@@ -272,8 +272,12 @@ public class CardFragment extends Fragment {
         };
         btnCurtida.setOnClickListener(listener2);
         btnComentario.setOnClickListener(listener);
+
+        ImageView iv = cardView.findViewById(R.id.imagem);
+        iv.setVisibility(View.GONE);
+
         modura.addView(cardView);
-        carregarImagemHistoria(imageURL, cardView);
+        //carregarImagemHistoria(imageURL, cardView);
         /*carregarImagemHistoria(url, cardView);*/
     }
     /*----------------------------------------------------------POST COM FOTO--------------------------------------------------*/
