@@ -2,11 +2,13 @@ package com.example.littlewolf_pc.app.adapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.littlewolf_pc.app.R;
+import com.example.littlewolf_pc.app.fragment.ProfileFriendFragment;
 import com.example.littlewolf_pc.app.model.AmizadeDTO;
 import com.example.littlewolf_pc.app.model.CurtidaDTO;
 import com.example.littlewolf_pc.app.model.HistoriaDTO;
@@ -76,10 +79,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 CircularImageView image = mDialog.findViewById(R.id.dialog_img);
                 txtNome.setText(mData.get(vHolder.getAdapterPosition()).getNome());
                 txtEmail.setText(mData.get(vHolder.getAdapterPosition()).getEmail());
+                Button btnSee = mDialog.findViewById(R.id.dialog_btn_see);
 //                byte[] bytes = Base64.decode(mData.get(vHolder.getAdapterPosition()).getFoto(), Base64.DEFAULT);
 //                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 //                image.setImageBitmap(bitmap);
                 //                Toast.makeText(mContext, "Test Click" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+
+//                View.OnClickListener listener = new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//                    transaction.replace(R.id.main_frame, new ProfileFriendFragment());
+//                    transaction.commit();
+//
+//                    }
+//                };
+//                btnSee.setOnClickListener(listener);
+
                 mDialog.show();
             }
         });
@@ -149,11 +167,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView tv_nome;
         private TextView tv_email;
         private CardView item_amigo;
+        private Button dialog_btn_see;
         public MyViewHolder(View itemView) {
             super(itemView);
             item_amigo = itemView.findViewById(R.id.item_amigo);
             tv_nome = itemView.findViewById(R.id.nome);
             tv_email = itemView.findViewById(R.id.email);
+            dialog_btn_see = itemView.findViewById(R.id.dialog_btn_see);
 
         }
     }
