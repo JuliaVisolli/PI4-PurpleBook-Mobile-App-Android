@@ -76,6 +76,56 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 CircularImageView image = mDialog.findViewById(R.id.dialog_img);
                 txtNome.setText(mData.get(vHolder.getAdapterPosition()).getNome());
                 txtEmail.setText(mData.get(vHolder.getAdapterPosition()).getEmail());
+ 
+                if(mData.get(vHolder.getAdapterPosition()).getFoto() != null){
+                    byte [] encodeByte=Base64.decode(mData.get(vHolder.getAdapterPosition()).getFoto(), Base64.DEFAULT);
+                    Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+                    image.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 180,
+                            180, false));
+
+                }
+
+                View.OnClickListener listener2 = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+                        if(idUsuario != null) {
+                            ApiAmizade apiAmizade = retrofit.create(ApiAmizade.class);
+                            AmizadeDTO amizadeDTO = new AmizadeDTO();
+
+                            amizadeDTO.setUsuario1(new UsuarioDTO(idUsuario));
+                            amizadeDTO.setUsuario2(new UsuarioDTO(mData.get(vHolder.getAdapterPosition()).getId()));
+                            Call<AmizadeDTO> amizadeDTOCall = apiAmizade.solicitaAmizade(amizadeDTO);
+
+
+                            Callback<AmizadeDTO> amizadeDTOCallback = new Callback<AmizadeDTO>() {
+                                @Override
+                                public void onResponse(Call<AmizadeDTO> call, Response<AmizadeDTO> response) {
+                                    AmizadeDTO amizade = response.body();
+
+                                    if (amizade != null && response.code() == 200) {
+                                        Toast.makeText(mContext, "Adicionado com sucesso" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+
+                                    }
+
+                                }
+
+
+                                @Override
+                                public void onFailure(Call<AmizadeDTO> call, Throwable t) {
+                                    t.printStackTrace();
+
+                                }
+                            };
+                            amizadeDTOCall.enqueue(amizadeDTOCallback);
+                        }
+
+                    }
+                };
+
+                btnAddFriend.setOnClickListener(listener2);
+
 //                byte[] bytes = Base64.decode(mData.get(vHolder.getAdapterPosition()).getFoto(), Base64.DEFAULT);
 //                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 //                image.setImageBitmap(bitmap);
@@ -87,55 +137,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return vHolder;
     }
 
-//    public void clickButtonAddAmigo(){
-//
-//
-//        View.OnClickListener listener2 = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
-//                if(idUsuario != null) {
-//                    ApiAmizade apiAmizade = retrofit.create(ApiAmizade.class);
-//                    AmizadeDTO amizadeDTO = new AmizadeDTO();
-//
-//                    amizadeDTO.setUsuario1(new UsuarioDTO(idUsuario));
-//                    amizadeDTO.setUsuario2(new UsuarioDTO(mData.get(vHolder.getAdapterPosition()).getId()));
-//                    Call<AmizadeDTO> amizadeDTOCall = apiAmizade.solicitaAmizade(amizadeDTO);
-//
-//
-//                    Callback<AmizadeDTO> amizadeDTOCallback = new Callback<AmizadeDTO>() {
-//                        @Override
-//                        public void onResponse(Call<AmizadeDTO> call, Response<AmizadeDTO> response) {
-//                            AmizadeDTO amizade = response.body();
-//
-//                            if (amizade != null && response.code() == 200) {
-//                                Toast.makeText(mContext, "Adicionado com sucesso" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
-//
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<AmizadeDTO> call, Throwable t) {
-//                            t.printStackTrace();
-//
-//                        }
-//                    };
-//                    amizadeDTOCall.enqueue(amizadeDTOCallback);
-//                }
-//
-//            }
-//        };
-//
-//        btnAddFriend.setOnClickListener(listener2);
-//
-//    }
+    public void clickButtonAddAmigo(){
+
+
+
+
+    }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.tv_nome.setText(mData.get(position).getNome());
         holder.tv_email.setText(mData.get(position).getEmail());
+        if(mData.get(position).getFoto() != null){
+            byte [] encodeByte=Base64.decode(mData.get(position).getFoto(), Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+              holder.circula_image_view.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 180,
+                      180, false));
+
+        }
 
     }
 
@@ -149,11 +168,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView tv_nome;
         private TextView tv_email;
         private CardView item_amigo;
+        private CircularImageView circula_image_view;
         public MyViewHolder(View itemView) {
             super(itemView);
             item_amigo = itemView.findViewById(R.id.item_amigo);
             tv_nome = itemView.findViewById(R.id.nome);
             tv_email = itemView.findViewById(R.id.email);
+            circula_image_view = itemView.findViewById(R.id.imagem);
 
         }
     }

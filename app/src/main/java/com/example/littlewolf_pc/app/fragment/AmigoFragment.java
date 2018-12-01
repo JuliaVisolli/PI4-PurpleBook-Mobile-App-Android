@@ -82,7 +82,6 @@ public class AmigoFragment extends Fragment implements SearchView.OnQueryTextLis
             Callback<List<UsuarioDTO>> usuarioDTOCallback = new Callback<List<UsuarioDTO>>() {
                 @Override
                 public void onResponse(Call<List<UsuarioDTO>> call, Response<List<UsuarioDTO>> response) {
-                    System.out.print(response.body());
                     usuarioDTOList = response.body();
 
 
@@ -115,22 +114,6 @@ public class AmigoFragment extends Fragment implements SearchView.OnQueryTextLis
 
     }
 
-//    private void addItem(String textoDoTitulo, String infoDoAmigo, String imageURL){
-//        CardView cardView;
-//
-//        cardView = (CardView) LayoutInflater.from(this.getActivity())
-//                .inflate(R.layout.fragment_amigo,
-//                        modura, false);
-//
-//        TextView titulo = cardView.findViewById(R.id.titulo);
-//        titulo.setText(textoDoTitulo);
-////        TextView infoamigo = cardView.findViewById(R.id.infoamigo);
-////        infoamigo.setText(infoDoAmigo);
-//
-//        modura.addView(cardView);
-//
-//        carregarImagem(imageURL, cardView);
-//    }
 
     private void carregarImagem(String url, CardView cardView){
         ImageView imagem = cardView.findViewById(R.id.imagem);

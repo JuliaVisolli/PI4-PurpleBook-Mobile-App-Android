@@ -70,8 +70,6 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
                 transaction.replace(R.id.main_frame, new ListaAmigosFragment());
                 transaction.commit();
 
-//                Intent intent = new Intent(getActivity(), ListaAmigosFragment.class);
-//                startActivity(intent);
             }
         };
         btnAmigos.setOnClickListener(listener);
