@@ -44,6 +44,9 @@
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toTopOf="@+id/image"/>
 
+
+
     </android.support.constraint.ConstraintLayout>
+
 
 </LinearLayout>
