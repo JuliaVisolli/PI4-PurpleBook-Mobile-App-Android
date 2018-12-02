@@ -119,6 +119,15 @@ public class AmigoFragment extends Fragment implements SearchView.OnQueryTextLis
     }
 
 
+    private void carregarImagem(String url, CardView cardView){
+        ImageView imagem = cardView.findViewById(R.id.imagem);
+        ImageLoader imageLoader = ImageLoader.getInstance();
+
+        imageLoader.init(ImageLoaderConfiguration.createDefault(this.getActivity()));
+        imageLoader.displayImage(url, imagem);
+
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

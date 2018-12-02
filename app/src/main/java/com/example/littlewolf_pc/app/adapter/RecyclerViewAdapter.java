@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.littlewolf_pc.app.R;
+import com.example.littlewolf_pc.app.activity.InternalActivity;
 import com.example.littlewolf_pc.app.fragment.ProfileFriendFragment;
 import com.example.littlewolf_pc.app.model.AmizadeDTO;
 import com.example.littlewolf_pc.app.model.CurtidaDTO;
@@ -80,73 +82,70 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 txtNome.setText(mData.get(vHolder.getAdapterPosition()).getNome());
                 txtEmail.setText(mData.get(vHolder.getAdapterPosition()).getEmail());
 
-                if(mData.get(vHolder.getAdapterPosition()).getFoto() != null){
-                    byte [] encodeByte=Base64.decode(mData.get(vHolder.getAdapterPosition()).getFoto(), Base64.DEFAULT);
-                    Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-                    image.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 180,
-                            180, false));
-
-                }
-
-                View.OnClickListener listener2 = new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
-                        if(idUsuario != null) {
-                            ApiAmizade apiAmizade = retrofit.create(ApiAmizade.class);
-                            AmizadeDTO amizadeDTO = new AmizadeDTO();
-
-                            amizadeDTO.setUsuario1(new UsuarioDTO(idUsuario));
-                            amizadeDTO.setUsuario2(new UsuarioDTO(mData.get(vHolder.getAdapterPosition()).getId()));
-                            Call<AmizadeDTO> amizadeDTOCall = apiAmizade.solicitaAmizade(amizadeDTO);
-
-
-                            Callback<AmizadeDTO> amizadeDTOCallback = new Callback<AmizadeDTO>() {
-                                @Override
-                                public void onResponse(Call<AmizadeDTO> call, Response<AmizadeDTO> response) {
-                                    AmizadeDTO amizade = response.body();
-
-                                    if (amizade != null && response.code() == 200) {
-                                        Toast.makeText(mContext, "Adicionado com sucesso" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
-
-                                    }
-
-                                }
-
-
-                                @Override
-                                public void onFailure(Call<AmizadeDTO> call, Throwable t) {
-                                    t.printStackTrace();
-
-                                }
-                            };
-                            amizadeDTOCall.enqueue(amizadeDTOCallback);
-                        }
-
-                    }
-                };
-
-                btnAddFriend.setOnClickListener(listener2);
+//                if(mData.get(vHolder.getAdapterPosition()).getFoto() != null){
+//                    byte [] encodeByte=Base64.decode(mData.get(vHolder.getAdapterPosition()).getFoto(), Base64.DEFAULT);
+//                    Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+//                    image.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 180,
+//                            180, false));
+//
+//                }
+//
+//                View.OnClickListener listener2 = new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+//                        if(idUsuario != null) {
+//                            ApiAmizade apiAmizade = retrofit.create(ApiAmizade.class);
+//                            AmizadeDTO amizadeDTO = new AmizadeDTO();
+//
+//                            amizadeDTO.setUsuario1(new UsuarioDTO(idUsuario));
+//                            amizadeDTO.setUsuario2(new UsuarioDTO(mData.get(vHolder.getAdapterPosition()).getId()));
+//                            Call<AmizadeDTO> amizadeDTOCall = apiAmizade.solicitaAmizade(amizadeDTO);
+//
+//
+//                            Callback<AmizadeDTO> amizadeDTOCallback = new Callback<AmizadeDTO>() {
+//                                @Override
+//                                public void onResponse(Call<AmizadeDTO> call, Response<AmizadeDTO> response) {
+//                                    AmizadeDTO amizade = response.body();
+//
+//                                    if (amizade != null && response.code() == 200) {
+//                                        Toast.makeText(mContext, "Adicionado com sucesso" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+//
+//                                    }
+//
+//                                }
+//
+//
+//                                @Override
+//                                public void onFailure(Call<AmizadeDTO> call, Throwable t) {
+//                                    t.printStackTrace();
+//
+//                                }
+//                            };
+//                            amizadeDTOCall.enqueue(amizadeDTOCallback);
+//                        }
+//
+//                    }
+//                };
+//
+//                btnAddFriend.setOnClickListener(listener2);
 
                 Button btnSee = mDialog.findViewById(R.id.dialog_btn_see);
 //                byte[] bytes = Base64.decode(mData.get(vHolder.getAdapterPosition()).getFoto(), Base64.DEFAULT);
 //                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 //                image.setImageBitmap(bitmap);
-                //                Toast.makeText(mContext, "Test Click" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(mContext, "Test Click" + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
 
-//                View.OnClickListener listener = new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//
-//                    transaction.replace(R.id.main_frame, new ProfileFriendFragment());
-//                    transaction.commit();
-//
-//                    }
-//                };
-//                btnSee.setOnClickListener(listener);
+                View.OnClickListener listener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        ((InternalActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new ProfileFriendFragment()).commit();
+                        mDialog.dismiss();
+                    }
+                };
+                btnSee.setOnClickListener(listener);
 
                 mDialog.show();
             }
