@@ -37,14 +37,14 @@
             android:textColor="#000"
             android:layout_marginLeft="11dp"
             android:textStyle="bold"
-            android:id="@+id/nomeamigo"/>
+            android:id="@+id/nome_amigo"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"
             android:layout_marginLeft="11dp"
             android:textSize="15dp"
-            android:id="@+id/listaAmigos"/>
+            android:id="@+id/email_amigo"/>
     </LinearLayout>
 
 </LinearLayout>

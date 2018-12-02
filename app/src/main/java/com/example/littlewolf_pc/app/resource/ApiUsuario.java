@@ -25,9 +25,6 @@ public interface ApiUsuario {
     @GET("/WSEcommerce/rest/usuario")
     Call<List<UsuarioDTO>> selectAllUsuario();
 
-    @GET("/WSEcommerce/rest/usuario/image/{param}")
-    Call<byte[]> selectAllUsuario(@Path("param") String usuarioId);
-
     @GET("/WSEcommerce/rest/usuario/amigo/{param}")
     Call<List<UsuarioDTO>> buscaAmigo(@Path("param") String usuarioId);
 

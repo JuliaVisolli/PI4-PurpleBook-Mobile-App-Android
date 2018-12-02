@@ -1,5 +1,7 @@
 package com.example.littlewolf_pc.app.adapter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.littlewolf_pc.app.R;
-import com.example.littlewolf_pc.app.model.ListAmigosDTO;
+import com.example.littlewolf_pc.app.fragment.ListaAmigosFragment;
+import com.example.littlewolf_pc.app.model.UsuarioDTO;
+import com.github.siyamed.shapeimageview.CircularImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.List;
 
 public class AdapterListerAmigos extends BaseAdapter {
-    private List<ListAmigosDTO> listaAmigosDTOList;
+    private List<UsuarioDTO> listaAmigosDTOList;
     private Fragment listaAmigos;
 
-    public AdapterListerAmigos(List<ListAmigosDTO> listaAmigosDTOList, Fragment listaAmigos){
+    public AdapterListerAmigos(List<UsuarioDTO> listaAmigosDTOList, Fragment listaAmigos){
         this.listaAmigosDTOList = listaAmigosDTOList;
         this.listaAmigos = listaAmigos;
     }
@@ -47,15 +53,20 @@ public class AdapterListerAmigos extends BaseAdapter {
 
         View view = inflater.inflate(R.layout.item_amigo, parent, false);
 
-        TextView txtTitulo = view.findViewById(R.id.nomeamigo);
-        TextView txtAmigos = view.findViewById(R.id.listaAmigos);
-        ImageView notImagem = view.findViewById(R.id.img_amigo);
+        TextView txtTitulo = view.findViewById(R.id.nome_amigo);
+        TextView txtEmail = view.findViewById(R.id.email_amigo);
+        CircularImageView imagemAmigo = view.findViewById(R.id.img_amigo);
 
-        ListAmigosDTO listaAmigosDTO = listaAmigosDTOList.get(position);
+        UsuarioDTO listaAmigosDTO = listaAmigosDTOList.get(position);
 
-        txtTitulo.setText(listaAmigosDTO.getListAmigos());
-        txtAmigos.setText(listaAmigosDTO.getListAmigos());
-        notImagem.setImageResource(R.drawable.pb_logo);
+        txtTitulo.setText(listaAmigosDTO.getNome());
+        txtEmail.setText(listaAmigosDTO.getEmail());
+
+        Integer idUsuario = listaAmigosDTO.getId();
+
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(inflater.getContext()));
+        imageLoader.displayImage("http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + idUsuario, imagemAmigo);
 
         return view;
     }
