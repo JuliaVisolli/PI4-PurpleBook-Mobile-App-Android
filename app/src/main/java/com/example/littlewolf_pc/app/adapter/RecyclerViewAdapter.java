@@ -78,7 +78,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
-        vHolder.item_amigo.setOnClickListener(new View.OnClickListener() {
+        vHolder.grid_amigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextView txtNome = mDialog.findViewById(R.id.dialog_name_id);
@@ -133,10 +133,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         private TextView tv_nome;
         private TextView tv_email;
-        private CardView item_amigo;
+        private CardView grid_amigo;
         public MyViewHolder(View itemView) {
             super(itemView);
-            item_amigo = itemView.findViewById(R.id.item_amigo);
+            grid_amigo = itemView.findViewById(R.id.grid_amigo);
             tv_nome = itemView.findViewById(R.id.nome);
             tv_email = itemView.findViewById(R.id.email);
 

@@ -46,7 +46,7 @@ public class ListaAmigosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_lista_amigos, container, false);
         listAmigos = view.findViewById(R.id.listAmigos);
-        
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://josiasveras.azurewebsites.net")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -72,7 +72,7 @@ public class ListaAmigosFragment extends Fragment {
 
 
                         }
-                        adapter = new AdapterListerAmigos(listaAmigosDTO,ListaAmigosFragment.this);
+                        adapter = new AdapterListerAmigos(getActivity(), listaAmigosDTO,ListaAmigosFragment.this);
 
                         listAmigos.setAdapter(adapter);
 

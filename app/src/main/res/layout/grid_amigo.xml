@@ -13,7 +13,7 @@
     app:cardCornerRadius="10dp"
     app:cardUseCompatPadding="true"
     tools:context=".fragment.AmigoFragment"
-    android:id="@+id/item_amigo"
+    android:id="@+id/grid_amigo"
 >
 
 
