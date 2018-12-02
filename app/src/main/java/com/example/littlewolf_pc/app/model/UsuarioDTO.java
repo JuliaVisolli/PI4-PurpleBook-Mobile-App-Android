@@ -6,7 +6,7 @@ public class UsuarioDTO {
         private String nome;
         private String email;
         private String senha;
-        private String foto;
+        private byte[] foto;
         private HistoriaDTO historia;
 
         public UsuarioDTO() {
@@ -19,12 +19,11 @@ public class UsuarioDTO {
         this.nome = nome;
     }
 
-        public UsuarioDTO(Integer id, String nome, String foto) {
-            this();
-            this.id = id;
-            this.nome = nome;
-            this.foto = foto;
-        }
+    public UsuarioDTO(String nome, Integer id) {
+        this();
+        this.nome = nome;
+        this.id = id;
+    }
 
         public UsuarioDTO(Integer id) {
             super();
@@ -61,10 +60,10 @@ public class UsuarioDTO {
             this.senha = senha;
         }
 
-        public String getFoto() {
+        public byte[] getFoto() {
             return foto;
         }
-        public void setFoto(String foto) {
+        public void setFoto(byte[] foto) {
             this.foto = foto;
         }
 

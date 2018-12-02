@@ -20,8 +20,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.littlewolf_pc.app.R;
+import com.example.littlewolf_pc.app.activity.ComentarioActivity;
+import com.example.littlewolf_pc.app.model.CurtidaDTO;
 import com.example.littlewolf_pc.app.model.HistoriaDTO;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
+import com.example.littlewolf_pc.app.resource.ApiCurtida;
 import com.example.littlewolf_pc.app.resource.ApiHistoria;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
 import com.example.littlewolf_pc.app.utils.UsuarioSingleton;
@@ -46,8 +49,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProfileFragment extends android.support.v4.app.Fragment {
 
     LinearLayout moldura;
-    String imagePerfil;
     private Button btnAmigos;
+    private Button btnComentario;
+    private Button btnCurtida;
+    Integer idHistoria;
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://josiasveras.azurewebsites.net")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -75,52 +84,17 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
         btnAmigos.setOnClickListener(listener);
 
 
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://josiasveras.azurewebsites.net")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-
         Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
         if(idUsuario != null){
 
 
             ApiUsuario apiUsuario = retrofit.create(ApiUsuario.class);
 
-            Call<List<String>> usuarioDTOCallImage = apiUsuario.selectImage(String.valueOf(idUsuario));
+            CircularImageView userImage = view.findViewById(R.id.user_img);
+            ImageLoader imageLoader = ImageLoader.getInstance();
+            imageLoader.init(ImageLoaderConfiguration.createDefault(this.getActivity()));
+            imageLoader.displayImage("http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + idUsuario, userImage);
 
-            Callback<List<String>> usuarioImageCallback = new Callback<List<String>>() {
-                @Override
-                public void onResponse(Call<List<String>> call, Response<List<String>> response) {
-
-
-                    if(response.code() == 200){
-                        List<String> lista = response.body();
-                         imagePerfil = lista.get(0);
-
-
-                                byte [] encodeByte=Base64.decode(imagePerfil, Base64.DEFAULT);
-                                Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-
-
-
-                        CircularImageView userImage = view.findViewById(R.id.user_img);
-
-                        userImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap, userImage.getWidth(),
-                                userImage.getHeight(), false));
-
-                    }
-
-                }
-                @Override
-                public void onFailure(Call<List<String>> call, Throwable t) {
-                    t.printStackTrace();
-
-                }
-            };
-
-            usuarioDTOCallImage.enqueue(usuarioImageCallback);
 
             Call<List<UsuarioDTO>> usuarioDTOCall = apiUsuario.perfilUsuario(String.valueOf(idUsuario));
 
@@ -135,14 +109,19 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
                             TextView nomeUsuario = view.findViewById(R.id.nome);
                             nomeUsuario.setText(usuarioDTO.getNome());
 
-
+                            idHistoria = usuarioDTO.getHistoria().getId();
                             if(usuarioDTO.getHistoria() != null){
 
-                                if(usuarioDTO.getFoto() != null){
-    //                            addItem(usuarioDTO.getFoto().toString(), usuarioDTO.getNome(), usuarioDTO.getEmail());
+                                if (usuarioDTO.getHistoria().getFoto() == null) {
+
+                                    addItemSFoto(usuarioDTO.getNome(), usuarioDTO.getHistoria().getData(), usuarioDTO.getHistoria().getTexto(),
+                                            "http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + usuarioDTO.getId(), usuarioDTO.getHistoria().getTotalCurtidas().toString(), usuarioDTO.getHistoria().getTotalComentarios().toString(), usuarioDTO.getHistoria().getId());
+
+                                } else {
+                                    addItem("http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + usuarioDTO.getId(), usuarioDTO.getNome(), usuarioDTO.getHistoria().getData(), usuarioDTO.getHistoria().getTexto(),
+                                            "http://josiasveras.azurewebsites.net/WSEcommerce/rest/historia/image/" + usuarioDTO.getHistoria().getId(), usuarioDTO.getHistoria().getTotalCurtidas().toString(), usuarioDTO.getHistoria().getTotalComentarios().toString(), usuarioDTO.getHistoria().getId());
+
                                 }
-                                addItem("https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", usuarioDTO.getNome(), usuarioDTO.getHistoria().getData(),  usuarioDTO.getHistoria().getTexto(),
-                                        "https://st3.depositphotos.com/12985790/18246/i/450/depositphotos_182461084-stock-photo-anonymous.jpg", usuarioDTO.getHistoria().getTotalCurtidas().toString(), usuarioDTO.getHistoria().getTotalComentarios().toString());
                             }
 
                         }
@@ -169,13 +148,13 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
 
 
 
-    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario){
-        CardView cardView;
+    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, Integer idHistoria){
+        final CardView cardView;
+
 
         cardView = (CardView) LayoutInflater.from(this.getActivity())
                 .inflate(R.layout.card,
                         moldura, false);
-
 
         TextView titulo = cardView.findViewById(R.id.titulo);
         titulo.setText(textoDoTitulo);
@@ -189,15 +168,158 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
         quantCurtida.setText(quantidadeCurtida);
         TextView quantComentario = cardView.findViewById(R.id.contcomentario);
         quantComentario.setText(quantidadeComentario + " comentarios");
-//        btnComentario = cardView.findViewById(R.id.btn_comentario);
-//        btnCurtida = cardView.findViewById(R.id.btn_curtida);
+        btnComentario = cardView.findViewById(R.id.btn_comentario);
+        btnCurtida = cardView.findViewById(R.id.btn_curtida);
+        TextView txtViewID = cardView.findViewById(R.id.id);
+        txtViewID.setText(String.valueOf(idHistoria));
+        final String idHistoriaCard = txtViewID.getText().toString();
 
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ComentarioActivity.class);
+                intent.putExtra("idHistoria",Integer.valueOf(idHistoriaCard));
+
+                startActivity(intent);
+            }
+        };
+
+        View.OnClickListener listener2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+                if(idUsuario != null) {
+                    ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
+                    CurtidaDTO curtidaDTO = new CurtidaDTO();
+
+
+                    curtidaDTO.setUsuario(new UsuarioDTO(idUsuario));
+                    curtidaDTO.setHistoria(new HistoriaDTO(Integer.valueOf(idHistoriaCard)));
+                    Call<CurtidaDTO> curtidaDTOCall = apiCurtida.saveCurtida(curtidaDTO);
+
+                    Callback<CurtidaDTO> curtidaCallback = new Callback<CurtidaDTO>() {
+                        @Override
+                        public void onResponse(Call<CurtidaDTO> call, Response<CurtidaDTO> response) {
+                            CurtidaDTO curtida = response.body();
+
+                            if (curtida != null && response.code() == 200) {
+
+                                TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
+                                quantCurtida.setText(quantCurtida.getText());
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<CurtidaDTO> call, Throwable t) {
+                            t.printStackTrace();
+
+                        }
+                    };
+                    curtidaDTOCall.enqueue(curtidaCallback);
+                }
+
+            }
+        };
+
+        btnCurtida.setOnClickListener(listener2);
+
+        btnComentario.setOnClickListener(listener);
 
         moldura.addView(cardView);
 
         carregarImagemPerfil(imageURL, cardView);
         carregarImagemHistoria(url, cardView);
     }
+
+    private void addItemSFoto(/*String url,*/ String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, Integer idHistoria){
+        final CardView cardView;
+        cardView = (CardView) LayoutInflater.from(this.getActivity())
+                .inflate(R.layout.card,
+                        moldura, false);
+        TextView titulo = cardView.findViewById(R.id.titulo);
+        titulo.setText(textoDoTitulo);
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        String dateString = format.format(textoDaHora);
+        TextView hora = cardView.findViewById(R.id.hora);
+        hora.setText(dateString);
+        TextView mensagem = cardView.findViewById(R.id.mensagem);
+        mensagem.setText(textoDaMensagem);
+        TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
+        quantCurtida.setText(quantidadeCurtida);
+        TextView quantComentario = cardView.findViewById(R.id.contcomentario);
+        quantComentario.setText(quantidadeComentario + " comentarios");
+        btnComentario = cardView.findViewById(R.id.btn_comentario);
+        btnCurtida = cardView.findViewById(R.id.btn_curtida);
+        TextView txtViewID = cardView.findViewById(R.id.id);
+        txtViewID.setText(String.valueOf(idHistoria));
+        final String idHistoriaCard = txtViewID.getText().toString();
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ComentarioActivity.class);
+                intent.putExtra("idHistoria",Integer.valueOf(idHistoriaCard));
+
+                startActivity(intent);
+            }
+        };
+
+        View.OnClickListener listener2 = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+                if(idUsuario != null) {
+                    ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
+                    CurtidaDTO curtidaDTO = new CurtidaDTO();
+
+
+                    curtidaDTO.setUsuario(new UsuarioDTO(idUsuario));
+                    curtidaDTO.setHistoria(new HistoriaDTO(Integer.valueOf(idHistoriaCard)));
+                    Call<CurtidaDTO> curtidaDTOCall = apiCurtida.saveCurtida(curtidaDTO);
+
+                    Callback<CurtidaDTO> curtidaCallback = new Callback<CurtidaDTO>() {
+                        @Override
+                        public void onResponse(Call<CurtidaDTO> call, Response<CurtidaDTO> response) {
+                            CurtidaDTO curtida = response.body();
+
+                            if (curtida != null && response.code() == 200) {
+
+                                TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
+                                quantCurtida.setText(quantCurtida.getText());
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<CurtidaDTO> call, Throwable t) {
+                            t.printStackTrace();
+
+                        }
+                    };
+                    curtidaDTOCall.enqueue(curtidaCallback);
+                }
+
+            }
+        };
+
+        btnCurtida.setOnClickListener(listener2);
+
+        btnComentario.setOnClickListener(listener);
+
+
+        ImageView iv = cardView.findViewById(R.id.imagem);
+        iv.setVisibility(View.GONE);
+
+        moldura.addView(cardView);
+
+        carregarImagemHistoria(imageURL, cardView);
+
+
+    }
+
 
     private void carregarImagemHistoria(String url, CardView cardView){
         ImageView imagem = cardView.findViewById(R.id.image);
@@ -216,8 +338,5 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
         imageLoader.displayImage(url, imagemPerfil);
 
     }
-
-
-
 
 }

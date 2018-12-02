@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,7 +20,9 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.littlewolf_pc.app.fragment.AmigoFragment;
@@ -32,6 +35,10 @@ import com.example.littlewolf_pc.app.adapter.RecyclerViewAdapter;
 import com.example.littlewolf_pc.app.fragment.SobreFragment;
 import com.example.littlewolf_pc.app.fragment.TermoFragment;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
+import com.example.littlewolf_pc.app.utils.UsuarioSingleton;
+import com.github.siyamed.shapeimageview.CircularImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +51,6 @@ public class InternalActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-
     private ProfileFragment perfilFragment;
     private CardFragment feedFragment;
     private AmigoFragment amigoFragment;
@@ -52,6 +58,9 @@ public class InternalActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<UsuarioDTO> lstUsuarios;
     RecyclerViewAdapter adapter;
+    FloatingActionButton fabGoToHistoria;
+    TextView txtNomeUsuarioMenuLateral;
+
 
 
     @Override
@@ -63,36 +72,7 @@ public class InternalActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         lstUsuarios = new ArrayList<>();
-        lstUsuarios.add(new UsuarioDTO(1, "Francini", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Julia", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Adriana", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Anna", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Jorzias", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Anna", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Jorzias", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Anna", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Jorzias", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Fabio Abenza", null));
-        lstUsuarios.add(new UsuarioDTO(1, "Ramon", null));
 
-//
-//        recyclerView = findViewById(R.id.amigo_reclyclerview);
-//        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this, lstUsuarios);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-//        adapter = new RecyclerViewAdapter(this, lstUsuarios);
-//        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-//        recyclerView.setAdapter(adapter);
-
-//
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -179,6 +159,33 @@ public class InternalActivity extends AppCompatActivity {
             }
         });
 
+        fabGoToHistoria = findViewById(R.id.fabEdit);
+        View.OnClickListener listenerHistoria = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), HistoriaActivity.class);
+                startActivity(intent);
+            }
+        };
+        fabGoToHistoria.setOnClickListener(listenerHistoria);
+//        txtNomeUsuarioMenuLateral = findViewById(R.id.nome_usuario_menu_lateral);
+
+//        Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+//        if(idUsuario != null){
+//            CircularImageView userImage = findViewById(R.id.img_usuario);
+//            ImageLoader imageLoader = ImageLoader.getInstance();
+//            imageLoader.init(ImageLoaderConfiguration.createDefault(getApplication()));
+//            imageLoader.displayImage("http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + idUsuario, userImage);
+//
+//        }
+
+//
+//        String nome = UsuarioSingleton.getInstance().getUsuario().getNome();
+//
+//        if(nome != null){
+//            txtNomeUsuarioMenuLateral.setText(nome);
+//        }
+
 
 
     }
@@ -198,53 +205,5 @@ public class InternalActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-//        // Retrieve the SearchView and plug it into SearchManager
-////        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.android_search));
-////        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-////        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//
-////        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
-////            @Override
-////            public boolean onMenuItemActionExpand(MenuItem item) {
-////                Toast.makeText(InternalActivity.this, "Action View Expand", Toast.LENGTH_SHORT).show();
-////                return true;
-////            }
-////
-////            @Override
-////            public boolean onMenuItemActionCollapse(MenuItem item) {
-////                Toast.makeText(InternalActivity.this, "Action View Collapsed", Toast.LENGTH_SHORT).show();
-////                return true;
-////
-////            }
-////        };
-//
-//        MenuItem searchItem = menu.findItem(R.id.android_search);
-//        SearchView searchView = (SearchView) searchItem.getActionView();
-//        searchView.setOnQueryTextListener(this);
-//
-//        return true;
-//    }
 
-
-//    @Override
-//    public boolean onQueryTextSubmit(String s) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean onQueryTextChange(String newText) {
-//        String userInput = newText.toLowerCase();
-//        List<UsuarioDTO> newList = new ArrayList<>();
-//
-//        for(UsuarioDTO usuarioDTO: lstUsuarios){
-//            if(usuarioDTO.getNome().toLowerCase().contains(userInput)){
-//                newList.add(usuarioDTO);
-//            }
-//        }
-////        adapter.updateList(newList);
-//        return true;
-//    }
 }

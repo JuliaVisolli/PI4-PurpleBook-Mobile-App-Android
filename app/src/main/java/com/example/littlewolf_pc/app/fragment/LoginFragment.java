@@ -129,7 +129,6 @@ public class LoginFragment extends Fragment {
                         progressBar.setVisibility(View.GONE);
                         btnLogin.setEnabled(true);
                         etSenha.setText("");
-//                        Toast.makeText(getActivity(), "Usuario ou senha invalidos", Toast.LENGTH_LONG).show();
                         Snackbar.make(getView(), getResources().getString(R.string.user_password_invalid), Snackbar.LENGTH_SHORT)
                                 .show();
                         t.printStackTrace();

@@ -22,8 +22,8 @@
         android:textColorHighlight="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="email@email.com.br"
         android:textColor="#ffffff"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:id="@+id/nome_usuario_menu_lateral"/>
 </LinearLayout>
 

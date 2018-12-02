@@ -7,7 +7,7 @@ public class HistoriaDTO {
     private Integer id;
     private UsuarioDTO usuario;
     private String texto;
-    private byte[] foto;
+    private String foto;
     private Date data;
     private Integer totalComentarios;
     private Integer totalCurtidas;
@@ -58,11 +58,11 @@ public class HistoriaDTO {
     }
 
 
-    public byte[] getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(byte[] foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 

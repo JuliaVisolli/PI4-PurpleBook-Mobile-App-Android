@@ -2,10 +2,14 @@ package com.example.littlewolf_pc.app.fragment;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +27,7 @@ import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiCurtida;
 import com.example.littlewolf_pc.app.resource.ApiHistoria;
 import com.example.littlewolf_pc.app.utils.UsuarioSingleton;
+import com.github.siyamed.shapeimageview.CircularImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -46,10 +51,8 @@ public class CardFragment extends Fragment {
     private Button btnComentario;
     private Button btnCurtida;
     private TextView txtView;
-    Button btnHistoria;
+    FloatingActionButton fabGoToHistoria;
     Integer idHistoria;
-    Integer idHistoriaCard;
-
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://josiasveras.azurewebsites.net")
@@ -68,15 +71,7 @@ public class CardFragment extends Fragment {
         final View view =  inflater.inflate(R.layout.fragment_card, container, false);
         modura = view.findViewById(R.id.containerCards);
         txtView = view.findViewById(R.id.textAuthorSign);
-        btnHistoria = view.findViewById(R.id.btnHistoria);
-        View.OnClickListener listenerHistoria = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), HistoriaActivity.class);
-                startActivity(intent);
-            }
-        };
-        btnHistoria.setOnClickListener(listenerHistoria);
+
 
 
         Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
@@ -97,14 +92,13 @@ public class CardFragment extends Fragment {
                             for (HistoriaDTO historiaDTO : historiaDTOList) {
 
                                 idHistoria = historiaDTO.getId();
-                                if (historiaDTO.getFoto() != null) {
-                                    addItem(historiaDTO.getFoto().toString(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
-                                            historiaDTO.getUsuario().getFoto().toString(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
-                                }else {
+                                if (historiaDTO.getFoto() == null) {
                                     addItemSFoto(historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
-                                            "https://cdn4.iconfinder.com/data/icons/web-app-flat-circular-icons-set/64/Iconos_Redondos_Flat_Usuario_Icn-512.png", historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
-                                    //ImageView imagem = view.findViewById(R.id.imagem);
-                                    //imagem.setVisibility(View.GONE);
+                                            "http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + historiaDTO.getUsuario().getId(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
+
+                                }else {
+                                    addItem("http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + historiaDTO.getUsuario().getId(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
+                                            "http://josiasveras.azurewebsites.net/WSEcommerce/rest/historia/image/" + historiaDTO.getId(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
                                 }
 
                             }
@@ -217,7 +211,6 @@ public class CardFragment extends Fragment {
 
     private void addItemSFoto(/*String url,*/ String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, Integer idHistoria){
         final CardView cardView;
-        idHistoriaCard = idHistoria;
         cardView = (CardView) LayoutInflater.from(this.getActivity())
                 .inflate(R.layout.card,
                         modura, false);
@@ -235,52 +228,75 @@ public class CardFragment extends Fragment {
         quantComentario.setText(quantidadeComentario + " comentarios");
         btnComentario = cardView.findViewById(R.id.btn_comentario);
         btnCurtida = cardView.findViewById(R.id.btn_curtida);
+        TextView txtViewID = cardView.findViewById(R.id.id);
+        txtViewID.setText(String.valueOf(idHistoria));
+        final String idHistoriaCard = txtViewID.getText().toString();
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ComentarioActivity.class);
+                intent.putExtra("idHistoria",Integer.valueOf(idHistoriaCard));
+
                 startActivity(intent);
             }
         };
+
         View.OnClickListener listener2 = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
                 if(idUsuario != null) {
                     ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
                     CurtidaDTO curtidaDTO = new CurtidaDTO();
+
+
                     curtidaDTO.setUsuario(new UsuarioDTO(idUsuario));
-                    curtidaDTO.setHistoria(new HistoriaDTO(9));
+                    curtidaDTO.setHistoria(new HistoriaDTO(Integer.valueOf(idHistoriaCard)));
                     Call<CurtidaDTO> curtidaDTOCall = apiCurtida.saveCurtida(curtidaDTO);
+
                     Callback<CurtidaDTO> curtidaCallback = new Callback<CurtidaDTO>() {
                         @Override
                         public void onResponse(Call<CurtidaDTO> call, Response<CurtidaDTO> response) {
                             CurtidaDTO curtida = response.body();
+
                             if (curtida != null && response.code() == 200) {
+
                                 TextView quantCurtida = cardView.findViewById(R.id.contcurtida);
                                 quantCurtida.setText(quantCurtida.getText());
                             }
+
                         }
+
                         @Override
                         public void onFailure(Call<CurtidaDTO> call, Throwable t) {
                             t.printStackTrace();
+
                         }
                     };
                     curtidaDTOCall.enqueue(curtidaCallback);
                 }
+
             }
         };
+
         btnCurtida.setOnClickListener(listener2);
+
         btnComentario.setOnClickListener(listener);
+
 
         ImageView iv = cardView.findViewById(R.id.imagem);
         iv.setVisibility(View.GONE);
 
         modura.addView(cardView);
-        //carregarImagemHistoria(imageURL, cardView);
-        /*carregarImagemHistoria(url, cardView);*/
+
+        carregarImagemHistoria(imageURL, cardView);
+
+
     }
-    /*----------------------------------------------------------POST COM FOTO--------------------------------------------------*/
+
+
+
 
 
     private void carregarImagemHistoria(String url, CardView cardView){
