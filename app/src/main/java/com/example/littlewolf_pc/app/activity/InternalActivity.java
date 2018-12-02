@@ -9,21 +9,19 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.MenuItemCompat;
+
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
+
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.littlewolf_pc.app.fragment.AmigoFragment;
 import com.example.littlewolf_pc.app.fragment.CardFragment;
@@ -35,10 +33,7 @@ import com.example.littlewolf_pc.app.adapter.RecyclerViewAdapter;
 import com.example.littlewolf_pc.app.fragment.SobreFragment;
 import com.example.littlewolf_pc.app.fragment.TermoFragment;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
-import com.example.littlewolf_pc.app.utils.UsuarioSingleton;
-import com.github.siyamed.shapeimageview.CircularImageView;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 
 import java.util.ArrayList;
 import java.util.List;

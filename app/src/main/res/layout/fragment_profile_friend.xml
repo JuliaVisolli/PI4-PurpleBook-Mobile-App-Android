@@ -105,7 +105,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="100"
                             android:textSize="35sp"
                             android:textStyle="bold" />
 
@@ -126,11 +125,11 @@
                         android:layout_weight="1">
 
                         <Button
+                            android:id="@+id/btnFotos"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             style="@style/Widget.AppCompat.Button.Borderless"
-                            android:text="100"
                             android:textStyle="bold"
                             android:textSize="35sp"/>
 

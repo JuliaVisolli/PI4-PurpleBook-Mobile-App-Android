@@ -50,6 +50,7 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
 
     LinearLayout moldura;
     private Button btnAmigos;
+    private Button btnFotos;
     private Button btnComentario;
     private Button btnCurtida;
     Integer idHistoria;
@@ -70,6 +71,7 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
         final View view = inflater.inflate(R.layout.fragment_profile, container, false);
         moldura = view.findViewById(R.id.linear);
         btnAmigos = view.findViewById(R.id.btnAmigos);
+        btnFotos = view.findViewById(R.id.btnFotos);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -87,13 +89,50 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
         Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
         if(idUsuario != null){
 
-
             ApiUsuario apiUsuario = retrofit.create(ApiUsuario.class);
 
             CircularImageView userImage = view.findViewById(R.id.user_img);
             ImageLoader imageLoader = ImageLoader.getInstance();
             imageLoader.init(ImageLoaderConfiguration.createDefault(this.getActivity()));
             imageLoader.displayImage("http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + idUsuario, userImage);
+
+            Call<String> fotoQuantCall = apiUsuario.getCountAllFotoByUserID(String.valueOf(idUsuario));
+
+            Callback<String> fotoQuantCallback = new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    String quantFoto = response.body();
+
+                    if (quantFoto != null && response.code() == 200) {
+                        btnFotos.setText(quantFoto);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+
+                }
+            };
+            fotoQuantCall.enqueue(fotoQuantCallback);
+
+            Call<String> amigoQuantCall = apiUsuario.getCountAllAmigosByUserID(String.valueOf(idUsuario));
+
+            Callback<String> amigoQuantCallback = new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    String quantAmigo = response.body();
+
+                    if (quantAmigo != null && response.code() == 200) {
+                        btnAmigos.setText(quantAmigo);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+
+                }
+            };
+            amigoQuantCall.enqueue(amigoQuantCallback);
 
 
             Call<List<UsuarioDTO>> usuarioDTOCall = apiUsuario.perfilUsuario(String.valueOf(idUsuario));

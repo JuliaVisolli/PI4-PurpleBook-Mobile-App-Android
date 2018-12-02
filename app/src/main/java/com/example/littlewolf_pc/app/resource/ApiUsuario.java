@@ -34,5 +34,10 @@ public interface ApiUsuario {
     @GET("/WSEcommerce/rest/usuario/image/{param}")
     Call<List<String>> selectImage(@Path("param") String usuarioId);
 
+    @GET("/WSEcommerce/rest/usuario/count/foto/{param}")
+    Call<String> getCountAllFotoByUserID(@Path("param") String usuarioId);
+
+    @GET("/WSEcommerce/rest/usuario/count/amigo/{param}")
+    Call<String> getCountAllAmigosByUserID(@Path("param") String usuarioId);
 
 }

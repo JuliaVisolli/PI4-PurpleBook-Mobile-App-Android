@@ -107,6 +107,50 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 };
                 btnSee.setOnClickListener(listener);
 
+                Button btnAdicionarAmigo = mDialog.findViewById(R.id.dialog_btn_add);
+                View.OnClickListener listenerAddAmigo = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Integer idSolicitante = UsuarioSingleton.getInstance().getUsuario().getId();
+
+                        if(idSolicitante != null) {
+                            ApiAmizade apiAmizade =
+                                    retrofit.create(ApiAmizade.class);
+
+                            AmizadeDTO amizade = new AmizadeDTO();
+                            amizade.setUsuario1(new UsuarioDTO(idSolicitante));
+                            amizade.setUsuario2(new UsuarioDTO(idAmigo));
+                            amizade.setAprovada(true);
+                            Call<AmizadeDTO> usuarioDTOCall = apiAmizade.solicitaAmizade(amizade);
+
+                            Callback<AmizadeDTO> usuarioDTOCallback = new Callback<AmizadeDTO>() {
+                                @Override
+                                public void onResponse(Call<AmizadeDTO> call, Response<AmizadeDTO> response) {
+                                    AmizadeDTO solicitacaoAMizade = response.body();
+
+
+                                    if (solicitacaoAMizade != null && response.code() == 200) {
+                                        mDialog.dismiss();
+                                        Toast toast = Toast.makeText(mContext, "Amigo adicionado com sucesso :)", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<AmizadeDTO> call, Throwable t) {
+                                    t.printStackTrace();
+
+                                }
+                            };
+                            usuarioDTOCall.enqueue(usuarioDTOCallback);
+                        }
+                    }
+                };
+                btnAdicionarAmigo.setOnClickListener(listenerAddAmigo);
+
+
+
                 mDialog.show();
             }
         });
