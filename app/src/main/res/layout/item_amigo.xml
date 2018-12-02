@@ -33,16 +33,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:textColor="#000"
-            android:layout_marginLeft="11dp"
             android:textStyle="bold"
             android:id="@+id/nome_amigo"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"
-            android:layout_marginLeft="11dp"
             android:textSize="15dp"
             android:id="@+id/email_amigo"/>
     </LinearLayout>
