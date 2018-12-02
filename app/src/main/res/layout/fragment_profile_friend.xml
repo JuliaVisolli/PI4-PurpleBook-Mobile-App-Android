@@ -20,7 +20,7 @@
         android:orientation="vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:id="@+id/layout_amigo">
+        android:id="@+id/layout">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:layout_marginTop="30dp">
 
             <com.github.siyamed.shapeimageview.CircularImageView
-                android:id="@+id/dialog_img"
+                android:id="@+id/user_img"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:src="@android:drawable/ic_menu_camera"
@@ -99,13 +99,15 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="1">
 
-                        <TextView
+                        <Button
+                            android:id="@+id/btnAmigos"
+                            style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:text="100"
-                            android:textStyle="bold"
-                            android:textSize="35sp"/>
+                            android:textSize="35sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -123,10 +125,11 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_weight="1">
 
-                        <TextView
+                        <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
+                            style="@style/Widget.AppCompat.Button.Borderless"
                             android:text="100"
                             android:textStyle="bold"
                             android:textSize="35sp"/>
@@ -150,8 +153,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/layout_amigo"
-        android:id="@+id/linear_amigo">
+        android:layout_below="@+id/layout"
+        android:id="@+id/linear">
     </LinearLayout>
 
 </RelativeLayout>

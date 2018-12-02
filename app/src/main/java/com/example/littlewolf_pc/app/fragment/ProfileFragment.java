@@ -144,10 +144,6 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
         return view;
     }
 
-
-
-
-
     private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, Integer idHistoria){
         final CardView cardView;
 
