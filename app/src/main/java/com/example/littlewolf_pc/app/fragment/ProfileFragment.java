@@ -73,6 +73,7 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
         btnAmigos = view.findViewById(R.id.btnAmigos);
         btnFotos = view.findViewById(R.id.btnFotos);
 
+
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

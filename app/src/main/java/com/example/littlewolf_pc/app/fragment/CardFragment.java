@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.activity.ComentarioActivity;
 import com.example.littlewolf_pc.app.activity.HistoriaActivity;
+import com.example.littlewolf_pc.app.activity.InternalActivity;
 import com.example.littlewolf_pc.app.model.CurtidaDTO;
 import com.example.littlewolf_pc.app.model.HistoriaDTO;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
@@ -53,6 +54,8 @@ public class CardFragment extends Fragment {
     private TextView txtView;
     FloatingActionButton fabGoToHistoria;
     Integer idHistoria;
+    Integer idAmigo;
+    String nomeAmigo;
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://josiasveras.azurewebsites.net")
@@ -92,6 +95,8 @@ public class CardFragment extends Fragment {
                             for (HistoriaDTO historiaDTO : historiaDTOList) {
 
                                 idHistoria = historiaDTO.getId();
+                                idAmigo = historiaDTO.getUsuario().getId();
+                                nomeAmigo = historiaDTO.getUsuario().getNome();
                                 if (historiaDTO.getFoto() == null) {
                                     addItemSFoto(historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
                                             "http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + historiaDTO.getUsuario().getId(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
@@ -148,6 +153,8 @@ public class CardFragment extends Fragment {
         TextView txtViewID = cardView.findViewById(R.id.id);
         txtViewID.setText(String.valueOf(idHistoria));
         final String idHistoriaCard = txtViewID.getText().toString();
+
+
 
 
         View.OnClickListener listener = new View.OnClickListener() {
@@ -295,16 +302,26 @@ public class CardFragment extends Fragment {
 
     }
 
-
-
-
-
     private void carregarImagemHistoria(String url, CardView cardView){
         ImageView imagem = cardView.findViewById(R.id.image);
         ImageLoader imageLoader = ImageLoader.getInstance();
 
         imageLoader.init(ImageLoaderConfiguration.createDefault(this.getActivity()));
         imageLoader.displayImage(url, imagem);
+
+
+        imagem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("idAmigo", idAmigo);
+                bundle.putString("nomeAmigo", nomeAmigo);
+                ProfileFriendFragment fragment = new ProfileFriendFragment();
+
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).commit();
+            }
+        });
 
     }
 
