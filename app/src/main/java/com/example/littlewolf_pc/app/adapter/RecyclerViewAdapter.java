@@ -17,6 +17,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
@@ -71,6 +72,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         v = LayoutInflater.from(mContext).inflate(R.layout.grid_amigo
                 ,parent,false);
        final MyViewHolder vHolder = new MyViewHolder(v);
+        final Dialog loading = new Dialog(mContext, android.R.style.Theme_Black);
+        View viewDialog = LayoutInflater.from(mContext).inflate(R.layout.loading_dialog, null);
+        loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loading.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        loading.setContentView(viewDialog);
+        loading.setCancelable(false);
 
 
         mDialog = new Dialog(mContext);
@@ -112,6 +119,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     @Override
                     public void onClick(View v) {
                         Integer idSolicitante = UsuarioSingleton.getInstance().getUsuario().getId();
+                        loading.show();
 
                         if(idSolicitante != null) {
                             ApiAmizade apiAmizade =
@@ -127,10 +135,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                 @Override
                                 public void onResponse(Call<AmizadeDTO> call, Response<AmizadeDTO> response) {
                                     AmizadeDTO solicitacaoAMizade = response.body();
+                                    mDialog.dismiss();
 
 
                                     if (solicitacaoAMizade != null && response.code() == 200) {
-                                        mDialog.dismiss();
+                                        loading.dismiss();
                                         Toast toast = Toast.makeText(mContext, "Amigo adicionado com sucesso :)", Toast.LENGTH_SHORT);
                                         toast.show();
                                     }
@@ -140,6 +149,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                 @Override
                                 public void onFailure(Call<AmizadeDTO> call, Throwable t) {
                                     t.printStackTrace();
+                                    loading.dismiss();
 
                                 }
                             };

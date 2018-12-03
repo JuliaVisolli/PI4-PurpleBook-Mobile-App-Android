@@ -1,11 +1,13 @@
 package com.example.littlewolf_pc.app.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -48,6 +50,14 @@ public class ComentarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comentario);
 
+        final Dialog loading = new Dialog(this, android.R.style.Theme_Black);
+        View viewDialog = LayoutInflater.from(this).inflate(R.layout.loading_dialog, null);
+        loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loading.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        loading.setContentView(viewDialog);
+        loading.setCancelable(false);
+
+        loading.show();
         btnComent = findViewById(R.id.btnComent);
         etComentario = findViewById(R.id.txtComent);
 
@@ -64,6 +74,8 @@ public class ComentarioActivity extends AppCompatActivity {
                 comentarioDTOList = response.body();
 
                 if (comentarioDTOList != null && response.code() == 200) {
+
+                    loading.dismiss();
 
                     if(comentarioDTOList.size() > 0){
 
@@ -84,6 +96,7 @@ public class ComentarioActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<ComentarioDTO>> call, Throwable t) {
                 t.printStackTrace();
+                loading.dismiss();
 
             }
         };

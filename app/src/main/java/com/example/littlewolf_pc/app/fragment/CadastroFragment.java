@@ -2,12 +2,14 @@ package com.example.littlewolf_pc.app.fragment;
 
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -49,6 +51,12 @@ public class CadastroFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=  inflater.inflate(R.layout.fragment_cadastro, container, false);
+        final Dialog loading = new Dialog(getContext(), android.R.style.Theme_Black);
+        View viewDialog = LayoutInflater.from(getContext()).inflate(R.layout.loading_dialog, null);
+        loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loading.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        loading.setContentView(viewDialog);
+        loading.setCancelable(false);
 
             etNome = v.findViewById(R.id.etNome);
             etEmail = v.findViewById(R.id.etEmail);
@@ -56,9 +64,6 @@ public class CadastroFragment extends Fragment {
             etConfSenha = v.findViewById(R.id.etConfSenha);
             btnRegistro = v.findViewById(R.id.btnRegistro);
             btnLogar = v.findViewById(R.id.btnLogar);
-
-        final ProgressBar progressBar = v.findViewById(R.id.progress_bar);
-        progressBar.setVisibility(View.GONE);
 
 
         View.OnClickListener listener = new View.OnClickListener(){
@@ -99,7 +104,7 @@ public class CadastroFragment extends Fragment {
                     return;
                 }
 
-                progressBar.setVisibility(View.VISIBLE);
+                loading.show();
 
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("http://josiasveras.azurewebsites.net")
@@ -122,7 +127,7 @@ public class CadastroFragment extends Fragment {
                         UsuarioDTO user =  response.body();
 
                         if(user != null && response.code() == 200){
-                            progressBar.setVisibility(View.GONE);
+                            loading.dismiss();
                             etNome.setText("");
                             etEmail.setText("");
                             etSenha.setText("");
@@ -136,7 +141,7 @@ public class CadastroFragment extends Fragment {
                     }
                     @Override
                     public void onFailure(Call<UsuarioDTO> call, Throwable t) {
-                        progressBar.setVisibility(View.GONE);
+                        loading.dismiss();
                         etNome.setText("");
                         etEmail.setText("");
                         etSenha.setText("");

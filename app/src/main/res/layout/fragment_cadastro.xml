@@ -139,18 +139,6 @@
                 android:padding="16dp"
                 android:layout_marginBottom="5dp" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ProgressBar
-                    style="@style/Widget.AppCompat.ProgressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/progress_bar"
-                    android:elevation="2dp"
-                    android:layout_gravity="center"/>
-
-            </FrameLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

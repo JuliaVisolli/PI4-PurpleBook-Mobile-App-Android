@@ -1,11 +1,13 @@
 package com.example.littlewolf_pc.app.fragment;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ListView;
 
 import com.example.littlewolf_pc.app.R;
@@ -47,6 +49,14 @@ public class ListaAmigosFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_lista_amigos, container, false);
         listAmigos = view.findViewById(R.id.listAmigos);
 
+        final Dialog loading = new Dialog(getContext(), android.R.style.Theme_Black);
+        View viewDialog = LayoutInflater.from(getContext()).inflate(R.layout.loading_dialog, null);
+        loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loading.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        loading.setContentView(viewDialog);
+        loading.setCancelable(false);
+        loading.show();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://josiasveras.azurewebsites.net")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -64,6 +74,7 @@ public class ListaAmigosFragment extends Fragment {
 
 
                     if (usuarioDTOList != null && response.code() == 200) {
+                        loading.dismiss();
                         for (UsuarioDTO usuarioDTO : usuarioDTOList) {
 
                             if(usuarioDTO.getId() != idUsuario){
@@ -83,6 +94,7 @@ public class ListaAmigosFragment extends Fragment {
                 @Override
                 public void onFailure(Call<List<UsuarioDTO>> call, Throwable t) {
                     t.printStackTrace();
+                    loading.dismiss();
 
                 }
             };

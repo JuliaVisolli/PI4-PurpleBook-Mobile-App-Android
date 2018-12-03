@@ -1,6 +1,7 @@
 package com.example.littlewolf_pc.app.fragment;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -75,8 +77,13 @@ public class CardFragment extends Fragment {
         modura = view.findViewById(R.id.containerCards);
         txtView = view.findViewById(R.id.textAuthorSign);
 
-
-
+        final Dialog loading = new Dialog(getContext(), android.R.style.Theme_Black);
+        View viewDialog = LayoutInflater.from(getContext()).inflate(R.layout.loading_dialog, null);
+        loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loading.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        loading.setContentView(viewDialog);
+        loading.setCancelable(false);
+        loading.show();
         Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
         if(idUsuario != null) {
         ApiHistoria apiHistoria =
@@ -89,6 +96,7 @@ public class CardFragment extends Fragment {
                     List<HistoriaDTO> historiaDTOList = response.body();
 
                     if (historiaDTOList != null && response.code() == 200) {
+                        loading.dismiss();
 
                         if(historiaDTOList.size() > 0){
 
@@ -116,6 +124,7 @@ public class CardFragment extends Fragment {
                 @Override
                 public void onFailure(Call<List<HistoriaDTO>> call, Throwable t) {
                     t.printStackTrace();
+                    loading.dismiss();
 
                 }
             };

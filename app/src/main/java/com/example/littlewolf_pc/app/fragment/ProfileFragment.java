@@ -1,6 +1,7 @@
 package com.example.littlewolf_pc.app.fragment;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,6 +70,14 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        final Dialog loading = new Dialog(getContext(), android.R.style.Theme_Black);
+        View viewDialog = LayoutInflater.from(getContext()).inflate(R.layout.loading_dialog, null);
+        loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loading.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        loading.setContentView(viewDialog);
+        loading.setCancelable(false);
+        loading.show();
+
         final View view = inflater.inflate(R.layout.fragment_profile, container, false);
         moldura = view.findViewById(R.id.linear);
         btnAmigos = view.findViewById(R.id.btnAmigos);
@@ -145,6 +155,7 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
 
                     if(perfilUsuario != null && response.code() == 200){
                         for (UsuarioDTO usuarioDTO: perfilUsuario) {
+                            loading.dismiss();
 
                             TextView nomeUsuario = view.findViewById(R.id.nome);
                             nomeUsuario.setText(usuarioDTO.getNome());
@@ -172,6 +183,7 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
                 @Override
                 public void onFailure(Call<List<UsuarioDTO>> call, Throwable t) {
                     t.printStackTrace();
+                    loading.dismiss();
 
                 }
             };

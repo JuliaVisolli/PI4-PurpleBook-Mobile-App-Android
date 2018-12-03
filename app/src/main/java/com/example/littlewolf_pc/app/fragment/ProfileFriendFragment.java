@@ -1,6 +1,7 @@
 package com.example.littlewolf_pc.app.fragment;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -63,6 +65,14 @@ public class ProfileFriendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        final Dialog loading = new Dialog(getContext(), android.R.style.Theme_Black);
+        View viewDialog = LayoutInflater.from(getContext()).inflate(R.layout.loading_dialog, null);
+        loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loading.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        loading.setContentView(viewDialog);
+        loading.setCancelable(false);
+        loading.show();
+
         final View view = inflater.inflate(R.layout.fragment_profile_friend, container, false);
         moldura = view.findViewById(R.id.containerCards);
 
@@ -147,6 +157,8 @@ public class ProfileFriendFragment extends Fragment {
                     List<UsuarioDTO> perfilUsuario = response.body();
 
                     if(perfilUsuario != null && response.code() == 200){
+                        loading.dismiss();
+
                         for (UsuarioDTO usuarioDTO: perfilUsuario) {
 
                             idHistoria = usuarioDTO.getHistoria().getId();
@@ -172,6 +184,8 @@ public class ProfileFriendFragment extends Fragment {
                 @Override
                 public void onFailure(Call<List<UsuarioDTO>> call, Throwable t) {
                     t.printStackTrace();
+                    loading.dismiss();
+
 
                 }
             };

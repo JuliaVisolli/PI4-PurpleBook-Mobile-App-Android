@@ -2,16 +2,19 @@ package com.example.littlewolf_pc.app.fragment;
 
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.content.Intent;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.activity.InternalActivity;
@@ -40,6 +43,7 @@ public class LoginFragment extends Fragment {
     private Button btnRegistro;
     UsuarioDTO getLoggedUser;
 
+
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public LoginFragment() {
@@ -56,13 +60,16 @@ public class LoginFragment extends Fragment {
             btnLogin = v.findViewById(R.id.btnLogin);
             btnRegistro = v.findViewById(R.id.btnRegistro);
 
-        final ProgressBar progressBar = v.findViewById(R.id.progress_bar);
-        progressBar.setVisibility(View.GONE);
+        final Dialog loading = new Dialog(getContext(), android.R.style.Theme_Black);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.loading_dialog, null);
+        loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loading.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        loading.setContentView(view);
+        loading.setCancelable(false);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnLogin.setEnabled(false);
 
                 if(etEmail.getText().toString().isEmpty()){
                     Snackbar.make(getView(), getResources().getString(R.string.email_required), Snackbar.LENGTH_SHORT)
@@ -85,7 +92,8 @@ public class LoginFragment extends Fragment {
                     }
                 }
 
-                progressBar.setVisibility(View.VISIBLE);
+
+                loading.show();
 
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("http://josiasveras.azurewebsites.net")
@@ -109,8 +117,7 @@ public class LoginFragment extends Fragment {
 
                         if(getLoggedUser != null && response.code() == 200){
 
-                            progressBar.setVisibility(View.GONE);
-                            btnLogin.setEnabled(true);
+                            loading.dismiss();
 
                             etEmail.setText("");
                             etSenha.setText("");
@@ -126,8 +133,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onFailure(Call<UsuarioDTO> call, Throwable t) {
 
-                        progressBar.setVisibility(View.GONE);
-                        btnLogin.setEnabled(true);
+                        loading.dismiss();
                         etSenha.setText("");
                         Snackbar.make(getView(), getResources().getString(R.string.user_password_invalid), Snackbar.LENGTH_SHORT)
                                 .show();

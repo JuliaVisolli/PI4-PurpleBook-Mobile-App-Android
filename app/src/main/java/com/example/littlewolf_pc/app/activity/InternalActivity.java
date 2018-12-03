@@ -49,7 +49,6 @@ public class InternalActivity extends AppCompatActivity {
     private ProfileFragment perfilFragment;
     private CardFragment feedFragment;
     private AmigoFragment amigoFragment;
-    private NotificacaoFragment notificacaoFragment;
     private RecyclerView recyclerView;
     private List<UsuarioDTO> lstUsuarios;
     RecyclerViewAdapter adapter;
@@ -128,7 +127,6 @@ public class InternalActivity extends AppCompatActivity {
 
         feedFragment = new CardFragment();
         amigoFragment = new AmigoFragment();
-        notificacaoFragment = new NotificacaoFragment();
         perfilFragment = new ProfileFragment();
 
         setFragment(feedFragment);
@@ -145,9 +143,6 @@ public class InternalActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_friend:
                     setFragment(amigoFragment);
-                    return true;
-                case R.id.navigation_notifications:
-                    setFragment(notificacaoFragment);
                     return true;
             }
             return false;

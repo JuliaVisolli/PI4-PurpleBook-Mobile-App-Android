@@ -1,6 +1,7 @@
 package com.example.littlewolf_pc.app.fragment;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -70,6 +72,14 @@ public class AmigoFragment extends Fragment implements SearchView.OnQueryTextLis
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_amigo, container, false);
 
+        final Dialog loading = new Dialog(getContext(), android.R.style.Theme_Black);
+        View viewDialog = LayoutInflater.from(getContext()).inflate(R.layout.loading_dialog, null);
+        loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loading.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        loading.setContentView(viewDialog);
+        loading.setCancelable(false);
+        loading.show();
+
         recyclerView = view.findViewById(R.id.amigo_reclyclerview);
 
 
@@ -90,6 +100,8 @@ public class AmigoFragment extends Fragment implements SearchView.OnQueryTextLis
 
 
                     if (usuarioDTOList != null && response.code() == 200) {
+                        loading.dismiss();
+
                         for (UsuarioDTO usuarioDTO : usuarioDTOList) {
 
                             if(usuarioDTO.getId() != idUsuario){
@@ -109,6 +121,8 @@ public class AmigoFragment extends Fragment implements SearchView.OnQueryTextLis
                 @Override
                 public void onFailure(Call<List<UsuarioDTO>> call, Throwable t) {
                     t.printStackTrace();
+                    loading.dismiss();
+
 
                 }
             };
