@@ -195,5 +195,9 @@ public class InternalActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        this.getSupportFragmentManager().popBackStack();
 
+    }
 }
