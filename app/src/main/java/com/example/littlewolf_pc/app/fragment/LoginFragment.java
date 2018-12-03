@@ -3,6 +3,9 @@ package com.example.littlewolf_pc.app.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -15,6 +18,7 @@ import android.widget.EditText;
 import android.content.Intent;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.activity.InternalActivity;
@@ -31,6 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.support.v4.content.ContextCompat.getSystemService;
 
 
 /**
@@ -67,6 +72,7 @@ public class LoginFragment extends Fragment {
         loading.setContentView(view);
         loading.setCancelable(false);
 
+
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,8 +98,17 @@ public class LoginFragment extends Fragment {
                     }
                 }
 
+                ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
 
-                loading.show();
+                if (activeNetworkInfo == null || !activeNetworkInfo.isConnected()) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.no_access), Toast.LENGTH_LONG).show();
+
+                    return;
+                }
+
+
+                    loading.show();
 
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("http://josiasveras.azurewebsites.net")
