@@ -13,7 +13,7 @@
         android:id="@+id/listAmigos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="5dp"
+        android:dividerHeight="1dp"
         android:divider="@color/colorPrimary"
         android:layout_marginTop="2dp">
 
