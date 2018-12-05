@@ -36,6 +36,7 @@ public class HistoriaActivity extends AppCompatActivity {
                 }
             }
         };
+        btnFotoHistoria.setOnClickListener(listener);
 
     }
 
