@@ -6,7 +6,7 @@ public class UsuarioDTO {
         private String nome;
         private String email;
         private String senha;
-        private byte[] foto;
+        private String foto;
         private HistoriaDTO historia;
 
         public UsuarioDTO() {
@@ -60,10 +60,10 @@ public class UsuarioDTO {
             this.senha = senha;
         }
 
-        public byte[] getFoto() {
+        public String getFoto() {
             return foto;
         }
-        public void setFoto(byte[] foto) {
+        public void setFoto(String foto) {
             this.foto = foto;
         }
 

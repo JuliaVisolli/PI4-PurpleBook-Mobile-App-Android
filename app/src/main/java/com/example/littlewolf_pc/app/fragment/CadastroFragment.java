@@ -3,22 +3,31 @@ package com.example.littlewolf_pc.app.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.littlewolf_pc.app.R;
 import com.example.littlewolf_pc.app.model.UsuarioDTO;
 import com.example.littlewolf_pc.app.resource.ApiUsuario;
+import com.github.siyamed.shapeimageview.CircularImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,6 +48,8 @@ public class CadastroFragment extends Fragment {
     private EditText etConfSenha;
     private Button btnRegistro;
     private Button btnLogar;
+    ImageView imagem;
+    UsuarioDTO usuarioDTO = new UsuarioDTO();
     public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public CadastroFragment() {
@@ -64,6 +75,8 @@ public class CadastroFragment extends Fragment {
             etConfSenha = v.findViewById(R.id.etConfSenha);
             btnRegistro = v.findViewById(R.id.btnRegistro);
             btnLogar = v.findViewById(R.id.btnLogar);
+            imagem = v.findViewById(R.id.user_imagem_cadastrar);
+
 
 
         View.OnClickListener listener = new View.OnClickListener(){
@@ -111,7 +124,6 @@ public class CadastroFragment extends Fragment {
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
-                UsuarioDTO usuarioDTO = new UsuarioDTO();
 
                 usuarioDTO.setNome(etNome.getText().toString());
                 usuarioDTO.setEmail(etEmail.getText().toString());
@@ -168,6 +180,18 @@ public class CadastroFragment extends Fragment {
 
         btnLogar.setOnClickListener(listener2);
 
+        imagem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int REQUEST_IMAGE_CAPTURE = 51;
+
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                }
+            }
+        });
+
 
         return v;
     }
@@ -193,6 +217,42 @@ public class CadastroFragment extends Fragment {
     public static boolean validate(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        int REQUEST_IMAGE_CAPTURE = 51;
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            int largura = imageBitmap.getWidth();
+            int altura = imageBitmap.getWidth();
+            if (largura > altura) {
+                altura = altura/largura * 100;
+                largura = 100;
+            } else {
+                largura = largura/altura * 100;
+                altura = 100;
+            }
+
+            Bitmap resized = Bitmap.createScaledBitmap(imageBitmap, largura, altura, true);
+
+            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), resized);
+            roundedBitmapDrawable.setCircular(true);
+            imagem.setImageDrawable(roundedBitmapDrawable);
+
+
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            resized.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            String imagemEmBase64 = Base64.encodeToString(byteArray,Base64.NO_WRAP);
+            usuarioDTO.setFoto(imagemEmBase64);
+
+
+
+        }
     }
 
 }

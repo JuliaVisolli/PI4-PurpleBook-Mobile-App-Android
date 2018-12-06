@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.littlewolf_pc.app.R;
 import com.github.siyamed.shapeimageview.CircularImageView;
@@ -15,8 +17,8 @@ import com.github.siyamed.shapeimageview.CircularImageView;
 import java.io.ByteArrayOutputStream;
 
 public class HistoriaActivity extends AppCompatActivity {
-    Button btnFotoHistoria;
-    CircularImageView imageView;
+    ImageButton btnFotoHistoria;
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,8 @@ public class HistoriaActivity extends AppCompatActivity {
             }
         };
         btnFotoHistoria.setOnClickListener(listener);
+
+
 
     }
 
