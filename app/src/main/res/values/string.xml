@@ -9,6 +9,8 @@
     <string name="error">Ops! Ocorreu algum problema. Usuario nao foi cadastrado</string>
     <string name="success">Usuario cadastrado com sucesso</string>
     <string name="no_access">Oppss.. parece que você esta sem acesso a internet :(. Tente novamente mais tarde.</string>
+    <string name="post_success">Historia Postada com sucesso.</string>
+
 
 
 </resources>

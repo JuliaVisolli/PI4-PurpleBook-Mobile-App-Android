@@ -16,6 +16,6 @@ public interface ApiHistoria {
     Call<List<HistoriaDTO>> selectAllHistorias(@Path("idUsuario") String idUsuario);
 
     @POST("/WSEcommerce/rest/historia")
-    Call<List<HistoriaDTO>> saveHistoria(@Body HistoriaDTO historia);
+    Call<HistoriaDTO> saveHistoria(@Body HistoriaDTO historia);
 
 }

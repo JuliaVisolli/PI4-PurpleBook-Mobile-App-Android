@@ -79,7 +79,7 @@
         app:layout_constraintVertical_bias="0.067" />
 
     <EditText
-        android:id="@+id/fname"
+        android:id="@+id/et_historia"
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="307dp"
         android:layout_height="221dp"
