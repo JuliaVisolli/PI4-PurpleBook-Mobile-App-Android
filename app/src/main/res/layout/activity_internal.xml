@@ -22,13 +22,12 @@
 
         tools:context=".activity.InternalActivity">
 
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
 
-
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
                 <FrameLayout
                     android:id="@+id/main_frame"
                     android:layout_width="match_parent"
@@ -48,9 +47,9 @@
                         android:src="@android:drawable/ic_menu_edit" />
 
                 </FrameLayout>
+                </ScrollView>
 
 
-        </ScrollView>
 
 
         <android.support.design.widget.NavigationView
