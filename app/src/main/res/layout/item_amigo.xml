@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     tools:context=".fragment.AmigoFragment"
@@ -25,7 +25,7 @@
 
 
     <LinearLayout
-        android:layout_width="212dp"
+        android:layout_width="241dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:orientation="vertical">
@@ -51,21 +51,21 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="63dp"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="90dp">
 
         <Button
             android:id="@+id/btnremove"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="50dp"
-            android:layout_height="38dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="right|end"
             android:layout_marginStart="0dp"
             android:layout_marginLeft="0dp"
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="16dp"
             android:layout_weight="1"
             android:drawableLeft="@drawable/ic_remove_circle_black_24dp" />
     </RelativeLayout>
