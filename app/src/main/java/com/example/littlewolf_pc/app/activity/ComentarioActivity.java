@@ -131,6 +131,7 @@ public class ComentarioActivity extends AppCompatActivity {
                     Integer idHistoria = intent.getIntExtra("idHistoria",-1);
 
                     if (idUsuario != null) {
+                        comentarioDTO.setId(0);
                         comentarioDTO.setUsuario(new UsuarioDTO(idUsuario, nome));
                         comentarioDTO.setTexto(etComentario.getText().toString());
                         comentarioDTO.setHistoria(new HistoriaDTO(Integer.valueOf(idHistoria)));
@@ -157,6 +158,7 @@ public class ComentarioActivity extends AppCompatActivity {
                                     ListView lista = findViewById(R.id.lista_comentarios);
                                     lista.setAdapter(AdapterListerComentario);
                                     etComentario.setText("");
+
                                 }
 
                             }

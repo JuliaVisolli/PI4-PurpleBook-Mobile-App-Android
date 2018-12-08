@@ -113,7 +113,7 @@ public class HistoriaActivity extends AppCompatActivity {
         int REQUEST_IMAGE_CAPTURE = 51;
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("foto");
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
 
             int largura = imageBitmap.getWidth();
             int altura = imageBitmap.getWidth();

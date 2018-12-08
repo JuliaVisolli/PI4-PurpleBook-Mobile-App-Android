@@ -41,7 +41,6 @@ public class AdapterListerComentario extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-
         return comentarioDTOList.get(position).getId();
     }
 

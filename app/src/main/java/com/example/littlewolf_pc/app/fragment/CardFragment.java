@@ -102,16 +102,14 @@ public class CardFragment extends Fragment {
 
                             for (HistoriaDTO historiaDTO : historiaDTOList) {
 
-                                idHistoria = historiaDTO.getId();
-                                idAmigo = historiaDTO.getUsuario().getId();
                                 nomeAmigo = historiaDTO.getUsuario().getNome();
                                 if (historiaDTO.getFoto() == null) {
                                     addItemSFoto(historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
-                                            "http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + historiaDTO.getUsuario().getId(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
+                                            "http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + historiaDTO.getUsuario().getId(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId(), historiaDTO.getUsuario().getId());
 
                                 }else {
                                     addItem("http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + historiaDTO.getUsuario().getId(), historiaDTO.getUsuario().getNome(), historiaDTO.getData(), historiaDTO.getTexto(),
-                                            "http://josiasveras.azurewebsites.net/WSEcommerce/rest/historia/image/" + historiaDTO.getId(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId());
+                                            "http://josiasveras.azurewebsites.net/WSEcommerce/rest/historia/image/" + historiaDTO.getId(), historiaDTO.getTotalCurtidas().toString(), historiaDTO.getTotalComentarios().toString(), historiaDTO.getId(), historiaDTO.getUsuario().getId());
                                 }
 
                             }
@@ -137,7 +135,7 @@ public class CardFragment extends Fragment {
     }
 
 
-    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, Integer idHistoria){
+    private void addItem(String url, String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, Integer idHistoria, Integer idAmigo){
         final CardView cardView;
 
 
@@ -222,10 +220,10 @@ public class CardFragment extends Fragment {
         modura.addView(cardView);
 
         carregarImagemPerfil(imageURL, cardView);
-        carregarImagemHistoria(url, cardView);
+        carregarImagemHistoria(url, cardView, idAmigo, textoDoTitulo);
     }
 
-    private void addItemSFoto(/*String url,*/ String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, Integer idHistoria){
+    private void addItemSFoto(/*String url,*/ String textoDoTitulo, Date textoDaHora, String textoDaMensagem, String imageURL, String quantidadeCurtida, String quantidadeComentario, Integer idHistoria, Integer idAmigo){
         final CardView cardView;
         cardView = (CardView) LayoutInflater.from(this.getActivity())
                 .inflate(R.layout.card,
@@ -306,12 +304,12 @@ public class CardFragment extends Fragment {
 
         modura.addView(cardView);
 
-        carregarImagemHistoria(imageURL, cardView);
+        carregarImagemHistoria(imageURL, cardView, idAmigo, textoDoTitulo);
 
 
     }
 
-    private void carregarImagemHistoria(String url, CardView cardView){
+    private void carregarImagemHistoria(String url, CardView cardView, final Integer idAmigoCard, final String nomeAmigoCard){
         ImageView imagem = cardView.findViewById(R.id.image);
         ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -323,8 +321,8 @@ public class CardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("idAmigo", idAmigo);
-                bundle.putString("nomeAmigo", nomeAmigo);
+                bundle.putInt("idAmigo", idAmigoCard);
+                bundle.putString("nomeAmigo", nomeAmigoCard);
                 ProfileFriendFragment fragment = new ProfileFriendFragment();
 
                 fragment.setArguments(bundle);

@@ -37,6 +37,8 @@ import com.example.littlewolf_pc.app.resource.ApiAmizade;
 import com.example.littlewolf_pc.app.resource.ApiCurtida;
 import com.example.littlewolf_pc.app.utils.UsuarioSingleton;
 import com.github.siyamed.shapeimageview.CircularImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,9 +92,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v) {
                 TextView txtNome = mDialog.findViewById(R.id.dialog_name_id);
                 TextView txtEmail = mDialog.findViewById(R.id.dialog_email_id);
-                CircularImageView image = mDialog.findViewById(R.id.dialog_img);
+                CircularImageView imagem = mDialog.findViewById(R.id.dialog_img);
                 txtNome.setText(mData.get(vHolder.getAdapterPosition()).getNome());
                 txtEmail.setText(mData.get(vHolder.getAdapterPosition()).getEmail());
+
+                ImageLoader imageLoader = ImageLoader.getInstance();
+                imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
+
+                final Integer id = mData.get(vHolder.getAdapterPosition()).getId();
+                final String nome = mData.get(vHolder.getAdapterPosition()).getNome();
+
+                imageLoader.displayImage("http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + id, imagem);
 
                 Button btnSee = mDialog.findViewById(R.id.dialog_btn_see);
 
@@ -102,8 +112,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
                         Bundle bundle = new Bundle();
-                        bundle.putInt("idAmigo", idAmigo);
-                        bundle.putString("nomeAmigo", nomeAmigo);
+                        bundle.putInt("idAmigo", id);
+                        bundle.putString("nomeAmigo", nome);
                         ProfileFriendFragment fragment = new ProfileFriendFragment();
 
                         fragment.setArguments(bundle);
@@ -174,6 +184,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         nomeAmigo = mData.get(position).getNome();
         holder.tv_nome.setText(mData.get(position).getNome());
         holder.tv_email.setText(mData.get(position).getEmail());
+
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
+
+        final Integer id = mData.get(position).getId();
+
+        imageLoader.displayImage("http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + id, holder.cv_imagem);
         mData.size();
 
     }
@@ -188,11 +205,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         private TextView tv_nome;
         private TextView tv_email;
         private CardView grid_amigo;
+        private CircularImageView cv_imagem;
         public MyViewHolder(View itemView) {
             super(itemView);
             grid_amigo = itemView.findViewById(R.id.grid_amigo);
             tv_nome = itemView.findViewById(R.id.nome);
             tv_email = itemView.findViewById(R.id.email);
+            cv_imagem = itemView.findViewById(R.id.imagem);
 
         }
     }
