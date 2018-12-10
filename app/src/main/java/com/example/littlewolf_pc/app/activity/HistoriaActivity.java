@@ -135,7 +135,11 @@ public class HistoriaActivity extends AppCompatActivity {
 
             String imagemEmBase64 = Base64.encodeToString(byteArray,Base64.NO_WRAP);
 
-            historiaDTO.setFoto(imagemEmBase64);
+            if(imagemEmBase64 != null){
+                historiaDTO.setFoto(imagemEmBase64);
+            } else {
+                historiaDTO.setFoto(null);
+            }
 
 
         }
