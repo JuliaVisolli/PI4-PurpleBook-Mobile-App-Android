@@ -126,12 +126,12 @@ public class AdapterListerAmigos extends BaseAdapter {
                     ApiAmizade apiAmizade =
                             retrofit.create(ApiAmizade.class);
 
-                    Call<AmizadeDTO> usuarioDTOCall = apiAmizade.deleteCurtida(idSolicitante, idAmigo);
+                    Call<Integer> usuarioDTOCall = apiAmizade.recusarAmizade(idSolicitante, idAmigo);
 
-                    Callback<AmizadeDTO> usuarioDTOCallback = new Callback<AmizadeDTO>() {
+                    Callback<Integer> usuarioDTOCallback = new Callback<Integer>() {
                         @Override
-                        public void onResponse(Call<AmizadeDTO> call, Response<AmizadeDTO> response) {
-                            AmizadeDTO solicitacaoAMizade = response.body();
+                        public void onResponse(Call<Integer> call, Response<Integer> response) {
+                            Integer solicitacaoAMizade = response.body();
 
 
                             if (solicitacaoAMizade != null && response.code() == 200) {
@@ -143,7 +143,7 @@ public class AdapterListerAmigos extends BaseAdapter {
                         }
 
                         @Override
-                        public void onFailure(Call<AmizadeDTO> call, Throwable t) {
+                        public void onFailure(Call<Integer> call, Throwable t) {
                             t.printStackTrace();
                             loading.dismiss();
 
