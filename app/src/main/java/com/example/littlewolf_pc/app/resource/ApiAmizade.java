@@ -13,6 +13,6 @@ public interface ApiAmizade {
     @POST("/WSEcommerce/rest/amizade")
     Call<AmizadeDTO> solicitaAmizade(@Body AmizadeDTO amizade);
 
-    @DELETE("/WSEcommerce/rest/amizade/{idUsuario1}/{idUsuario2}/{aprovada}")
-    Call<AmizadeDTO>deleteCurtida(@Path("idUsuario2") Integer idUsuario1, @Path("idUsuario2") Integer idUsuario2, @Path("aprovada") Boolean aprovada);
+    @DELETE("/WSEcommerce/rest/amizade/{idUsuario1}/{idUsuario2}")
+    Call<AmizadeDTO>deleteCurtida(@Path("idUsuario1") Integer idUsuario1, @Path("idUsuario2") Integer idUsuario2);
 }
