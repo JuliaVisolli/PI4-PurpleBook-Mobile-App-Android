@@ -48,6 +48,7 @@ public class AdapterListerAmigos extends BaseAdapter {
             .baseUrl("http://josiasveras.azurewebsites.net")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
+    Button btnRemove;
 
     public AdapterListerAmigos(Context mcontext, List<UsuarioDTO> listaAmigosDTOList, Fragment listaAmigos){
         this.mContext = mcontext;
@@ -80,17 +81,11 @@ public class AdapterListerAmigos extends BaseAdapter {
 
         View view = inflater.inflate(R.layout.item_amigo, parent, false);
 
-        final Dialog loading = new Dialog(mContext, android.R.style.Theme_Black);
-        View viewDialog = LayoutInflater.from(mContext).inflate(R.layout.loading_dialog, null);
-        loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        loading.getWindow().setBackgroundDrawableResource(R.color.transparent);
-        loading.setContentView(viewDialog);
-        loading.setCancelable(false);
 
         TextView txtTitulo = view.findViewById(R.id.nome_amigo);
         TextView txtEmail = view.findViewById(R.id.email_amigo);
         CircularImageView imagemAmigo = view.findViewById(R.id.img_amigo);
-        Button btnRemove = view.findViewById(R.id.btn_remove_amigo);
+        btnRemove = view.findViewById(R.id.btn_remove_amigo);
 
         UsuarioDTO listaAmigosDTO = listaAmigosDTOList.get(position);
 
@@ -103,10 +98,16 @@ public class AdapterListerAmigos extends BaseAdapter {
         imageLoader.init(ImageLoaderConfiguration.createDefault(inflater.getContext()));
         imageLoader.displayImage("http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + idUsuario, imagemAmigo);
 
-        idAmigo = listaAmigosDTO.getId();
-        nomeAmigo = listaAmigosDTO.getNome();
+        verPerfilAmigo(view, listaAmigosDTO.getId(), listaAmigosDTO.getNome());
 
-        view.setOnClickListener(new View.OnClickListener() {
+        removeAmigo(listaAmigosDTO.getId());
+
+
+        return view;
+    }
+
+    public void verPerfilAmigo(View v, final Integer idAmigo, final String nomeAmigo){
+        v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
@@ -118,7 +119,15 @@ public class AdapterListerAmigos extends BaseAdapter {
                 ((InternalActivity)mContext).getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, fragment).commit();
 
             }});
+    }
 
+    public void removeAmigo(final Integer idAmigo){
+        final Dialog loading = new Dialog(mContext, android.R.style.Theme_Black);
+        View viewDialog = LayoutInflater.from(mContext).inflate(R.layout.loading_dialog, null);
+        loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loading.getWindow().setBackgroundDrawableResource(R.color.transparent);
+        loading.setContentView(viewDialog);
+        loading.setCancelable(false);
         btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +167,5 @@ public class AdapterListerAmigos extends BaseAdapter {
                 }
             }
         });
-
-        return view;
     }
 }
