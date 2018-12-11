@@ -59,6 +59,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     Dialog mDialog;
     Integer idAmigo;
     String nomeAmigo;
+    Integer id;
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://josiasveras.azurewebsites.net")
@@ -68,6 +69,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public RecyclerViewAdapter(Context mcontext, List<UsuarioDTO> mData){
         this.mContext = mcontext;
         this.mData = mData;
+        id = null;
     }
 
     @NonNull
@@ -102,7 +104,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 ImageLoader imageLoader = ImageLoader.getInstance();
                 imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
 
-                final Integer id = mData.get(vHolder.getAdapterPosition()).getId();
+                id = mData.get(vHolder.getAdapterPosition()).getId();
                 final String nome = mData.get(vHolder.getAdapterPosition()).getNome();
 
                 imageLoader.displayImage("http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + id, imagem);
@@ -145,7 +147,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                             AmizadeDTO amizade = new AmizadeDTO();
                             amizade.setUsuario1(new UsuarioDTO(idSolicitante));
-                            amizade.setUsuario2(new UsuarioDTO(idAmigo));
+                            amizade.setUsuario2(new UsuarioDTO(id));
+                            amizade.setAprovada(true);
                             Call<AmizadeDTO> usuarioDTOCall = apiAmizade.solicitaAmizade(amizade);
 
                             Callback<AmizadeDTO> usuarioDTOCallback = new Callback<AmizadeDTO>() {
@@ -155,7 +158,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                     mDialog.dismiss();
 
 
-                                    if (solicitacaoAMizade != null && response.code() == 200) {
+                                    if (solicitacaoAMizade == null || response.code() == 200) {
                                         loading.dismiss();
                                         Toast toast = Toast.makeText(mContext, "Amigo adicionado com sucesso :)", Toast.LENGTH_SHORT);
                                         toast.show();

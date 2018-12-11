@@ -158,12 +158,15 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
                 public void onResponse(Call<List<UsuarioDTO>> call, Response<List<UsuarioDTO>> response) {
                     List<UsuarioDTO> perfilUsuario = response.body();
 
+                    final SharedPreferences prefs = getActivity().getSharedPreferences("usuario", MODE_PRIVATE);
+
+                    String nome = prefs.getString("nome", null);
+                    TextView nomeUsuario = view.findViewById(R.id.nome);
+                    nomeUsuario.setText(nome);
+                    loading.dismiss();
+
                     if(perfilUsuario != null && response.code() == 200){
                         for (UsuarioDTO usuarioDTO: perfilUsuario) {
-                            loading.dismiss();
-
-                            TextView nomeUsuario = view.findViewById(R.id.nome);
-                            nomeUsuario.setText(usuarioDTO.getNome());
 
                             idHistoria = usuarioDTO.getHistoria().getId();
                             if(usuarioDTO.getHistoria() != null){

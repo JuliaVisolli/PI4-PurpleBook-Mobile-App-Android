@@ -55,6 +55,8 @@ public class InternalActivity extends AppCompatActivity {
     RecyclerViewAdapter adapter;
     FloatingActionButton fabGoToHistoria;
     TextView txtNomeUsuarioMenuLateral;
+    View mHeaderView;
+
 
 
 
@@ -72,6 +74,21 @@ public class InternalActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         navigationView = findViewById(R.id.navigation_view);
+        // NavigationView Header
+        mHeaderView =  navigationView.getHeaderView(0);
+
+        // View
+        txtNomeUsuarioMenuLateral =  mHeaderView.findViewById(R.id.nome_usuario_menu_lateral);
+//        textViewEmail= (TextView) mHeaderView.findViewById(R.id.textViewEmailNav);
+
+        // Set username & email
+        final SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
+
+        String nome = prefs.getString("nome", null);
+        txtNomeUsuarioMenuLateral.setText(nome);
+//        textViewEmail.setText(SharedPrefManager.getInstance(this).getEmail());
+
+
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
