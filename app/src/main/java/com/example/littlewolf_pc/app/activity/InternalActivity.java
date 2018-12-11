@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -21,7 +22,9 @@ import android.support.v7.widget.Toolbar;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.littlewolf_pc.app.fragment.AmigoFragment;
@@ -56,9 +59,7 @@ public class InternalActivity extends AppCompatActivity {
     FloatingActionButton fabGoToHistoria;
     TextView txtNomeUsuarioMenuLateral;
     View mHeaderView;
-
-
-
+    int previousScrollY = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,24 +183,22 @@ public class InternalActivity extends AppCompatActivity {
             }
         };
         fabGoToHistoria.setOnClickListener(listenerHistoria);
-//        txtNomeUsuarioMenuLateral = findViewById(R.id.nome_usuario_menu_lateral);
 
-//        Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
-//        if(idUsuario != null){
-//            CircularImageView userImage = findViewById(R.id.img_usuario);
-//            ImageLoader imageLoader = ImageLoader.getInstance();
-//            imageLoader.init(ImageLoaderConfiguration.createDefault(getApplication()));
-//            imageLoader.displayImage("http://josiasveras.azurewebsites.net/WSEcommerce/rest/usuario/image/" + idUsuario, userImage);
-//
-//        }
+        final ScrollView scroll = findViewById(R.id.scroll_internal);
 
-//
-//        String nome = UsuarioSingleton.getInstance().getUsuario().getNome();
-//
-//        if(nome != null){
-//            txtNomeUsuarioMenuLateral.setText(nome);
-//        }
+        scroll.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
 
+                // previousScrollY this variable is define in your Activity or Fragment
+                if (scroll.getScrollY() > previousScrollY && fabGoToHistoria.getVisibility() == View.VISIBLE) {
+                    fabGoToHistoria.hide();
+                } else if (scroll.getScrollY() < previousScrollY && fabGoToHistoria.getVisibility() != View.VISIBLE) {
+                    fabGoToHistoria.show();
+                }
+                previousScrollY = scroll.getScrollY();
+            }
+        });
 
 
     }
