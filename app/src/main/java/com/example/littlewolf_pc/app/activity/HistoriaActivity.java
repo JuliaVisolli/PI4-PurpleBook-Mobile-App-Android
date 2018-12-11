@@ -1,6 +1,7 @@
 package com.example.littlewolf_pc.app.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -70,7 +71,9 @@ public class HistoriaActivity extends AppCompatActivity {
         View.OnClickListener listenerPostar = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+                final SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
+
+                Integer idUsuario = prefs.getInt("id", 0);
                 if (idUsuario != null) {
                     ApiHistoria apiHistoria = retrofit.create(ApiHistoria.class);
 

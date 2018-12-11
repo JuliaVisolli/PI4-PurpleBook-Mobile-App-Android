@@ -4,6 +4,7 @@ package com.example.littlewolf_pc.app.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.support.v4.content.ContextCompat.getSystemService;
 
 
@@ -71,6 +73,18 @@ public class LoginFragment extends Fragment {
         loading.getWindow().setBackgroundDrawableResource(R.color.transparent);
         loading.setContentView(view);
         loading.setCancelable(false);
+
+        final  SharedPreferences prefs = getActivity().getSharedPreferences("usuario", MODE_PRIVATE);
+
+        Integer id = prefs.getInt("id", 0);
+        String email = prefs.getString("email", null);
+        String senha = prefs.getString("senha", null);
+
+
+        if(id > 0 && email != null && senha != null){
+            Intent intent = new Intent(getActivity(), InternalActivity.class);
+            startActivity(intent);
+        }
 
 
         View.OnClickListener listener = new View.OnClickListener() {
@@ -131,6 +145,16 @@ public class LoginFragment extends Fragment {
                         getLoggedUser = response.body();
 
                         if(getLoggedUser != null && response.code() == 200){
+
+                            SharedPreferences.Editor editor = prefs.edit();
+
+                            editor.putInt("id", getLoggedUser.getId());
+                            editor.putString("email", getLoggedUser.getEmail());
+                            editor.putString("senha", getLoggedUser.getSenha());
+                            editor.putString("nome", getLoggedUser.getNome());
+                            editor.putString("foto", getLoggedUser.getFoto());
+
+                            editor.apply();
 
                             loading.dismiss();
 

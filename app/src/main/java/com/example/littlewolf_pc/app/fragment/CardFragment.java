@@ -3,6 +3,7 @@ package com.example.littlewolf_pc.app.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -44,6 +45,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,11 +87,15 @@ public class CardFragment extends Fragment {
         loading.setContentView(viewDialog);
         loading.setCancelable(false);
         loading.show();
-        Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
-        if(idUsuario != null) {
+
+        final SharedPreferences prefs = getActivity().getSharedPreferences("usuario", MODE_PRIVATE);
+
+        Integer id = prefs.getInt("id", 0);
+
+        if(id > 0) {
         ApiHistoria apiHistoria =
                 retrofit.create(ApiHistoria.class);
-        Call<List<HistoriaDTO>> historiaDTOCall = apiHistoria.selectAllHistorias(String.valueOf(idUsuario));
+        Call<List<HistoriaDTO>> historiaDTOCall = apiHistoria.selectAllHistorias(String.valueOf(id));
 
         Callback<List<HistoriaDTO>> hiListCallback = new Callback<List<HistoriaDTO>>() {
                 @Override
@@ -178,13 +185,16 @@ public class CardFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
-                if(idUsuario != null) {
+                final SharedPreferences prefs = getActivity().getSharedPreferences("usuario", MODE_PRIVATE);
+
+                Integer id = prefs.getInt("id", 0);
+
+                if(id > 0) {
                     ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
                     CurtidaDTO curtidaDTO = new CurtidaDTO();
 
 
-                    curtidaDTO.setUsuario(new UsuarioDTO(idUsuario));
+                    curtidaDTO.setUsuario(new UsuarioDTO(id));
                     curtidaDTO.setHistoria(new HistoriaDTO(Integer.valueOf(idHistoriaCard)));
                     Call<CurtidaDTO> curtidaDTOCall = apiCurtida.saveCurtida(curtidaDTO);
 
@@ -259,13 +269,16 @@ public class CardFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
-                if(idUsuario != null) {
+                final SharedPreferences prefs = getActivity().getSharedPreferences("usuario", MODE_PRIVATE);
+
+                Integer id = prefs.getInt("id", 0);
+
+                if(id > 0) {
                     ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
                     CurtidaDTO curtidaDTO = new CurtidaDTO();
 
 
-                    curtidaDTO.setUsuario(new UsuarioDTO(idUsuario));
+                    curtidaDTO.setUsuario(new UsuarioDTO(id));
                     curtidaDTO.setHistoria(new HistoriaDTO(Integer.valueOf(idHistoriaCard)));
                     Call<CurtidaDTO> curtidaDTOCall = apiCurtida.saveCurtida(curtidaDTO);
 

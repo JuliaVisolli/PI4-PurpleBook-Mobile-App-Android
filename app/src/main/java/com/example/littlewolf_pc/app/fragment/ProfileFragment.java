@@ -3,6 +3,7 @@ package com.example.littlewolf_pc.app.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -43,6 +44,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -97,7 +100,9 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
         btnAmigos.setOnClickListener(listener);
 
 
-        Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+        final SharedPreferences prefs = getActivity().getSharedPreferences("usuario", MODE_PRIVATE);
+
+        Integer idUsuario = prefs.getInt("id", 0);
         if(idUsuario != null){
 
             ApiUsuario apiUsuario = retrofit.create(ApiUsuario.class);
@@ -237,7 +242,9 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
 
-                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+                final SharedPreferences prefs = getActivity().getSharedPreferences("usuario", MODE_PRIVATE);
+
+                Integer idUsuario = prefs.getInt("id", 0);
                 if(idUsuario != null) {
                     ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
                     CurtidaDTO curtidaDTO = new CurtidaDTO();
@@ -318,7 +325,9 @@ public class ProfileFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
 
-                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+                final SharedPreferences prefs = getActivity().getSharedPreferences("usuario", MODE_PRIVATE);
+
+                Integer idUsuario = prefs.getInt("id", 0);
                 if(idUsuario != null) {
                     ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
                     CurtidaDTO curtidaDTO = new CurtidaDTO();

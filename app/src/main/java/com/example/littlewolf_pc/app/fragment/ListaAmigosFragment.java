@@ -2,6 +2,7 @@ package com.example.littlewolf_pc.app.fragment;
 
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,7 +64,9 @@ public class ListaAmigosFragment extends Fragment {
                 .baseUrl("http://josiasveras.azurewebsites.net")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        final Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+        final SharedPreferences prefs = getActivity().getSharedPreferences("usuario", MODE_PRIVATE);
+
+        final Integer idUsuario = prefs.getInt("id", 0);
         if(idUsuario != null) {
             ApiUsuario apiUsuario =
                     retrofit.create(ApiUsuario.class);

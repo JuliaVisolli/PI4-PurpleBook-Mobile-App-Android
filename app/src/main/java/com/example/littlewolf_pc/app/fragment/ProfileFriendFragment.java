@@ -3,6 +3,7 @@ package com.example.littlewolf_pc.app.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -37,6 +38,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -238,8 +241,9 @@ public class ProfileFriendFragment extends Fragment {
         View.OnClickListener listener2 = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final SharedPreferences prefs = getActivity().getSharedPreferences("usuario", MODE_PRIVATE);
 
-                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+                Integer idUsuario = prefs.getInt("id", 0);
                 if(idUsuario != null) {
                     ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
                     CurtidaDTO curtidaDTO = new CurtidaDTO();
@@ -320,7 +324,9 @@ public class ProfileFriendFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
+                final SharedPreferences prefs = getActivity().getSharedPreferences("usuario", MODE_PRIVATE);
+
+                Integer idUsuario = prefs.getInt("id", 0);
                 if(idUsuario != null) {
                     ApiCurtida apiCurtida = retrofit.create(ApiCurtida.class);
                     CurtidaDTO curtidaDTO = new CurtidaDTO();

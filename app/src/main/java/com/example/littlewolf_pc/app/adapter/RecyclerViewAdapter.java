@@ -3,6 +3,7 @@ package com.example.littlewolf_pc.app.adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -48,6 +49,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>{
 
@@ -128,17 +131,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 View.OnClickListener listenerAddAmigo = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Integer idSolicitante = UsuarioSingleton.getInstance().getUsuario().getId();
+
+                        final SharedPreferences prefs = mContext.getSharedPreferences("usuario", MODE_PRIVATE);
+
+                        Integer idSolicitante = prefs.getInt("id", 0);
+
+
                         loading.show();
 
-                        if(idSolicitante != null) {
+                        if(idSolicitante > 0) {
                             ApiAmizade apiAmizade =
                                     retrofit.create(ApiAmizade.class);
 
                             AmizadeDTO amizade = new AmizadeDTO();
                             amizade.setUsuario1(new UsuarioDTO(idSolicitante));
                             amizade.setUsuario2(new UsuarioDTO(idAmigo));
-                            amizade.setAprovada(true);
                             Call<AmizadeDTO> usuarioDTOCall = apiAmizade.solicitaAmizade(amizade);
 
                             Callback<AmizadeDTO> usuarioDTOCallback = new Callback<AmizadeDTO>() {

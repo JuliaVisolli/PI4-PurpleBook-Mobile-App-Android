@@ -2,6 +2,7 @@ package com.example.littlewolf_pc.app.activity;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -107,6 +108,12 @@ public class InternalActivity extends AppCompatActivity {
                             return true;
                         }
                         if (menuItem.getItemId() == R.id.action_logout) {
+                            final SharedPreferences preferences = getSharedPreferences("usuario", MODE_PRIVATE);
+
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.clear();
+                            editor.commit();
+                            finish();
                             Intent i = new Intent(InternalActivity.this, MainActivity.class);
                             startActivity(i);
                             return true;

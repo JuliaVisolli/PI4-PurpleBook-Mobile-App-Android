@@ -3,6 +3,7 @@ package com.example.littlewolf_pc.app.activity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -124,15 +125,18 @@ public class ComentarioActivity extends AppCompatActivity {
                 ComentarioDTO comentarioDTO = new ComentarioDTO();
 
                 if(etComentario.getText().toString() != null) {
-                    Integer idUsuario = UsuarioSingleton.getInstance().getUsuario().getId();
-                    String nome = UsuarioSingleton.getInstance().getUsuario().getNome();
+                    final SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
+
+                    Integer id = prefs.getInt("id", 0);
+
+                    String nome = prefs.getString("nome", null);
 
                     Intent intent = getIntent(); // gets the previously created intent
                     Integer idHistoria = intent.getIntExtra("idHistoria",-1);
 
-                    if (idUsuario != null) {
+                    if(id > 0) {
                         comentarioDTO.setId(0);
-                        comentarioDTO.setUsuario(new UsuarioDTO(idUsuario, nome));
+                        comentarioDTO.setUsuario(new UsuarioDTO(id, nome));
                         comentarioDTO.setTexto(etComentario.getText().toString());
                         comentarioDTO.setHistoria(new HistoriaDTO(Integer.valueOf(idHistoria)));
                         comentarioDTO.setData(null);

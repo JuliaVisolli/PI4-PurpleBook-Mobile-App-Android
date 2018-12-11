@@ -3,6 +3,7 @@ package com.example.littlewolf_pc.app.adapter;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class AdapterListerAmigos extends BaseAdapter {
     private List<UsuarioDTO> listaAmigosDTOList;
@@ -119,7 +122,9 @@ public class AdapterListerAmigos extends BaseAdapter {
         btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer idSolicitante = UsuarioSingleton.getInstance().getUsuario().getId();
+                final SharedPreferences prefs = mContext.getSharedPreferences("usuario", MODE_PRIVATE);
+
+                Integer idSolicitante = prefs.getInt("id", 0);
                 loading.show();
 
                 if(idSolicitante != null) {
