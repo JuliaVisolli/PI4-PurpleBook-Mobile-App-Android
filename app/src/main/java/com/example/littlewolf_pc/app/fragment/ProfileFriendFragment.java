@@ -90,17 +90,17 @@ public class ProfileFriendFragment extends Fragment {
             nomeAmigo = bundle.getString("nomeAmigo");
         }
 
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-                transaction.replace(R.id.main_frame, new ListaAmigosFragment());
-                transaction.commit();
-
-            }
-        };
-        btnAmigos.setOnClickListener(listener);
+//        View.OnClickListener listener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//
+//                transaction.replace(R.id.main_frame, new ListaAmigosFragment());
+//                transaction.commit();
+//
+//            }
+//        };
+//        btnAmigos.setOnClickListener(listener);
 
 
         if(idUsuario != null){
