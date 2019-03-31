@@ -1,4 +1,4 @@
-# PI5 - PurpleBook - Mobile-App-Android
+# PI4 - PurpleBook - Mobile-App-Android
 
 Aplicativo PurpleBook que simula uma rede social no formato do Facebook.
 
